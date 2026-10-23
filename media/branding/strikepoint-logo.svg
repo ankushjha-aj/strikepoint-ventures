@@ -1,85 +1,170 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1040 180" width="1040" height="180">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1060 180" width="1060" height="180">
   <defs>
-    <!-- Green Gradient for Crest -->
-    <linearGradient id="crestGrad" x1="0%" y1="100%" x2="0%" y2="0%">
-      <stop offset="0%" stop-color="#10B981" />
-      <stop offset="100%" stop-color="#34D399" />
+    <!-- Live Multi-Stop Neon Gradients -->
+    <linearGradient id="crestNeon" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#00D26A" />
+      <stop offset="50%" stop-color="#00F5A0" />
+      <stop offset="100%" stop-color="#38EF7D" />
     </linearGradient>
 
-    <!-- Red Gradient for Trough -->
-    <linearGradient id="troughGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#EF4444" />
-      <stop offset="100%" stop-color="#F87171" />
+    <linearGradient id="troughNeon" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF3860" />
+      <stop offset="50%" stop-color="#FF1361" />
+      <stop offset="100%" stop-color="#E11D48" />
     </linearGradient>
 
-    <!-- Subtle glow filters -->
-    <filter id="greenGlow" x="-20%" y="-20%" width="140%" height="140%">
-      <feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="#10B981" flood-opacity="0.35"/>
+    <!-- Full Traveling Pulse Gradient: Green at start to Red at end -->
+    <linearGradient id="liveWaveGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#00F5A0" />
+      <stop offset="42%" stop-color="#10B981" />
+      <stop offset="50%" stop-color="#F59E0B" />
+      <stop offset="58%" stop-color="#EF4444" />
+      <stop offset="100%" stop-color="#FF1361" />
+    </linearGradient>
+
+    <!-- Neon Glow Filter -->
+    <filter id="neonGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="3.5" result="blur1" />
+      <feGaussianBlur stdDeviation="7" result="blur2" />
+      <feMerge>
+        <feMergeNode in="blur2" />
+        <feMergeNode in="blur1" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
     </filter>
-    <filter id="redGlow" x="-20%" y="-20%" width="140%" height="140%">
-      <feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="#EF4444" flood-opacity="0.35"/>
+
+    <filter id="particleGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="4" result="pBlur" />
+      <feMerge>
+        <feMergeNode in="pBlur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
     </filter>
 
-    <!-- Subtle under-curve area fills for depth -->
-    <linearGradient id="crestArea" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#10B981" stop-opacity="0.18" />
-      <stop offset="100%" stop-color="#10B981" stop-opacity="0.0" />
+    <!-- Ambient Underglow Fills -->
+    <linearGradient id="crestAura" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#00F5A0" stop-opacity="0.28" />
+      <stop offset="100%" stop-color="#00F5A0" stop-opacity="0.0" />
     </linearGradient>
-    <linearGradient id="troughArea" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#EF4444" stop-opacity="0.0" />
-      <stop offset="100%" stop-color="#EF4444" stop-opacity="0.18" />
+    <linearGradient id="troughAura" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FF1361" stop-opacity="0.0" />
+      <stop offset="100%" stop-color="#FF1361" stop-opacity="0.28" />
     </linearGradient>
   </defs>
 
-  <!-- SINE WAVE ICON GROUP -->
+  <style>
+    @keyframes pulseAura {
+      0%, 100% { opacity: 0.55; }
+      50% { opacity: 0.95; }
+    }
+    @keyframes liveTrail {
+      0% {
+        stroke-dashoffset: 400;
+        opacity: 0.3;
+      }
+      15% {
+        opacity: 1;
+      }
+      85% {
+        opacity: 1;
+      }
+      100% {
+        stroke-dashoffset: -80;
+        opacity: 0.2;
+      }
+    }
+    @keyframes liveDotGlow {
+      0%, 100% { transform: scale(1); filter: drop-shadow(0 0 6px #00F5A0); }
+      50% { transform: scale(1.25); filter: drop-shadow(0 0 12px #FF1361); }
+    }
+    .aura-bg {
+      animation: pulseAura 3s ease-in-out infinite;
+    }
+    .sweep-trail {
+      stroke-dasharray: 90 320;
+      animation: liveTrail 2.6s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    }
+  </style>
+
+  <!-- WAVE GRAPHICS GROUP -->
   <g id="sine-wave-mark">
-    <!-- Subtle Area Fill under Crest (Positive) -->
-    <path d="M 30 90 C 74.5 10, 115.5 10, 160 90 Z" fill="url(#crestArea)" />
+    <!-- Ambient Soft Underglow -->
+    <path class="aura-bg" d="M 30 90 C 74.5 4, 115.5 4, 160 90 Z" fill="url(#crestAura)" />
+    <path class="aura-bg" d="M 160 90 C 204.5 176, 245.5 176, 290 90 Z" fill="url(#troughAura)" />
 
-    <!-- Subtle Area Fill over Trough (Negative) -->
-    <path d="M 160 90 C 204.5 170, 245.5 170, 290 90 Z" fill="url(#troughArea)" />
+    <!-- Sleek Subtle Baseline Axis Line -->
+    <line x1="20" y1="90" x2="300" y2="90" stroke="rgba(11,31,58,0.12)" stroke-width="1.2" stroke-dasharray="3 4" />
 
-    <!-- Pure Sine Wave: Green Upper Half (Positive Cycle) -->
-    <path d="M 30 90 C 74.5 10, 115.5 10, 160 90" 
+    <!-- Base Track: Green Upper Half (Start to Zero) -->
+    <path d="M 30 90 C 74.5 4, 115.5 4, 160 90" 
           fill="none" 
-          stroke="url(#crestGrad)" 
-          stroke-width="8.5" 
+          stroke="url(#crestNeon)" 
+          stroke-width="7" 
           stroke-linecap="round"
-          filter="url(#greenGlow)" />
+          filter="url(#neonGlow)" />
 
-    <!-- Pure Sine Wave: Red Lower Half (Negative Cycle) -->
-    <path d="M 160 90 C 204.5 170, 245.5 170, 290 90" 
+    <!-- Base Track: Red Lower Half (Zero to End) -->
+    <path d="M 160 90 C 204.5 176, 245.5 176, 290 90" 
           fill="none" 
-          stroke="url(#troughGrad)" 
-          stroke-width="8.5" 
+          stroke="url(#troughNeon)" 
+          stroke-width="7" 
           stroke-linecap="round"
-          filter="url(#redGlow)" />
+          filter="url(#neonGlow)" />
 
-    <!-- Peak Indicator Dot (Quant Bullish Edge) -->
-    <circle cx="95" cy="30" r="4.5" fill="#34D399" />
-    <circle cx="95" cy="30" r="8" fill="none" stroke="#34D399" stroke-width="1.5" opacity="0.5" />
+    <!-- LIVE TRAVELING ENERGY BEAM (Full Continuous Wave with Sweep Animation) -->
+    <path class="sweep-trail"
+          d="M 30 90 C 74.5 4, 115.5 4, 160 90 C 204.5 176, 245.5 176, 290 90"
+          fill="none"
+          stroke="url(#liveWaveGrad)"
+          stroke-width="10"
+          stroke-linecap="round"
+          filter="url(#neonGlow)" />
 
-    <!-- Trough Indicator Dot (Quant Value Reversal) -->
-    <circle cx="225" cy="150" r="4.5" fill="#F87171" />
-    <circle cx="225" cy="150" r="8" fill="none" stroke="#F87171" stroke-width="1.5" opacity="0.5" />
+    <!-- LIVE TRAVELING TRACER PARTICLE (Triggers in green at start, travels over crest, morphs to red in trough, and exits at end) -->
+    <g>
+      <!-- Outer Pulsing Halo -->
+      <circle r="9" opacity="0.6">
+        <animateMotion path="M 30 90 C 74.5 4, 115.5 4, 160 90 C 204.5 176, 245.5 176, 290 90" 
+                       dur="2.6s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="spline" keySplines="0.4 0 0.2 1" />
+        <animate attributeName="fill" 
+                 values="#00F5A0;#00F5A0;#10B981;#F59E0B;#EF4444;#FF1361;#FF1361" 
+                 keyTimes="0;0.25;0.45;0.52;0.7;0.9;1" dur="2.6s" repeatCount="indefinite" />
+        <animate attributeName="r" values="7;11;7" dur="1.3s" repeatCount="indefinite" />
+      </circle>
 
-    <!-- Center Transition Node -->
-    <circle cx="160" cy="90" r="3.5" fill="#0B1F3A" opacity="0.4" />
+      <!-- Inner High-Intensity Particle Core -->
+      <circle r="4.5" fill="#FFFFFF" filter="url(#particleGlow)">
+        <animateMotion path="M 30 90 C 74.5 4, 115.5 4, 160 90 C 204.5 176, 245.5 176, 290 90" 
+                       dur="2.6s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="spline" keySplines="0.4 0 0.2 1" />
+      </circle>
+    </g>
+
+    <!-- Crest Fixed Quant Indicator (Start / Peak Edge) -->
+    <circle cx="95" cy="26" r="3.5" fill="#00F5A0" />
+    <circle cx="95" cy="26" r="7" fill="none" stroke="#00F5A0" stroke-width="1" opacity="0.4" />
+
+    <!-- Trough Fixed Quant Indicator (Trough Value Edge) -->
+    <circle cx="225" cy="154" r="3.5" fill="#FF1361" />
+    <circle cx="225" cy="154" r="7" fill="none" stroke="#FF1361" stroke-width="1" opacity="0.4" />
+
+    <!-- Center Zero-Crossing Node -->
+    <circle cx="160" cy="90" r="3" fill="#C29B40" opacity="0.7" />
   </g>
 
-  <!-- ELEGANT VERTICAL SEPARATOR -->
-  <line x1="330" y1="28" x2="330" y2="152" stroke="rgba(11,31,58,0.18)" stroke-width="1.8" />
+  <!-- ELEGANT VERTICAL SEPARATOR WITH BRASS ACCENT -->
+  <line x1="335" y1="26" x2="335" y2="154" stroke="rgba(11,31,58,0.18)" stroke-width="1.8" />
+  <circle cx="335" cy="90" r="2.5" fill="#C29B40" />
 
   <!-- BRAND TYPOGRAPHY -->
   <g id="brand-text">
-    <text x="368" y="98" 
-          font-family="'Fraunces', 'Hanken Grotesk', Georgia, serif" 
+    <text x="375" y="98" 
+          font-family="'Fraunces', Georgia, serif" 
           font-weight="700" 
           font-size="68" 
           letter-spacing="5" 
           fill="#0B1F3A">STRIKEPOINT</text>
 
-    <text x="372" y="144" 
+    <text x="380" y="144" 
           font-family="'Hanken Grotesk', system-ui, sans-serif" 
           font-weight="600" 
           font-size="28" 
