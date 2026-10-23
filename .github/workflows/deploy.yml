@@ -1,0 +1,56 @@
+name: Build & Deploy to Hetzner
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: 22
+        cache: 'npm'
+
+    - name: Install Dependencies
+      run: npm install
+
+    - name: Compile TypeScript
+      run: npm run build
+
+    - name: Deploy to Hetzner Server
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: ${{ secrets.HETZNER_HOST || '65.109.15.215' }}
+        username: ${{ secrets.HETZNER_USER || 'root' }}
+        key: ${{ secrets.HETZNER_SSH_KEY }}
+        port: 22
+        script: |
+          set -e
+          APP_DIR="/var/www/strikepoint-ventures"
+          mkdir -p $APP_DIR
+          cd $APP_DIR
+          
+          if [ -d ".git" ]; then
+            git fetch origin main
+            git reset --hard origin/main
+          else
+            git clone https://github.com/${{ github.repository }}.git .
+          fi
+          
+          npm install
+          npm run build
+          
+          # Restart or start PM2 process on port 9000
+          PORT=9000 pm2 restart strikepoint-ventures --update-env || PORT=9000 pm2 start dist/server.js --name strikepoint-ventures
+          pm2 save
+          
+          echo "Deployment complete! Testing port 9000..."
+          curl -s http://127.0.0.1:9000/api/health

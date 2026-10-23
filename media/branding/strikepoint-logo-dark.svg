@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1040 180" width="1040" height="180">
+  <defs>
+    <!-- Green Gradient for Crest -->
+    <linearGradient id="crestGradDark" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#10B981" />
+      <stop offset="100%" stop-color="#34D399" />
+    </linearGradient>
+
+    <!-- Red Gradient for Trough -->
+    <linearGradient id="troughGradDark" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#EF4444" />
+      <stop offset="100%" stop-color="#F87171" />
+    </linearGradient>
+
+    <!-- Subtle glow filters -->
+    <filter id="greenGlowDark" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="0" stdDeviation="5" flood-color="#10B981" flood-opacity="0.45"/>
+    </filter>
+    <filter id="redGlowDark" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="0" stdDeviation="5" flood-color="#EF4444" flood-opacity="0.45"/>
+    </filter>
+
+    <!-- Subtle under-curve area fills for depth -->
+    <linearGradient id="crestAreaDark" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#10B981" stop-opacity="0.22" />
+      <stop offset="100%" stop-color="#10B981" stop-opacity="0.0" />
+    </linearGradient>
+    <linearGradient id="troughAreaDark" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#EF4444" stop-opacity="0.0" />
+      <stop offset="100%" stop-color="#EF4444" stop-opacity="0.22" />
+    </linearGradient>
+  </defs>
+
+  <!-- SINE WAVE ICON GROUP -->
+  <g id="sine-wave-mark-dark">
+    <!-- Subtle Area Fill under Crest (Positive) -->
+    <path d="M 30 90 C 74.5 10, 115.5 10, 160 90 Z" fill="url(#crestAreaDark)" />
+
+    <!-- Subtle Area Fill over Trough (Negative) -->
+    <path d="M 160 90 C 204.5 170, 245.5 170, 290 90 Z" fill="url(#troughAreaDark)" />
+
+    <!-- Pure Sine Wave: Green Upper Half (Positive Cycle) -->
+    <path d="M 30 90 C 74.5 10, 115.5 10, 160 90" 
+          fill="none" 
+          stroke="url(#crestGradDark)" 
+          stroke-width="8.5" 
+          stroke-linecap="round"
+          filter="url(#greenGlowDark)" />
+
+    <!-- Pure Sine Wave: Red Lower Half (Negative Cycle) -->
+    <path d="M 160 90 C 204.5 170, 245.5 170, 290 90" 
+          fill="none" 
+          stroke="url(#troughGradDark)" 
+          stroke-width="8.5" 
+          stroke-linecap="round"
+          filter="url(#redGlowDark)" />
+
+    <!-- Peak Indicator Dot (Quant Bullish Edge) -->
+    <circle cx="95" cy="30" r="4.5" fill="#34D399" />
+    <circle cx="95" cy="30" r="8" fill="none" stroke="#34D399" stroke-width="1.5" opacity="0.6" />
+
+    <!-- Trough Indicator Dot (Quant Value Reversal) -->
+    <circle cx="225" cy="150" r="4.5" fill="#F87171" />
+    <circle cx="225" cy="150" r="8" fill="none" stroke="#F87171" stroke-width="1.5" opacity="0.6" />
+
+    <!-- Center Transition Node -->
+    <circle cx="160" cy="90" r="3.5" fill="#FFFFFF" opacity="0.5" />
+  </g>
+
+  <!-- ELEGANT VERTICAL SEPARATOR -->
+  <line x1="330" y1="28" x2="330" y2="152" stroke="rgba(255,255,255,0.22)" stroke-width="1.8" />
+
+  <!-- BRAND TYPOGRAPHY FOR DARK BACKGROUND -->
+  <g id="brand-text-dark">
+    <text x="368" y="98" 
+          font-family="'Fraunces', 'Hanken Grotesk', Georgia, serif" 
+          font-weight="700" 
+          font-size="68" 
+          letter-spacing="5" 
+          fill="#FFFFFF">STRIKEPOINT</text>
+
+    <text x="372" y="144" 
+          font-family="'Hanken Grotesk', system-ui, sans-serif" 
+          font-weight="600" 
+          font-size="28" 
+          letter-spacing="14" 
+          fill="#D7B231">VENTURES</text>
+  </g>
+</svg>

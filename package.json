@@ -1,0 +1,29 @@
+{
+  "name": "strikepoint-ventures",
+  "version": "1.0.0",
+  "description": "StrikePoint Ventures — Quantitative Research, Software Solutions & Algorithmic Trading Systems",
+  "main": "dist/server.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "dev": "tsx watch src/server.ts"
+  },
+  "keywords": [
+    "quantitative-trading",
+    "fintech",
+    "derivatives",
+    "algorithms",
+    "strikepoint-ventures"
+  ],
+  "author": "StrikePoint Ventures",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^22.10.2",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
+  }
+}

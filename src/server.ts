@@ -1,0 +1,76 @@
+import express, { Request, Response } from 'express';
+import path from 'path';
+
+const app = express();
+const PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 9000;
+
+// Body parsing middleware
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// Static Assets
+app.use('/static', express.static(path.join(__dirname, '..', 'static')));
+app.use('/media', express.static(path.join(__dirname, '..', 'media')));
+
+const viewsPath = path.join(__dirname, '..', 'views');
+
+// Helper to send view files
+const renderView = (filename: string) => {
+  return (_req: Request, res: Response) => {
+    res.sendFile(path.join(viewsPath, filename));
+  };
+};
+
+// --- Page Routes ---
+app.get('/', renderView('index.html'));
+app.get('/home', renderView('index.html'));
+app.get('/about', renderView('about.html'));
+app.get('/team', renderView('team.html'));
+app.get('/services', renderView('services.html'));
+app.get('/blog', renderView('blog.html'));
+app.get('/contact', renderView('contact.html'));
+
+// Services Sub-routes
+app.get('/services/statistical-edge-finding', renderView('service-edge.html'));
+app.get('/services/software-solutions', renderView('service-software.html'));
+app.get('/services/strikepoint-rtx', renderView('service-rtx.html'));
+app.get('/services/strikepoint-vector', renderView('service-vector.html'));
+app.get('/services/proprietary-trading', renderView('service-prop.html'));
+app.get('/services/strikepoint-foundation', renderView('service-foundation.html'));
+
+// Legacy compatibility routes
+app.get('/services/alpresi-rtx', renderView('service-rtx.html'));
+app.get('/services/alpresi-vector', renderView('service-vector.html'));
+app.get('/services/alpresi-foundation', renderView('service-foundation.html'));
+
+// --- API Endpoints ---
+app.get('/api/health', (_req: Request, res: Response) => {
+  res.json({
+    status: 'ok',
+    brand: 'StrikePoint Ventures',
+    port: PORT,
+    uptime: process.uptime(),
+    timestamp: new Date().toISOString()
+  });
+});
+
+app.post('/api/contact', (req: Request, res: Response) => {
+  const { name, email, phone, message } = req.body;
+  console.log('[StrikePoint Contact Inquiry Received]:', { name, email, phone, message, date: new Date() });
+  res.json({
+    success: true,
+    message: 'Thank you for contacting StrikePoint Ventures. Our desk will review your inquiry and respond within 1 business day.'
+  });
+});
+
+// 404 Handler
+app.use((_req: Request, res: Response) => {
+  res.status(404).sendFile(path.join(viewsPath, 'index.html'));
+});
+
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`=================================================`);
+  console.log(`🚀 StrikePoint Ventures Server Live`);
+  console.log(`📡 URL: http://0.0.0.0:${PORT}`);
+  console.log(`=================================================`);
+});
