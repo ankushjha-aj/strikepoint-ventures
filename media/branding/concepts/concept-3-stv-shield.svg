@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 180" width="1120" height="180">
+  <!-- CONCEPT 3: THE IMPERIAL STV HERALDIC SHIELD (LIGHT) -->
+  <g id="c3-mark" transform="translate(45, 0)">
+    <!-- Primary Shield Geometry -->
+    <path d="M 64 36 H 176 V 96 C 176 134, 120 158, 120 158 C 120 158, 64 134, 64 96 Z" 
+          fill="none" 
+          stroke="#0B1F3A" 
+          stroke-width="3" 
+          stroke-linejoin="round" />
+
+    <!-- Gold Inset Pinstripe -->
+    <path d="M 72 44 H 168 V 95 C 168 126, 120 148, 120 148 C 120 148, 72 126, 72 95 Z" 
+          fill="none" 
+          stroke="#C29B40" 
+          stroke-width="1.2" 
+          opacity="0.65" />
+
+    <!-- Centered Classic Roman Serif 'STV' -->
+    <text x="120" y="98" 
+          font-family="'Cinzel', 'Fraunces', Georgia, serif" 
+          font-weight="700" 
+          font-size="44" 
+          letter-spacing="4" 
+          fill="#0B1F3A" 
+          text-anchor="middle">STV</text>
+
+    <!-- Brass Apex Star -->
+    <polygon points="120,114 123,122 131,122 125,127 127,135 120,130 113,135 115,127 109,122 117,122" fill="#C29B40" />
+  </g>
+
+  <!-- VERTICAL SEPARATOR -->
+  <line x1="335" y1="28" x2="335" y2="152" stroke="rgba(11,31,58,0.18)" stroke-width="1.8" stroke-linecap="round" />
+
+  <!-- BRAND TYPOGRAPHY -->
+  <g id="brand-text">
+    <text x="375" y="98" font-family="'Fraunces', Georgia, serif" font-weight="700" font-size="66" letter-spacing="4.5" fill="#0B1F3A">STRIKEPOINT</text>
+    <text x="380" y="144" font-family="'Hanken Grotesk', system-ui, -apple-system, sans-serif" font-weight="600" font-size="28" letter-spacing="14" fill="#C29B40">VENTURES</text>
+  </g>
+</svg>

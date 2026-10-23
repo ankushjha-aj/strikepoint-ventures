@@ -64,6 +64,37 @@ app.post('/api/contact', (req: Request, res: Response) => {
   });
 });
 
+app.post('/api/set-logo', (req: Request, res: Response) => {
+  const { conceptId } = req.body;
+  const fs = require('fs');
+  const path = require('path');
+  
+  const conceptMap: Record<number, { light: string; dark: string }> = {
+    1: { light: 'concept-1-sv-intertwined.svg', dark: 'concept-1-sv-intertwined-dark.svg' },
+    2: { light: 'concept-2-stp-monogram.svg', dark: 'concept-2-stp-monogram-dark.svg' },
+    3: { light: 'concept-3-stv-shield.svg', dark: 'concept-3-stv-shield-dark.svg' },
+    4: { light: 'concept-4-stp-pillar.svg', dark: 'concept-4-stp-pillar-dark.svg' },
+    5: { light: 'concept-5-sv-compass.svg', dark: 'concept-5-sv-compass-dark.svg' }
+  };
+
+  const selected = conceptMap[conceptId];
+  if (!selected) {
+    return res.status(400).json({ error: 'Invalid conceptId' });
+  }
+
+  const conceptsDir = path.join(__dirname, '..', 'media', 'branding', 'concepts');
+  const brandingDir = path.join(__dirname, '..', 'media', 'branding');
+
+  try {
+    fs.copyFileSync(path.join(conceptsDir, selected.light), path.join(brandingDir, 'strikepoint-logo.svg'));
+    fs.copyFileSync(path.join(conceptsDir, selected.dark), path.join(brandingDir, 'strikepoint-logo-dark.svg'));
+    return res.json({ success: true, conceptId, message: `Active logo updated to Concept ${conceptId} successfully!` });
+  } catch (err) {
+    console.error('Error applying logo:', err);
+    return res.status(500).json({ error: 'Failed to update logo files' });
+  }
+});
+
 // 404 Handler
 app.use((_req: Request, res: Response) => {
   res.status(404).sendFile(path.join(viewsPath, 'index.html'));

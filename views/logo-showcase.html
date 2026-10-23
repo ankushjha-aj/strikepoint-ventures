@@ -1,55 +1,104 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>StrikePoint Ventures — Classic Monogram Concepts</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StrikePoint Ventures — 5 Classic Monogram Concepts</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Hanken+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Hanken+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
       --navy: #0B1F3A;
       --brass: #C29B40;
       --gold: #D4AF37;
     }
+    * { box-sizing: border-box; }
     body {
       margin: 0;
-      padding: 30px;
-      background: #F8FAFC;
-      font-family: 'Hanken Grotesk', system-ui, sans-serif;
+      padding: 36px 24px;
+      background: #F4F6F9;
+      font-family: 'Hanken Grotesk', system-ui, -apple-system, sans-serif;
       color: #1E293B;
     }
-    .header {
+    .container {
       max-width: 1300px;
-      margin: 0 auto 24px auto;
+      margin: 0 auto;
+    }
+    .header {
       display: flex;
       justify-content: space-between;
       align-items: flex-end;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+      gap: 16px;
     }
     h1 {
       font-family: 'Fraunces', Georgia, serif;
-      font-size: 28px;
-      margin: 0 0 4px 0;
+      font-size: 30px;
+      margin: 0 0 6px 0;
       color: var(--navy);
     }
     p.sub {
       margin: 0;
       color: #64748B;
-      font-size: 14px;
+      font-size: 14.5px;
     }
+    .back-btn {
+      font-weight: 600;
+      font-size: 13.5px;
+      color: var(--navy);
+      text-decoration: none;
+      padding: 8px 18px;
+      border: 1px solid #CBD5E1;
+      border-radius: 100px;
+      background: #fff;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+    .back-btn:hover {
+      background: var(--navy);
+      color: #fff;
+      border-color: var(--navy);
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #10B981;
+      color: #fff;
+      padding: 14px 22px;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 14px;
+      box-shadow: 0 10px 25px rgba(16,185,129,0.35);
+      display: none;
+      z-index: 100;
+      animation: slideUp 0.3s ease;
+    }
+    @keyframes slideUp {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
     .grid {
-      max-width: 1300px;
-      margin: 0 auto;
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 20px;
+      gap: 24px;
     }
+    @media (max-width: 860px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+
     .card {
       background: #FFFFFF;
-      border-radius: 14px;
+      border-radius: 16px;
       box-shadow: 0 4px 20px rgba(11,31,58,0.06);
       border: 1px solid #E2E8F0;
-      padding: 20px 24px 24px 24px;
+      padding: 22px 26px 26px 26px;
       display: flex;
       flex-direction: column;
     }
@@ -61,7 +110,7 @@
     }
     .card-title {
       font-family: 'Fraunces', Georgia, serif;
-      font-size: 19px;
+      font-size: 20px;
       font-weight: 700;
       color: var(--navy);
       margin: 0;
@@ -73,23 +122,25 @@
       text-transform: uppercase;
       color: var(--brass);
       background: rgba(194,155,64,0.12);
-      padding: 4px 10px;
+      padding: 5px 12px;
       border-radius: 100px;
     }
     .card-desc {
       color: #64748B;
-      font-size: 12.5px;
-      margin: 0 0 16px 0;
+      font-size: 13px;
+      margin: 0 0 18px 0;
       line-height: 1.45;
     }
+
     .preview-stack {
       display: flex;
       flex-direction: column;
       gap: 12px;
+      margin-bottom: 20px;
     }
     .preview-box {
       border-radius: 10px;
-      padding: 18px 24px;
+      padding: 16px 20px;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -117,226 +168,358 @@
     svg {
       width: 100%;
       height: auto;
-      max-height: 60px;
+      max-height: 56px;
+    }
+
+    .apply-btn {
+      background: var(--navy);
+      color: #fff;
+      border: 1px solid var(--navy);
+      padding: 11px 18px;
+      border-radius: 9px;
+      font-family: 'Hanken Grotesk', system-ui, sans-serif;
+      font-weight: 600;
+      font-size: 13.5px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.2s;
+      width: 100%;
+    }
+    .apply-btn:hover {
+      background: #17345e;
+      border-color: #17345e;
+    }
+    .apply-btn.active {
+      background: #10B981;
+      border-color: #10B981;
     }
   </style>
 </head>
 <body>
 
-<div class="header">
-  <div>
-    <h1>StrikePoint Ventures — Classic Monogram Concepts</h1>
-    <p class="sub">Timeless Institutional Monograms (SV • STP • STV) for High-Frequency &amp; Quantitative Wealth Management</p>
+<div class="container">
+  <div class="header">
+    <div>
+      <h1>StrikePoint Ventures — 5 Classic Monogram Concepts</h1>
+      <p class="sub">5 Distinct Institutional Monograms (SV • STP • STV) for Quantitative Research & Trading</p>
+    </div>
+    <a href="/" class="back-btn">← Back to Website</a>
   </div>
-  <a href="/" style="font-weight: 600; font-size: 13px; color: var(--navy); text-decoration: none; padding: 6px 14px; border: 1px solid #CBD5E1; border-radius: 8px; background: #fff;">← Back to Website</a>
+
+  <div id="toast" class="toast">✓ Logo updated successfully!</div>
+
+  <div class="grid">
+
+    <!-- ==================== CONCEPT 1: INTERTWINED ROMAN SV ==================== -->
+    <div class="card">
+      <div class="card-head">
+        <h2 class="card-title">Concept 1: The Intertwined Roman "SV"</h2>
+        <span class="badge">SV • Classic Serif</span>
+      </div>
+      <p class="card-desc">Timeless Mayfair &amp; Wall Street heritage: hand-sculpted Roman serif 'S' and 'V' gracefully woven through one another within a fine geometric octagonal bezel.</p>
+      
+      <div class="preview-stack">
+        <!-- Light -->
+        <div class="preview-box preview-light">
+          <span class="tag">Light Theme (Navbar)</span>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 180">
+            <defs>
+              <linearGradient id="c1GL" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#E5C158" /><stop offset="50%" stop-color="#C29B40" /><stop offset="100%" stop-color="#9E7824" />
+              </linearGradient>
+            </defs>
+            <g transform="translate(45, 0)">
+              <polygon points="120,18 192,48 192,132 120,162 48,132 48,48" fill="none" stroke="rgba(194,155,64,0.35)" stroke-width="1.8" />
+              <polygon points="120,24 186,52 186,128 120,156 54,128 54,52" fill="none" stroke="rgba(11,31,58,0.12)" stroke-width="1" stroke-dasharray="3 3" />
+              <polygon points="120,10 125,18 120,26 115,18" fill="#C29B40" />
+              <path d="M 80 50 L 120 140 L 160 50" fill="none" stroke="#0B1F3A" stroke-width="11" stroke-linecap="round" stroke-linejoin="round" />
+              <line x1="70" y1="50" x2="90" y2="50" stroke="#0B1F3A" stroke-width="4.5" stroke-linecap="round" />
+              <line x1="150" y1="50" x2="170" y2="50" stroke="#0B1F3A" stroke-width="4.5" stroke-linecap="round" />
+              <path d="M 152 68 C 145 46, 96 44, 96 72 C 96 106, 146 102, 146 132 C 146 156, 94 154, 88 132" fill="none" stroke="url(#c1GL)" stroke-width="9" stroke-linecap="round" />
+            </g>
+            <line x1="335" y1="28" x2="335" y2="152" stroke="rgba(11,31,58,0.18)" stroke-width="1.8" stroke-linecap="round" />
+            <text x="375" y="98" font-family="'Fraunces', Georgia, serif" font-weight="700" font-size="66" letter-spacing="4.5" fill="#0B1F3A">STRIKEPOINT</text>
+            <text x="380" y="144" font-family="'Hanken Grotesk', system-ui, sans-serif" font-weight="600" font-size="28" letter-spacing="14" fill="#C29B40">VENTURES</text>
+          </svg>
+        </div>
+
+        <!-- Dark -->
+        <div class="preview-box preview-dark">
+          <span class="tag">Dark Theme (Footer)</span>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 180">
+            <defs>
+              <linearGradient id="c1GD" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#F5E296" /><stop offset="50%" stop-color="#D7B231" /><stop offset="100%" stop-color="#A88314" />
+              </linearGradient>
+            </defs>
+            <g transform="translate(45, 0)">
+              <polygon points="120,18 192,48 192,132 120,162 48,132 48,48" fill="none" stroke="rgba(215,178,49,0.4)" stroke-width="1.8" />
+              <polygon points="120,24 186,52 186,128 120,156 54,128 54,52" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="1" stroke-dasharray="3 3" />
+              <polygon points="120,10 125,18 120,26 115,18" fill="#D7B231" />
+              <path d="M 80 50 L 120 140 L 160 50" fill="none" stroke="#FFFFFF" stroke-width="11" stroke-linecap="round" stroke-linejoin="round" />
+              <line x1="70" y1="50" x2="90" y2="50" stroke="#FFFFFF" stroke-width="4.5" stroke-linecap="round" />
+              <line x1="150" y1="50" x2="170" y2="50" stroke="#FFFFFF" stroke-width="4.5" stroke-linecap="round" />
+              <path d="M 152 68 C 145 46, 96 44, 96 72 C 96 106, 146 102, 146 132 C 146 156, 94 154, 88 132" fill="none" stroke="url(#c1GD)" stroke-width="9" stroke-linecap="round" />
+            </g>
+            <line x1="335" y1="28" x2="335" y2="152" stroke="rgba(255,255,255,0.2)" stroke-width="1.8" stroke-linecap="round" />
+            <text x="375" y="98" font-family="'Fraunces', Georgia, serif" font-weight="700" font-size="66" letter-spacing="4.5" fill="#FFFFFF">STRIKEPOINT</text>
+            <text x="380" y="144" font-family="'Hanken Grotesk', system-ui, sans-serif" font-weight="600" font-size="28" letter-spacing="14" fill="#D7B231">VENTURES</text>
+          </svg>
+        </div>
+      </div>
+
+      <button class="apply-btn" onclick="applyLogo(1, this)">Apply Concept 1 to Website</button>
+    </div>
+
+    <!-- ==================== CONCEPT 2: SOVEREIGN STP ==================== -->
+    <div class="card">
+      <div class="card-head">
+        <h2 class="card-title">Concept 2: The Sovereign "STP" Monogram</h2>
+        <span class="badge">STP • Medallion</span>
+      </div>
+      <p class="card-desc">Authoritative 'STP' (Strike-Point): Central anchor T pillar flanked symmetrically by a flowing S and an executive P, housed within a concentric financial seal.</p>
+      
+      <div class="preview-stack">
+        <!-- Light -->
+        <div class="preview-box preview-light">
+          <span class="tag">Light Theme (Navbar)</span>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 180">
+            <g transform="translate(40, 0)">
+              <circle cx="120" cy="90" r="66" fill="none" stroke="#0B1F3A" stroke-width="2.5" />
+              <circle cx="120" cy="90" r="60" fill="none" stroke="#C29B40" stroke-width="1.2" stroke-dasharray="4 3" />
+              <path d="M 75 58 H 165 M 120 58 V 132" stroke="#0B1F3A" stroke-width="10" stroke-linecap="square" />
+              <line x1="106" y1="132" x2="134" y2="132" stroke="#0B1F3A" stroke-width="5" stroke-linecap="round" />
+              <path d="M 100 70 C 84 70, 70 74, 70 88 C 70 105, 102 102, 102 116 C 102 127, 85 128, 74 126" fill="none" stroke="#C29B40" stroke-width="6" stroke-linecap="round" />
+              <path d="M 138 70 H 158 C 174 70, 174 100, 158 100 H 138 V 126" fill="none" stroke="#C29B40" stroke-width="6" stroke-linecap="round" />
+            </g>
+            <line x1="335" y1="28" x2="335" y2="152" stroke="rgba(11,31,58,0.18)" stroke-width="1.8" stroke-linecap="round" />
+            <text x="375" y="98" font-family="'Fraunces', Georgia, serif" font-weight="700" font-size="66" letter-spacing="4.5" fill="#0B1F3A">STRIKEPOINT</text>
+            <text x="380" y="144" font-family="'Hanken Grotesk', system-ui, sans-serif" font-weight="600" font-size="28" letter-spacing="14" fill="#C29B40">VENTURES</text>
+          </svg>
+        </div>
+
+        <!-- Dark -->
+        <div class="preview-box preview-dark">
+          <span class="tag">Dark Theme (Footer)</span>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 180">
+            <g transform="translate(40, 0)">
+              <circle cx="120" cy="90" r="66" fill="none" stroke="#FFFFFF" stroke-width="2.5" opacity="0.6" />
+              <circle cx="120" cy="90" r="60" fill="none" stroke="#D7B231" stroke-width="1.2" stroke-dasharray="4 3" opacity="0.8" />
+              <path d="M 75 58 H 165 M 120 58 V 132" stroke="#FFFFFF" stroke-width="10" stroke-linecap="square" />
+              <line x1="106" y1="132" x2="134" y2="132" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round" />
+              <path d="M 100 70 C 84 70, 70 74, 70 88 C 70 105, 102 102, 102 116 C 102 127, 85 128, 74 126" fill="none" stroke="#D7B231" stroke-width="6" stroke-linecap="round" />
+              <path d="M 138 70 H 158 C 174 70, 174 100, 158 100 H 138 V 126" fill="none" stroke="#D7B231" stroke-width="6" stroke-linecap="round" />
+            </g>
+            <line x1="335" y1="28" x2="335" y2="152" stroke="rgba(255,255,255,0.2)" stroke-width="1.8" stroke-linecap="round" />
+            <text x="375" y="98" font-family="'Fraunces', Georgia, serif" font-weight="700" font-size="66" letter-spacing="4.5" fill="#FFFFFF">STRIKEPOINT</text>
+            <text x="380" y="144" font-family="'Hanken Grotesk', system-ui, sans-serif" font-weight="600" font-size="28" letter-spacing="14" fill="#D7B231">VENTURES</text>
+          </svg>
+        </div>
+      </div>
+
+      <button class="apply-btn" onclick="applyLogo(2, this)">Apply Concept 2 to Website</button>
+    </div>
+
+    <!-- ==================== CONCEPT 3: IMPERIAL STV SHIELD ==================== -->
+    <div class="card">
+      <div class="card-head">
+        <h2 class="card-title">Concept 3: The Imperial "STV" Heraldic Shield</h2>
+        <span class="badge">STV • Heraldic Shield</span>
+      </div>
+      <p class="card-desc">European merchant banking crest: clean architectural shield framing high-contrast Roman serif letters 'STV' (StrikePoint Ventures) crowned with a brass coordinate star.</p>
+      
+      <div class="preview-stack">
+        <!-- Light -->
+        <div class="preview-box preview-light">
+          <span class="tag">Light Theme (Navbar)</span>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 180">
+            <g transform="translate(45, 0)">
+              <path d="M 64 36 H 176 V 96 C 176 134, 120 158, 120 158 C 120 158, 64 134, 64 96 Z" fill="none" stroke="#0B1F3A" stroke-width="3" stroke-linejoin="round" />
+              <path d="M 72 44 H 168 V 95 C 168 126, 120 148, 120 148 C 120 148, 72 126, 72 95 Z" fill="none" stroke="#C29B40" stroke-width="1.2" opacity="0.65" />
+              <text x="120" y="98" font-family="'Cinzel', 'Fraunces', Georgia, serif" font-weight="700" font-size="44" letter-spacing="4" fill="#0B1F3A" text-anchor="middle">STV</text>
+              <polygon points="120,114 123,122 131,122 125,127 127,135 120,130 113,135 115,127 109,122 117,122" fill="#C29B40" />
+            </g>
+            <line x1="335" y1="28" x2="335" y2="152" stroke="rgba(11,31,58,0.18)" stroke-width="1.8" stroke-linecap="round" />
+            <text x="375" y="98" font-family="'Fraunces', Georgia, serif" font-weight="700" font-size="66" letter-spacing="4.5" fill="#0B1F3A">STRIKEPOINT</text>
+            <text x="380" y="144" font-family="'Hanken Grotesk', system-ui, sans-serif" font-weight="600" font-size="28" letter-spacing="14" fill="#C29B40">VENTURES</text>
+          </svg>
+        </div>
+
+        <!-- Dark -->
+        <div class="preview-box preview-dark">
+          <span class="tag">Dark Theme (Footer)</span>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 180">
+            <g transform="translate(45, 0)">
+              <path d="M 64 36 H 176 V 96 C 176 134, 120 158, 120 158 C 120 158, 64 134, 64 96 Z" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round" />
+              <path d="M 72 44 H 168 V 95 C 168 126, 120 148, 120 148 C 120 148, 72 126, 72 95 Z" fill="none" stroke="#D7B231" stroke-width="1.2" opacity="0.65" />
+              <text x="120" y="98" font-family="'Cinzel', 'Fraunces', Georgia, serif" font-weight="700" font-size="44" letter-spacing="4" fill="#FFFFFF" text-anchor="middle">STV</text>
+              <polygon points="120,114 123,122 131,122 125,127 127,135 120,130 113,135 115,127 109,122 117,122" fill="#D7B231" />
+            </g>
+            <line x1="335" y1="28" x2="335" y2="152" stroke="rgba(255,255,255,0.2)" stroke-width="1.8" stroke-linecap="round" />
+            <text x="375" y="98" font-family="'Fraunces', Georgia, serif" font-weight="700" font-size="66" letter-spacing="4.5" fill="#FFFFFF">STRIKEPOINT</text>
+            <text x="380" y="144" font-family="'Hanken Grotesk', system-ui, sans-serif" font-weight="600" font-size="28" letter-spacing="14" fill="#D7B231">VENTURES</text>
+          </svg>
+        </div>
+      </div>
+
+      <button class="apply-btn" onclick="applyLogo(3, this)">Apply Concept 3 to Website</button>
+    </div>
+
+    <!-- ==================== CONCEPT 4: CLASSICAL CAPITAL PILLAR ==================== -->
+    <div class="card">
+      <div class="card-head">
+        <h2 class="card-title">Concept 4: The Classical Capital Pillar "STP"</h2>
+        <span class="badge">STP • Ionic Column</span>
+      </div>
+      <p class="card-desc">Greco-Roman architectural capital: upper pediment forms the crossbar of T, the central fluted column provides the pillar, while flanking Ionic scrolls sculpt S and P.</p>
+      
+      <div class="preview-stack">
+        <!-- Light -->
+        <div class="preview-box preview-light">
+          <span class="tag">Light Theme (Navbar)</span>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 180">
+            <g transform="translate(45, 0)">
+              <path d="M 60 44 H 180 V 54 H 60 Z" fill="#0B1F3A" />
+              <path d="M 70 54 H 170 V 60 H 70 Z" fill="#C29B40" />
+              <path d="M 96 66 C 72 66, 64 80, 72 94 C 80 108, 98 106, 98 118 C 98 128, 86 132, 74 128" fill="none" stroke="#0B1F3A" stroke-width="5.5" stroke-linecap="round" />
+              <line x1="110" y1="64" x2="110" y2="136" stroke="#0B1F3A" stroke-width="4" />
+              <line x1="120" y1="64" x2="120" y2="136" stroke="#C29B40" stroke-width="4.5" />
+              <line x1="130" y1="64" x2="130" y2="136" stroke="#0B1F3A" stroke-width="4" />
+              <path d="M 136 66 H 162 C 178 66, 178 98, 162 98 H 136 V 128" fill="none" stroke="#0B1F3A" stroke-width="5.5" stroke-linecap="round" />
+              <path d="M 68 136 H 172 V 144 H 68 Z" fill="#C29B40" />
+              <path d="M 58 144 H 182 V 152 H 58 Z" fill="#0B1F3A" />
+            </g>
+            <line x1="335" y1="28" x2="335" y2="152" stroke="rgba(11,31,58,0.18)" stroke-width="1.8" stroke-linecap="round" />
+            <text x="375" y="98" font-family="'Fraunces', Georgia, serif" font-weight="700" font-size="66" letter-spacing="4.5" fill="#0B1F3A">STRIKEPOINT</text>
+            <text x="380" y="144" font-family="'Hanken Grotesk', system-ui, sans-serif" font-weight="600" font-size="28" letter-spacing="14" fill="#C29B40">VENTURES</text>
+          </svg>
+        </div>
+
+        <!-- Dark -->
+        <div class="preview-box preview-dark">
+          <span class="tag">Dark Theme (Footer)</span>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 180">
+            <g transform="translate(45, 0)">
+              <path d="M 60 44 H 180 V 54 H 60 Z" fill="#FFFFFF" />
+              <path d="M 70 54 H 170 V 60 H 70 Z" fill="#D7B231" />
+              <path d="M 96 66 C 72 66, 64 80, 72 94 C 80 108, 98 106, 98 118 C 98 128, 86 132, 74 128" fill="none" stroke="#FFFFFF" stroke-width="5.5" stroke-linecap="round" />
+              <line x1="110" y1="64" x2="110" y2="136" stroke="#FFFFFF" stroke-width="4" />
+              <line x1="120" y1="64" x2="120" y2="136" stroke="#D7B231" stroke-width="4.5" />
+              <line x1="130" y1="64" x2="130" y2="136" stroke="#FFFFFF" stroke-width="4" />
+              <path d="M 136 66 H 162 C 178 66, 178 98, 162 98 H 136 V 128" fill="none" stroke="#FFFFFF" stroke-width="5.5" stroke-linecap="round" />
+              <path d="M 68 136 H 172 V 144 H 68 Z" fill="#D7B231" />
+              <path d="M 58 144 H 182 V 152 H 58 Z" fill="#FFFFFF" />
+            </g>
+            <line x1="335" y1="28" x2="335" y2="152" stroke="rgba(255,255,255,0.2)" stroke-width="1.8" stroke-linecap="round" />
+            <text x="375" y="98" font-family="'Fraunces', Georgia, serif" font-weight="700" font-size="66" letter-spacing="4.5" fill="#FFFFFF">STRIKEPOINT</text>
+            <text x="380" y="144" font-family="'Hanken Grotesk', system-ui, sans-serif" font-weight="600" font-size="28" letter-spacing="14" fill="#D7B231">VENTURES</text>
+          </svg>
+        </div>
+      </div>
+
+      <button class="apply-btn" onclick="applyLogo(4, this)">Apply Concept 4 to Website</button>
+    </div>
+
+    <!-- ==================== CONCEPT 5: COMPASS ROSE SV ==================== -->
+    <div class="card" style="grid-column: 1 / -1; max-width: 800px; margin: 0 auto; width: 100%;">
+      <div class="card-head">
+        <h2 class="card-title">Concept 5: The Precision Compass Rose "SV"</h2>
+        <span class="badge">SV • Navigator Seal</span>
+      </div>
+      <p class="card-desc">Algorithmic navigation: faceted 4-point cardinal compass star with concentric coordinate rings encircling classic Roman serif 'SV'. Symbolizes navigating market volatility with pinpoint directional edge.</p>
+      
+      <div class="preview-stack">
+        <!-- Light -->
+        <div class="preview-box preview-light">
+          <span class="tag">Light Theme (Navbar)</span>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 180">
+            <g transform="translate(45, 0)">
+              <circle cx="120" cy="90" r="64" fill="none" stroke="#0B1F3A" stroke-width="2.5" />
+              <circle cx="120" cy="90" r="56" fill="none" stroke="#C29B40" stroke-width="1.2" stroke-dasharray="2 3" />
+              <circle cx="120" cy="90" r="48" fill="none" stroke="#0B1F3A" stroke-width="0.8" opacity="0.3" />
+              <polygon points="120,20 124,36 120,32 116,36" fill="#C29B40" />
+              <polygon points="120,160 124,144 120,148 116,144" fill="#C29B40" />
+              <polygon points="190,90 174,86 178,90 174,94" fill="#C29B40" />
+              <polygon points="50,90 66,86 62,90 66,94" fill="#C29B40" />
+              <text x="120" y="105" font-family="'Cinzel', 'Fraunces', Georgia, serif" font-weight="700" font-size="46" letter-spacing="3" fill="#0B1F3A" text-anchor="middle">SV</text>
+              <polygon points="120,116 123,121 120,126 117,121" fill="#C29B40" />
+            </g>
+            <line x1="335" y1="28" x2="335" y2="152" stroke="rgba(11,31,58,0.18)" stroke-width="1.8" stroke-linecap="round" />
+            <text x="375" y="98" font-family="'Fraunces', Georgia, serif" font-weight="700" font-size="66" letter-spacing="4.5" fill="#0B1F3A">STRIKEPOINT</text>
+            <text x="380" y="144" font-family="'Hanken Grotesk', system-ui, sans-serif" font-weight="600" font-size="28" letter-spacing="14" fill="#C29B40">VENTURES</text>
+          </svg>
+        </div>
+
+        <!-- Dark -->
+        <div class="preview-box preview-dark">
+          <span class="tag">Dark Theme (Footer)</span>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 180">
+            <g transform="translate(45, 0)">
+              <circle cx="120" cy="90" r="64" fill="none" stroke="#FFFFFF" stroke-width="2.5" />
+              <circle cx="120" cy="90" r="56" fill="none" stroke="#D7B231" stroke-width="1.2" stroke-dasharray="2 3" />
+              <circle cx="120" cy="90" r="48" fill="none" stroke="#FFFFFF" stroke-width="0.8" opacity="0.3" />
+              <polygon points="120,20 124,36 120,32 116,36" fill="#D7B231" />
+              <polygon points="120,160 124,144 120,148 116,144" fill="#D7B231" />
+              <polygon points="190,90 174,86 178,90 174,94" fill="#D7B231" />
+              <polygon points="50,90 66,86 62,90 66,94" fill="#D7B231" />
+              <text x="120" y="105" font-family="'Cinzel', 'Fraunces', Georgia, serif" font-weight="700" font-size="46" letter-spacing="3" fill="#FFFFFF" text-anchor="middle">SV</text>
+              <polygon points="120,116 123,121 120,126 117,121" fill="#D7B231" />
+            </g>
+            <line x1="335" y1="28" x2="335" y2="152" stroke="rgba(255,255,255,0.2)" stroke-width="1.8" stroke-linecap="round" />
+            <text x="375" y="98" font-family="'Fraunces', Georgia, serif" font-weight="700" font-size="66" letter-spacing="4.5" fill="#FFFFFF">STRIKEPOINT</text>
+            <text x="380" y="144" font-family="'Hanken Grotesk', system-ui, sans-serif" font-weight="600" font-size="28" letter-spacing="14" fill="#D7B231">VENTURES</text>
+          </svg>
+        </div>
+      </div>
+
+      <button class="apply-btn" onclick="applyLogo(5, this)">Apply Concept 5 to Website</button>
+    </div>
+
+  </div>
 </div>
 
-<div class="grid">
+<script>
+  async function applyLogo(conceptId, btn) {
+    const originalText = btn.innerText;
+    btn.innerText = 'Applying...';
+    try {
+      const res = await fetch('/api/set-logo', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ conceptId })
+      });
+      const data = await res.json();
+      if (data.success) {
+        btn.innerText = '✓ Applied to Website!';
+        btn.classList.add('active');
+        showToast(data.message || `Concept ${conceptId} is now active!`);
+        setTimeout(() => {
+          btn.innerText = originalText;
+          btn.classList.remove('active');
+        }, 3000);
+      } else {
+        alert(data.error || 'Failed to update logo');
+        btn.innerText = originalText;
+      }
+    } catch (err) {
+      console.error(err);
+      alert('Error applying logo');
+      btn.innerText = originalText;
+    }
+  }
 
-  <!-- ==================== CONCEPT 1: CLASSIC INTERTWINED "SV" ==================== -->
-  <div class="card">
-    <div class="card-head">
-      <h2 class="card-title">Concept 1: The Intertwined "SV" Monogram</h2>
-      <span class="badge">Classic Heritage</span>
-    </div>
-    <p class="card-desc">Timeless Wall Street / Mayfair heritage: high-contrast Roman serif letters 'S' and 'V' gracefully woven together in deep navy and brass gold.</p>
-    <div class="preview-stack">
-      <!-- Light -->
-      <div class="preview-box preview-light">
-        <span class="tag">Light Navbar</span>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 180">
-          <defs>
-            <linearGradient id="goldGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#D4AF37" /><stop offset="50%" stop-color="#C29B40" /><stop offset="100%" stop-color="#9A7B2C" />
-            </linearGradient>
-          </defs>
-          <!-- SV Monogram -->
-          <g id="sv-monogram-light" transform="translate(45, 0)">
-            <!-- Outer Geometric Octagon Accent -->
-            <polygon points="120,20 190,50 190,130 120,160 50,130 50,50" fill="none" stroke="rgba(194,155,64,0.3)" stroke-width="1.8" />
-            <!-- V (Navy Serif) -->
-            <path d="M 82 52 L 120 138 L 158 52" fill="none" stroke="#0B1F3A" stroke-width="11" stroke-linecap="round" stroke-linejoin="round" />
-            <!-- S (Intertwined Gold Serif) -->
-            <path d="M 152 66 C 145 46, 95 44, 95 72 C 95 106, 145 102, 145 132 C 145 156, 92 152, 88 132" fill="none" stroke="url(#goldGrad1)" stroke-width="9.5" stroke-linecap="round" />
-            <!-- Diamond Accent Point -->
-            <polygon points="120,14 124,20 120,26 116,20" fill="#C29B40" />
-          </g>
-          <!-- Divider -->
-          <line x1="335" y1="28" x2="335" y2="152" stroke="rgba(11,31,58,0.18)" stroke-width="1.8" stroke-linecap="round" />
-          <!-- Typography -->
-          <text x="375" y="98" font-family="'Fraunces', Georgia, serif" font-weight="700" font-size="66" letter-spacing="4.5" fill="#0B1F3A">STRIKEPOINT</text>
-          <text x="380" y="144" font-family="'Hanken Grotesk', system-ui, sans-serif" font-weight="600" font-size="28" letter-spacing="14" fill="#C29B40">VENTURES</text>
-        </svg>
-      </div>
-
-      <!-- Dark -->
-      <div class="preview-box preview-dark">
-        <span class="tag">Dark Footer</span>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 180">
-          <defs>
-            <linearGradient id="goldGrad1Dark" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#F3E5AB" /><stop offset="50%" stop-color="#D7B231" /><stop offset="100%" stop-color="#B89320" />
-            </linearGradient>
-          </defs>
-          <g transform="translate(45, 0)">
-            <polygon points="120,20 190,50 190,130 120,160 50,130 50,50" fill="none" stroke="rgba(215,178,49,0.35)" stroke-width="1.8" />
-            <path d="M 82 52 L 120 138 L 158 52" fill="none" stroke="#FFFFFF" stroke-width="11" stroke-linecap="round" stroke-linejoin="round" />
-            <path d="M 152 66 C 145 46, 95 44, 95 72 C 95 106, 145 102, 145 132 C 145 156, 92 152, 88 132" fill="none" stroke="url(#goldGrad1Dark)" stroke-width="9.5" stroke-linecap="round" />
-            <polygon points="120,14 124,20 120,26 116,20" fill="#D7B231" />
-          </g>
-          <line x1="335" y1="28" x2="335" y2="152" stroke="rgba(255,255,255,0.2)" stroke-width="1.8" stroke-linecap="round" />
-          <text x="375" y="98" font-family="'Fraunces', Georgia, serif" font-weight="700" font-size="66" letter-spacing="4.5" fill="#FFFFFF">STRIKEPOINT</text>
-          <text x="380" y="144" font-family="'Hanken Grotesk', system-ui, sans-serif" font-weight="600" font-size="28" letter-spacing="14" fill="#D7B231">VENTURES</text>
-        </svg>
-      </div>
-    </div>
-  </div>
-
-  <!-- ==================== CONCEPT 2: THE SOVEREIGN "STP" MONOGRAM ==================== -->
-  <div class="card">
-    <div class="card-head">
-      <h2 class="card-title">Concept 2: The Sovereign "STP" Monogram</h2>
-      <span class="badge">Tri-Monogram</span>
-    </div>
-    <p class="card-desc">Architectural 'STP' (Strike-Point): Central T pillar flanked by a flowing S and a bold P, forming an authoritative institutional emblem.</p>
-    <div class="preview-stack">
-      <!-- Light -->
-      <div class="preview-box preview-light">
-        <span class="tag">Light Navbar</span>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 180">
-          <g id="stp-monogram-light" transform="translate(40, 0)">
-            <!-- Circular Perimeter Ring -->
-            <circle cx="120" cy="90" r="66" fill="none" stroke="#0B1F3A" stroke-width="1.8" />
-            <circle cx="120" cy="90" r="61" fill="none" stroke="#C29B40" stroke-width="1" stroke-dasharray="3 3" />
-            <!-- Central T -->
-            <path d="M 75 58 H 165 M 120 58 V 132" stroke="#0B1F3A" stroke-width="9.5" stroke-linecap="square" />
-            <!-- Flanking S (Left) -->
-            <path d="M 100 70 C 85 70, 72 74, 72 88 C 72 104, 100 102, 100 116 C 100 126, 85 128, 75 126" fill="none" stroke="#C29B40" stroke-width="5.5" stroke-linecap="round" />
-            <!-- Flanking P (Right) -->
-            <path d="M 140 70 H 158 C 172 70, 172 98, 158 98 H 140 V 126" fill="none" stroke="#C29B40" stroke-width="5.5" stroke-linecap="round" />
-          </g>
-          <line x1="335" y1="28" x2="335" y2="152" stroke="rgba(11,31,58,0.18)" stroke-width="1.8" stroke-linecap="round" />
-          <text x="375" y="98" font-family="'Fraunces', Georgia, serif" font-weight="700" font-size="66" letter-spacing="4.5" fill="#0B1F3A">STRIKEPOINT</text>
-          <text x="380" y="144" font-family="'Hanken Grotesk', system-ui, sans-serif" font-weight="600" font-size="28" letter-spacing="14" fill="#C29B40">VENTURES</text>
-        </svg>
-      </div>
-
-      <!-- Dark -->
-      <div class="preview-box preview-dark">
-        <span class="tag">Dark Footer</span>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 180">
-          <g transform="translate(40, 0)">
-            <circle cx="120" cy="90" r="66" fill="none" stroke="#FFFFFF" stroke-width="1.8" opacity="0.4" />
-            <circle cx="120" cy="90" r="61" fill="none" stroke="#D7B231" stroke-width="1" stroke-dasharray="3 3" opacity="0.6" />
-            <path d="M 75 58 H 165 M 120 58 V 132" stroke="#FFFFFF" stroke-width="9.5" stroke-linecap="square" />
-            <path d="M 100 70 C 85 70, 72 74, 72 88 C 72 104, 100 102, 100 116 C 100 126, 85 128, 75 126" fill="none" stroke="#D7B231" stroke-width="5.5" stroke-linecap="round" />
-            <path d="M 140 70 H 158 C 172 70, 172 98, 158 98 H 140 V 126" fill="none" stroke="#D7B231" stroke-width="5.5" stroke-linecap="round" />
-          </g>
-          <line x1="335" y1="28" x2="335" y2="152" stroke="rgba(255,255,255,0.2)" stroke-width="1.8" stroke-linecap="round" />
-          <text x="375" y="98" font-family="'Fraunces', Georgia, serif" font-weight="700" font-size="66" letter-spacing="4.5" fill="#FFFFFF">STRIKEPOINT</text>
-          <text x="380" y="144" font-family="'Hanken Grotesk', system-ui, sans-serif" font-weight="600" font-size="28" letter-spacing="14" fill="#D7B231">VENTURES</text>
-        </svg>
-      </div>
-    </div>
-  </div>
-
-  <!-- ==================== CONCEPT 3: THE IMPERIAL "STV" HERALDIC SHIELD ==================== -->
-  <div class="card">
-    <div class="card-head">
-      <h2 class="card-title">Concept 3: The Imperial "STV" Heraldic Shield</h2>
-      <span class="badge">Shield Crest</span>
-    </div>
-    <p class="card-desc">An elegant European merchant banking shield holding the classic serif letters 'STV' (StrikePoint Ventures) crowned with a precision apex.</p>
-    <div class="preview-stack">
-      <!-- Light -->
-      <div class="preview-box preview-light">
-        <span class="tag">Light Navbar</span>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 180">
-          <g id="stv-shield-light" transform="translate(45, 0)">
-            <!-- Shield Outline -->
-            <path d="M 65 38 H 175 V 96 C 175 132, 120 156, 120 156 C 120 156, 65 132, 65 96 Z" fill="none" stroke="#0B1F3A" stroke-width="3" stroke-linejoin="round" />
-            <path d="M 72 45 H 168 V 95 C 168 126, 120 148, 120 148 C 120 148, 72 126, 72 95 Z" fill="none" stroke="#C29B40" stroke-width="1.2" opacity="0.6" />
-            <!-- Centered STV Monogram (Fraunces Serif) -->
-            <text x="120" y="98" font-family="'Cinzel', 'Fraunces', Georgia, serif" font-weight="700" font-size="44" letter-spacing="4" fill="#0B1F3A" text-anchor="middle">STV</text>
-            <!-- Brass Star / Point Accent -->
-            <polygon points="120,114 123,122 131,122 125,127 127,135 120,130 113,135 115,127 109,122 117,122" fill="#C29B40" />
-          </g>
-          <line x1="335" y1="28" x2="335" y2="152" stroke="rgba(11,31,58,0.18)" stroke-width="1.8" stroke-linecap="round" />
-          <text x="375" y="98" font-family="'Fraunces', Georgia, serif" font-weight="700" font-size="66" letter-spacing="4.5" fill="#0B1F3A">STRIKEPOINT</text>
-          <text x="380" y="144" font-family="'Hanken Grotesk', system-ui, sans-serif" font-weight="600" font-size="28" letter-spacing="14" fill="#C29B40">VENTURES</text>
-        </svg>
-      </div>
-
-      <!-- Dark -->
-      <div class="preview-box preview-dark">
-        <span class="tag">Dark Footer</span>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 180">
-          <g transform="translate(45, 0)">
-            <path d="M 65 38 H 175 V 96 C 175 132, 120 156, 120 156 C 120 156, 65 132, 65 96 Z" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round" />
-            <path d="M 72 45 H 168 V 95 C 168 126, 120 148, 120 148 C 120 148, 72 126, 72 95 Z" fill="none" stroke="#D7B231" stroke-width="1.2" opacity="0.6" />
-            <text x="120" y="98" font-family="'Cinzel', 'Fraunces', Georgia, serif" font-weight="700" font-size="44" letter-spacing="4" fill="#FFFFFF" text-anchor="middle">STV</text>
-            <polygon points="120,114 123,122 131,122 125,127 127,135 120,130 113,135 115,127 109,122 117,122" fill="#D7B231" />
-          </g>
-          <line x1="335" y1="28" x2="335" y2="152" stroke="rgba(255,255,255,0.2)" stroke-width="1.8" stroke-linecap="round" />
-          <text x="375" y="98" font-family="'Fraunces', Georgia, serif" font-weight="700" font-size="66" letter-spacing="4.5" fill="#FFFFFF">STRIKEPOINT</text>
-          <text x="380" y="144" font-family="'Hanken Grotesk', system-ui, sans-serif" font-weight="600" font-size="28" letter-spacing="14" fill="#D7B231">VENTURES</text>
-        </svg>
-      </div>
-    </div>
-  </div>
-
-  <!-- ==================== CONCEPT 4: THE LUXURY ROMAN "SV" EMBLEM ==================== -->
-  <div class="card">
-    <div class="card-head">
-      <h2 class="card-title">Concept 4: The Luxury Roman "SV" Seal</h2>
-      <span class="badge">Ivy / Private Bank</span>
-    </div>
-    <p class="card-desc">High-contrast Roman serif 'S' and 'V' standing proud within a solid concentric medallion with four cardinal strike points.</p>
-    <div class="preview-stack">
-      <!-- Light -->
-      <div class="preview-box preview-light">
-        <span class="tag">Light Navbar</span>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 180">
-          <g id="sv-roman-light" transform="translate(45, 0)">
-            <!-- Outer Medallion -->
-            <circle cx="120" cy="90" r="62" fill="none" stroke="#0B1F3A" stroke-width="3" />
-            <circle cx="120" cy="90" r="54" fill="none" stroke="#C29B40" stroke-width="1.2" />
-            <!-- Cardinal Strike Points -->
-            <circle cx="120" cy="28" r="2.5" fill="#C29B40" />
-            <circle cx="120" cy="152" r="2.5" fill="#C29B40" />
-            <circle cx="58" cy="90" r="2.5" fill="#C29B40" />
-            <circle cx="182" cy="90" r="2.5" fill="#C29B40" />
-            <!-- Roman Serif SV -->
-            <text x="120" y="106" font-family="'Cinzel', 'Fraunces', Georgia, serif" font-weight="700" font-size="52" letter-spacing="2" fill="#0B1F3A" text-anchor="middle">SV</text>
-          </g>
-          <line x1="335" y1="28" x2="335" y2="152" stroke="rgba(11,31,58,0.18)" stroke-width="1.8" stroke-linecap="round" />
-          <text x="375" y="98" font-family="'Fraunces', Georgia, serif" font-weight="700" font-size="66" letter-spacing="4.5" fill="#0B1F3A">STRIKEPOINT</text>
-          <text x="380" y="144" font-family="'Hanken Grotesk', system-ui, sans-serif" font-weight="600" font-size="28" letter-spacing="14" fill="#C29B40">VENTURES</text>
-        </svg>
-      </div>
-
-      <!-- Dark -->
-      <div class="preview-box preview-dark">
-        <span class="tag">Dark Footer</span>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 180">
-          <g transform="translate(45, 0)">
-            <circle cx="120" cy="90" r="62" fill="none" stroke="#FFFFFF" stroke-width="3" />
-            <circle cx="120" cy="90" r="54" fill="none" stroke="#D7B231" stroke-width="1.2" />
-            <circle cx="120" cy="28" r="2.5" fill="#D7B231" />
-            <circle cx="120" cy="152" r="2.5" fill="#D7B231" />
-            <circle cx="58" cy="90" r="2.5" fill="#D7B231" />
-            <circle cx="182" cy="90" r="2.5" fill="#D7B231" />
-            <text x="120" y="106" font-family="'Cinzel', 'Fraunces', Georgia, serif" font-weight="700" font-size="52" letter-spacing="2" fill="#FFFFFF" text-anchor="middle">SV</text>
-          </g>
-          <line x1="335" y1="28" x2="335" y2="152" stroke="rgba(255,255,255,0.2)" stroke-width="1.8" stroke-linecap="round" />
-          <text x="375" y="98" font-family="'Fraunces', Georgia, serif" font-weight="700" font-size="66" letter-spacing="4.5" fill="#FFFFFF">STRIKEPOINT</text>
-          <text x="380" y="144" font-family="'Hanken Grotesk', system-ui, sans-serif" font-weight="600" font-size="28" letter-spacing="14" fill="#D7B231">VENTURES</text>
-        </svg>
-      </div>
-    </div>
-  </div>
-
-</div>
+  function showToast(msg) {
+    const toast = document.getElementById('toast');
+    toast.innerText = msg;
+    toast.style.display = 'block';
+    setTimeout(() => {
+      toast.style.display = 'none';
+    }, 3500);
+  }
+</script>
 
 </body>
 </html>
