@@ -29,6 +29,7 @@ app.get('/team', renderView('team.html'));
 app.get('/services', renderView('services.html'));
 app.get('/blog', renderView('blog.html'));
 app.get('/contact', renderView('contact.html'));
+app.get('/logo-showcase', renderView('logo-showcase.html'));
 
 // Services Sub-routes
 app.get('/services/statistical-edge-finding', renderView('service-edge.html'));
