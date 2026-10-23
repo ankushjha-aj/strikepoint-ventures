@@ -1,171 +1,54 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1060 180" width="1060" height="180">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 180" width="1120" height="180">
   <defs>
-    <!-- Live Multi-Stop Neon Gradients -->
-    <linearGradient id="crestNeon" x1="0%" y1="100%" x2="100%" y2="0%">
+    <!-- Seamless Gradient: Vibrant Trading Green on UP, Vibrant Risk Red on DOWN -->
+    <linearGradient id="liveWaveGrad" x1="30" y1="90" x2="290" y2="90" gradientUnits="userSpaceOnUse">
       <stop offset="0%" stop-color="#00D26A" />
-      <stop offset="50%" stop-color="#00F5A0" />
-      <stop offset="100%" stop-color="#38EF7D" />
-    </linearGradient>
-
-    <linearGradient id="troughNeon" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#FF3860" />
-      <stop offset="50%" stop-color="#FF1361" />
-      <stop offset="100%" stop-color="#E11D48" />
-    </linearGradient>
-
-    <!-- Full Traveling Pulse Gradient: Green at start to Red at end -->
-    <linearGradient id="liveWaveGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#00F5A0" />
-      <stop offset="42%" stop-color="#10B981" />
-      <stop offset="50%" stop-color="#F59E0B" />
-      <stop offset="58%" stop-color="#EF4444" />
+      <stop offset="44%" stop-color="#00F5A0" />
+      <stop offset="49.8%" stop-color="#10B981" />
+      <stop offset="50.2%" stop-color="#EF4444" />
+      <stop offset="56%" stop-color="#FF3860" />
       <stop offset="100%" stop-color="#FF1361" />
-    </linearGradient>
-
-    <!-- Neon Glow Filter -->
-    <filter id="neonGlow" x="-30%" y="-30%" width="160%" height="160%">
-      <feGaussianBlur stdDeviation="3.5" result="blur1" />
-      <feGaussianBlur stdDeviation="7" result="blur2" />
-      <feMerge>
-        <feMergeNode in="blur2" />
-        <feMergeNode in="blur1" />
-        <feMergeNode in="SourceGraphic" />
-      </feMerge>
-    </filter>
-
-    <filter id="particleGlow" x="-50%" y="-50%" width="200%" height="200%">
-      <feGaussianBlur stdDeviation="4" result="pBlur" />
-      <feMerge>
-        <feMergeNode in="pBlur" />
-        <feMergeNode in="SourceGraphic" />
-      </feMerge>
-    </filter>
-
-    <!-- Ambient Underglow Fills -->
-    <linearGradient id="crestAura" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#00F5A0" stop-opacity="0.28" />
-      <stop offset="100%" stop-color="#00F5A0" stop-opacity="0.0" />
-    </linearGradient>
-    <linearGradient id="troughAura" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#FF1361" stop-opacity="0.0" />
-      <stop offset="100%" stop-color="#FF1361" stop-opacity="0.28" />
     </linearGradient>
   </defs>
 
-  <style>
-    @keyframes pulseAura {
-      0%, 100% { opacity: 0.55; }
-      50% { opacity: 0.95; }
-    }
-    @keyframes liveTrail {
-      0% {
-        stroke-dashoffset: 400;
-        opacity: 0.3;
-      }
-      15% {
-        opacity: 1;
-      }
-      85% {
-        opacity: 1;
-      }
-      100% {
-        stroke-dashoffset: -80;
-        opacity: 0.2;
-      }
-    }
-    @keyframes liveDotGlow {
-      0%, 100% { transform: scale(1); filter: drop-shadow(0 0 6px #00F5A0); }
-      50% { transform: scale(1.25); filter: drop-shadow(0 0 12px #FF1361); }
-    }
-    .aura-bg {
-      animation: pulseAura 3s ease-in-out infinite;
-    }
-    .sweep-trail {
-      stroke-dasharray: 90 320;
-      animation: liveTrail 2.6s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-    }
-  </style>
-
-  <!-- WAVE GRAPHICS GROUP -->
+  <!-- WAVE GRAPHICS GROUP (NO EQUATOR GRID, NO DOTS, PURE CLEAN LIVE WAVE) -->
   <g id="sine-wave-mark">
-    <!-- Ambient Soft Underglow -->
-    <path class="aura-bg" d="M 30 90 C 74.5 4, 115.5 4, 160 90 Z" fill="url(#crestAura)" />
-    <path class="aura-bg" d="M 160 90 C 204.5 176, 245.5 176, 290 90 Z" fill="url(#troughAura)" />
-
-    <!-- Sleek Subtle Baseline Axis Line -->
-    <line x1="20" y1="90" x2="300" y2="90" stroke="rgba(11,31,58,0.12)" stroke-width="1.2" stroke-dasharray="3 4" />
-
-    <!-- Base Track: Green Upper Half (Start to Zero) -->
-    <path d="M 30 90 C 74.5 4, 115.5 4, 160 90" 
-          fill="none" 
-          stroke="url(#crestNeon)" 
+    <!-- SINGLE PLAIN SINE WAVE LINE: Green pulses UP, Red pulses DOWN -->
+    <path fill="none" 
+          stroke="url(#liveWaveGrad)" 
           stroke-width="7" 
-          stroke-linecap="round"
-          filter="url(#neonGlow)" />
-
-    <!-- Base Track: Red Lower Half (Zero to End) -->
-    <path d="M 160 90 C 204.5 176, 245.5 176, 290 90" 
-          fill="none" 
-          stroke="url(#troughNeon)" 
-          stroke-width="7" 
-          stroke-linecap="round"
-          filter="url(#neonGlow)" />
-
-    <!-- LIVE TRAVELING ENERGY BEAM (Full Continuous Wave with Sweep Animation) -->
-    <path class="sweep-trail"
-          d="M 30 90 C 74.5 4, 115.5 4, 160 90 C 204.5 176, 245.5 176, 290 90"
-          fill="none"
-          stroke="url(#liveWaveGrad)"
-          stroke-width="10"
-          stroke-linecap="round"
-          filter="url(#neonGlow)" />
-
-    <!-- LIVE TRAVELING TRACER PARTICLE (Triggers in green at start, travels over crest, morphs to red in trough, and exits at end) -->
-    <g>
-      <!-- Outer Pulsing Halo -->
-      <circle r="9" opacity="0.6">
-        <animateMotion path="M 30 90 C 74.5 4, 115.5 4, 160 90 C 204.5 176, 245.5 176, 290 90" 
-                       dur="2.6s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="spline" keySplines="0.4 0 0.2 1" />
-        <animate attributeName="fill" 
-                 values="#00F5A0;#00F5A0;#10B981;#F59E0B;#EF4444;#FF1361;#FF1361" 
-                 keyTimes="0;0.25;0.45;0.52;0.7;0.9;1" dur="2.6s" repeatCount="indefinite" />
-        <animate attributeName="r" values="7;11;7" dur="1.3s" repeatCount="indefinite" />
-      </circle>
-
-      <!-- Inner High-Intensity Particle Core -->
-      <circle r="4.5" fill="#FFFFFF" filter="url(#particleGlow)">
-        <animateMotion path="M 30 90 C 74.5 4, 115.5 4, 160 90 C 204.5 176, 245.5 176, 290 90" 
-                       dur="2.6s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="spline" keySplines="0.4 0 0.2 1" />
-      </circle>
-    </g>
-
-    <!-- Crest Fixed Quant Indicator (Start / Peak Edge) -->
-    <circle cx="95" cy="26" r="3.5" fill="#00F5A0" />
-    <circle cx="95" cy="26" r="7" fill="none" stroke="#00F5A0" stroke-width="1" opacity="0.4" />
-
-    <!-- Trough Fixed Quant Indicator (Trough Value Edge) -->
-    <circle cx="225" cy="154" r="3.5" fill="#FF1361" />
-    <circle cx="225" cy="154" r="7" fill="none" stroke="#FF1361" stroke-width="1" opacity="0.4" />
-
-    <!-- Center Zero-Crossing Node -->
-    <circle cx="160" cy="90" r="3" fill="#C29B40" opacity="0.7" />
+          stroke-linecap="round" 
+          stroke-linejoin="round">
+      <animate attributeName="d" 
+        dur="2.8s" 
+        repeatCount="indefinite"
+        calcMode="spline"
+        keyTimes="0; 0.25; 0.5; 0.75; 1"
+        keySplines="0.45 0 0.25 1; 0.45 0 0.25 1; 0.45 0 0.25 1; 0.45 0 0.25 1"
+        values="
+          M 30 90 C 76 44, 114 44, 160 90 C 206 136, 244 136, 290 90;
+          M 30 90 C 68 20, 110 30, 160 90 C 202 160, 244 150, 290 90;
+          M 30 90 C 74 12, 116 12, 160 90 C 204 168, 246 168, 290 90;
+          M 30 90 C 80 30, 122 20, 160 90 C 210 150, 252 160, 290 90;
+          M 30 90 C 76 44, 114 44, 160 90 C 206 136, 244 136, 290 90
+        " />
+    </path>
   </g>
 
-  <!-- ELEGANT VERTICAL SEPARATOR WITH BRASS ACCENT -->
-  <line x1="335" y1="26" x2="335" y2="154" stroke="rgba(11,31,58,0.18)" stroke-width="1.8" />
-  <circle cx="335" cy="90" r="2.5" fill="#C29B40" />
+  <!-- CLEAN SLEEK VERTICAL SEPARATOR (NO DOTS) -->
+  <line x1="335" y1="28" x2="335" y2="152" stroke="rgba(11,31,58,0.18)" stroke-width="1.8" stroke-linecap="round" />
 
   <!-- BRAND TYPOGRAPHY -->
   <g id="brand-text">
     <text x="375" y="98" 
           font-family="'Fraunces', Georgia, serif" 
           font-weight="700" 
-          font-size="68" 
-          letter-spacing="5" 
+          font-size="66" 
+          letter-spacing="4.5" 
           fill="#0B1F3A">STRIKEPOINT</text>
 
     <text x="380" y="144" 
-          font-family="'Hanken Grotesk', system-ui, sans-serif" 
+          font-family="'Hanken Grotesk', system-ui, -apple-system, sans-serif" 
           font-weight="600" 
           font-size="28" 
           letter-spacing="14" 

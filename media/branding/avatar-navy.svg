@@ -1,24 +1,35 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
   <defs>
-    <linearGradient id="crestFav" x1="0%" y1="100%" x2="0%" y2="0%">
+    <!-- Seamless Gradient for Icon -->
+    <linearGradient id="favWaveGrad" x1="16" y1="60" x2="104" y2="60" gradientUnits="userSpaceOnUse">
       <stop offset="0%" stop-color="#00D26A" />
-      <stop offset="100%" stop-color="#00F5A0" />
-    </linearGradient>
-    <linearGradient id="troughFav" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#FF3860" />
+      <stop offset="44%" stop-color="#00F5A0" />
+      <stop offset="49.8%" stop-color="#10B981" />
+      <stop offset="50.2%" stop-color="#EF4444" />
+      <stop offset="56%" stop-color="#FF3860" />
       <stop offset="100%" stop-color="#FF1361" />
     </linearGradient>
-    <filter id="fGlow" x="-20%" y="-20%" width="140%" height="140%">
-      <feDropShadow dx="0" dy="0" stdDeviation="3" flood-color="#00F5A0" flood-opacity="0.6"/>
-    </filter>
   </defs>
   <rect width="120" height="120" rx="28" fill="#0B1F3A" />
-  <!-- Green crest -->
-  <path d="M 16 60 C 33 20, 47 20, 60 60" fill="none" stroke="url(#crestFav)" stroke-width="7" stroke-linecap="round" />
-  <!-- Red trough -->
-  <path d="M 60 60 C 73 100, 87 100, 104 60" fill="none" stroke="url(#troughFav)" stroke-width="7" stroke-linecap="round" />
-  <!-- Traveling live energy dot -->
-  <circle r="4.5" fill="#FFFFFF" filter="url(#fGlow)">
-    <animateMotion path="M 16 60 C 33 20, 47 20, 60 60 C 73 100, 87 100, 104 60" dur="2.4s" repeatCount="indefinite" />
-  </circle>
+
+  <!-- Single Plain Sine Wave Line: Green Moves UP, Red Moves DOWN (No Dots) -->
+  <path fill="none" 
+        stroke="url(#favWaveGrad)" 
+        stroke-width="7.5" 
+        stroke-linecap="round" 
+        stroke-linejoin="round">
+    <animate attributeName="d" 
+      dur="2.8s" 
+      repeatCount="indefinite"
+      calcMode="spline"
+      keyTimes="0; 0.25; 0.5; 0.75; 1"
+      keySplines="0.45 0 0.25 1; 0.45 0 0.25 1; 0.45 0 0.25 1; 0.45 0 0.25 1"
+      values="
+        M 16 60 C 32 30, 44 30, 60 60 C 76 90, 88 90, 104 60;
+        M 16 60 C 30 16, 42 22, 60 60 C 78 104, 90 98, 104 60;
+        M 16 60 C 31 12, 45 12, 60 60 C 75 108, 89 108, 104 60;
+        M 16 60 C 34 22, 46 16, 60 60 C 74 98, 86 104, 104 60;
+        M 16 60 C 32 30, 44 30, 60 60 C 76 90, 88 90, 104 60
+      " />
+  </path>
 </svg>
