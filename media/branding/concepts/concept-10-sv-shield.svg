@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 180" width="1120" height="180">
+  <!-- CONCEPT 10: THE ALPHA HERITAGE SHIELD SV (LIGHT) -->
+  <g id="c10-mark" transform="translate(45, 0)">
+    <!-- Classic Pointed Knight / Banking Shield -->
+    <path d="M 64 36 H 176 V 94 C 176 136, 120 160, 120 160 C 120 160, 64 136, 64 94 Z" fill="none" stroke="#0B1F3A" stroke-width="3" stroke-linejoin="round" />
+    <!-- Diagonal Alpha Slice -->
+    <line x1="64" y1="120" x2="176" y2="44" stroke="#C29B40" stroke-width="2" stroke-linecap="round" />
+    <polygon points="176,44 164,48 168,54" fill="#C29B40" />
+    <!-- Roman Serif SV -->
+    <text x="120" y="104" font-family="'Cinzel', 'Fraunces', Georgia, serif" font-weight="700" font-size="46" letter-spacing="3" fill="#0B1F3A" text-anchor="middle">SV</text>
+    <circle cx="120" cy="128" r="3" fill="#C29B40" />
+  </g>
+  <line x1="335" y1="28" x2="335" y2="152" stroke="rgba(11,31,58,0.18)" stroke-width="1.8" stroke-linecap="round" />
+  <g id="brand-text">
+    <text x="375" y="98" font-family="'Fraunces', Georgia, serif" font-weight="700" font-size="66" letter-spacing="4.5" fill="#0B1F3A">STRIKEPOINT</text>
+    <text x="380" y="144" font-family="'Hanken Grotesk', system-ui, -apple-system, sans-serif" font-weight="600" font-size="28" letter-spacing="14" fill="#C29B40">VENTURES</text>
+  </g>
+</svg>

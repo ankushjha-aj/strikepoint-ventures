@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 180" width="1120" height="180">
+  <!-- CONCEPT 8: THE DUAL-RING ASTROLABE SV (LIGHT) -->
+  <g id="c8-mark" transform="translate(45, 0)">
+    <!-- Celestial Tilted Ring 1 (Gold) -->
+    <ellipse cx="120" cy="90" rx="64" ry="24" transform="rotate(-30 120 90)" fill="none" stroke="#C29B40" stroke-width="2.5" />
+    <!-- Celestial Tilted Ring 2 (Navy) -->
+    <ellipse cx="120" cy="90" rx="64" ry="24" transform="rotate(30 120 90)" fill="none" stroke="#0B1F3A" stroke-width="2.5" />
+    <!-- Outer Meridian Circle -->
+    <circle cx="120" cy="90" r="62" fill="none" stroke="rgba(11,31,58,0.25)" stroke-width="1.2" stroke-dasharray="3 3" />
+    <circle cx="120" cy="90" r="4" fill="#C29B40" />
+    <!-- Central Roman Serif 'SV' -->
+    <text x="120" y="105" font-family="'Cinzel', 'Fraunces', Georgia, serif" font-weight="700" font-size="44" letter-spacing="3" fill="#0B1F3A" text-anchor="middle">SV</text>
+  </g>
+  <line x1="335" y1="28" x2="335" y2="152" stroke="rgba(11,31,58,0.18)" stroke-width="1.8" stroke-linecap="round" />
+  <g id="brand-text">
+    <text x="375" y="98" font-family="'Fraunces', Georgia, serif" font-weight="700" font-size="66" letter-spacing="4.5" fill="#0B1F3A">STRIKEPOINT</text>
+    <text x="380" y="144" font-family="'Hanken Grotesk', system-ui, -apple-system, sans-serif" font-weight="600" font-size="28" letter-spacing="14" fill="#C29B40">VENTURES</text>
+  </g>
+</svg>

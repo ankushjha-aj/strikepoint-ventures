@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 180" width="1120" height="180">
+  <!-- CONCEPT 8: THE DUAL-RING ASTROLABE SV (DARK) -->
+  <g id="c8-mark-dark" transform="translate(45, 0)">
+    <ellipse cx="120" cy="90" rx="64" ry="24" transform="rotate(-30 120 90)" fill="none" stroke="#D7B231" stroke-width="2.5" />
+    <ellipse cx="120" cy="90" rx="64" ry="24" transform="rotate(30 120 90)" fill="none" stroke="#FFFFFF" stroke-width="2.5" />
+    <circle cx="120" cy="90" r="62" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="1.2" stroke-dasharray="3 3" />
+    <circle cx="120" cy="90" r="4" fill="#D7B231" />
+    <text x="120" y="105" font-family="'Cinzel', 'Fraunces', Georgia, serif" font-weight="700" font-size="44" letter-spacing="3" fill="#FFFFFF" text-anchor="middle">SV</text>
+  </g>
+  <line x1="335" y1="28" x2="335" y2="152" stroke="rgba(255,255,255,0.2)" stroke-width="1.8" stroke-linecap="round" />
+  <g id="brand-text-dark">
+    <text x="375" y="98" font-family="'Fraunces', Georgia, serif" font-weight="700" font-size="66" letter-spacing="4.5" fill="#FFFFFF">STRIKEPOINT</text>
+    <text x="380" y="144" font-family="'Hanken Grotesk', system-ui, -apple-system, sans-serif" font-weight="600" font-size="28" letter-spacing="14" fill="#D7B231">VENTURES</text>
+  </g>
+</svg>

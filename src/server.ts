@@ -74,7 +74,14 @@ app.post('/api/set-logo', (req: Request, res: Response) => {
     2: { light: 'concept-2-stp-monogram.svg', dark: 'concept-2-stp-monogram-dark.svg' },
     3: { light: 'concept-3-stv-shield.svg', dark: 'concept-3-stv-shield-dark.svg' },
     4: { light: 'concept-4-stp-pillar.svg', dark: 'concept-4-stp-pillar-dark.svg' },
-    5: { light: 'concept-5-sv-compass.svg', dark: 'concept-5-sv-compass-dark.svg' }
+    5: { light: 'concept-5-sv-compass.svg', dark: 'concept-5-sv-compass-dark.svg' },
+    6: { light: 'concept-6-stp-guilloche.svg', dark: 'concept-6-stp-guilloche-dark.svg' },
+    7: { light: 'concept-7-stv-crown.svg', dark: 'concept-7-stv-crown-dark.svg' },
+    8: { light: 'concept-8-sv-astrolabe.svg', dark: 'concept-8-sv-astrolabe-dark.svg' },
+    9: { light: 'concept-9-spv-trinity.svg', dark: 'concept-9-spv-trinity-dark.svg' },
+    10: { light: 'concept-10-sv-shield.svg', dark: 'concept-10-sv-shield-dark.svg' },
+    11: { light: 'concept-11-stp-compass.svg', dark: 'concept-11-stp-compass-dark.svg' },
+    12: { light: 'concept-12-stv-signet.svg', dark: 'concept-12-stv-signet-dark.svg' }
   };
 
   const selected = conceptMap[conceptId];

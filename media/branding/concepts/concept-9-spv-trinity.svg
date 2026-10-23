@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 180" width="1120" height="180">
+  <!-- CONCEPT 9: THE TRINITY DELTA KNOT SPV (LIGHT) -->
+  <g id="c9-mark" transform="translate(45, 0)">
+    <!-- Triquetra / Trinity Knot Interlacing Arcs -->
+    <path d="M 120 28 C 155 58, 175 105, 150 142 C 115 130, 85 130, 90 142 C 65 105, 85 58, 120 28 Z" fill="none" stroke="#C29B40" stroke-width="2.5" />
+    <path d="M 70 120 C 85 85, 130 65, 168 90 C 155 125, 140 145, 150 142 C 105 155, 75 135, 70 120 Z" fill="none" stroke="#0B1F3A" stroke-width="2.2" />
+    <circle cx="120" cy="90" r="54" fill="none" stroke="rgba(11,31,58,0.18)" stroke-width="1.2" />
+    <!-- Monogram SPV -->
+    <text x="120" y="99" font-family="'Cinzel', 'Fraunces', Georgia, serif" font-weight="700" font-size="38" letter-spacing="3" fill="#0B1F3A" text-anchor="middle">SPV</text>
+    <polygon points="120,114 123,119 120,124 117,119" fill="#C29B40" />
+  </g>
+  <line x1="335" y1="28" x2="335" y2="152" stroke="rgba(11,31,58,0.18)" stroke-width="1.8" stroke-linecap="round" />
+  <g id="brand-text">
+    <text x="375" y="98" font-family="'Fraunces', Georgia, serif" font-weight="700" font-size="66" letter-spacing="4.5" fill="#0B1F3A">STRIKEPOINT</text>
+    <text x="380" y="144" font-family="'Hanken Grotesk', system-ui, -apple-system, sans-serif" font-weight="600" font-size="28" letter-spacing="14" fill="#C29B40">VENTURES</text>
+  </g>
+</svg>
