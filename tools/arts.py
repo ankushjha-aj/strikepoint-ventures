@@ -181,16 +181,20 @@ def _hero_art():
         a = math.radians(deg - 90)
         return cx + r * math.cos(a), cy + r * math.sin(a)
     sw, cap, res = at(0), at(120), at(240)
-    pts = [(140, 262), (156, 255), (170, 259), (184, 245), (198, 248), (212, 233), (226, 237), (240, 219),
-           (254, 223), (268, 202), (282, 206), (296, 184), (310, 171), (322, 150)]
-    line = "M" + " L".join("%d %d" % p for p in pts)
-    area = line + " L322 300 L140 300 Z"
-    grid = "".join('<path d="M%d 80V330"/>' % x for x in range(118, 345, 28)) + \
-           "".join('<path d="M105 %dH355"/>' % y for y in range(93, 320, 28))
+    # daily profit / loss bars in a row; no axis line between them
+    pl = [8, -5, 12, 6, -9, 15, -4, 10, 18, -7, 13, 22, -6, 17, 26, -8, 20, 30]
+    step, bw, zero = 11, 6, 212
+    x0 = cx - (len(pl) - 1) * step / 2
+    bars_svg = []
+    for k, v in enumerate(pl):
+        h = abs(v) * 1.9
+        x = x0 + k * step - bw / 2
+        if v >= 0:
+            bars_svg.append('<rect class="hx-pl hx-pl--p" style="--i:%d" x="%.1f" y="%.1f" width="%d" height="%.1f" rx="1.5"/>' % (k, x, zero - 2 - h, bw, h))
+        else:
+            bars_svg.append('<rect class="hx-pl hx-pl--l" style="--i:%d" x="%.1f" y="%.1f" width="%d" height="%.1f" rx="1.5"/>' % (k, x, zero + 2, bw, h))
     out = ['<svg class="hx" viewBox="0 0 460 400" fill="none" aria-hidden="true">',
            '<defs>',
-           '<clipPath id="hxClip"><circle cx="%d" cy="%d" r="112"/></clipPath>' % (cx, cy),
-           '<linearGradient id="hxArea" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#C29B40" stop-opacity=".38"/><stop offset="1" stop-color="#C29B40" stop-opacity="0"/></linearGradient>',
            '<linearGradient id="hxGold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#E2B95A"/><stop offset="1" stop-color="#A57A18"/></linearGradient>',
            '<radialGradient id="hxCore" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#FFFDF7" stop-opacity=".9"/><stop offset="1" stop-color="#FFFDF7" stop-opacity="0"/></radialGradient>',
            '<filter id="hxGlow" x="-50%" y="-50%" width="200%" height="200%"><feDropShadow dx="0" dy="0" stdDeviation="3.5" flood-color="#C29B40" flood-opacity=".8"/></filter>',
@@ -200,13 +204,8 @@ def _hero_art():
            '<g class="hx-dial"><circle cx="%d" cy="%d" r="172" stroke="#0B1F3A" stroke-opacity=".22" stroke-width="6" stroke-dasharray="1.2 10.5"/>'
            '<circle cx="%d" cy="%d" r="172" stroke="#B08D3C" stroke-opacity=".6" stroke-width="10" stroke-dasharray="1.6 88.4"/></g>' % (cx, cy, cx, cy),
            # inner chart, clipped to a circle
-           '<g clip-path="url(#hxClip)"><g class="hx-grid" stroke="#8A6A22" stroke-opacity=".12" stroke-width="1">%s</g>' % grid,
-           '<path d="M100 275H360" stroke="#0B1F3A" stroke-opacity=".25" stroke-dasharray="3 5"/>',
-           '<path class="hx-area" d="%s" fill="url(#hxArea)"/>' % area,
-           '<path class="hx-line" pathLength="1" d="%s" stroke="#0B1F3A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></g>' % line,
            '<circle cx="%d" cy="%d" r="112" stroke="#0B1F3A" stroke-opacity=".12"/>' % (cx, cy),
-           '<circle class="hx-peak-halo" cx="322" cy="150" r="7" stroke="#B08D3C" stroke-width="1.6"/>',
-           '<circle class="hx-peak" cx="322" cy="150" r="5.5" fill="#B08D3C" stroke="#FFFDF7" stroke-width="2"/>',
+           '<g>%s</g>' % "".join(bars_svg),
            # the loop ring
            '<circle cx="%d" cy="%d" r="%d" stroke="#0B1F3A" stroke-opacity=".14" stroke-width="1.5"/>' % (cx, cy, R),
            '<circle class="hx-ring" pathLength="1" cx="%d" cy="%d" r="%d" stroke="#B08D3C" stroke-width="2.2" transform="rotate(-90 %d %d)"/>' % (cx, cy, R, cx, cy),

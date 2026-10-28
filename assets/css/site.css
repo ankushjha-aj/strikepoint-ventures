@@ -367,13 +367,13 @@ p{text-wrap:pretty}
 .burger span{width:22px;height:2px;background:var(--navy)}
 
 /* ---------- home hero ---------- */
-.hero{position:relative;padding:clamp(4rem,10vh,7rem) 0 clamp(1rem,3vh,2rem);display:flex;align-items:center}
+.hero{position:relative;padding:clamp(3rem,7vh,4.5rem) 0 clamp(.5rem,2vh,1.5rem);display:flex;align-items:center}
 .hero>.wrap{width:100%}
-.hero__grid{position:relative;z-index:1;display:grid;grid-template-columns:1.12fr .88fr;gap:clamp(2.5rem,5vw,5rem);align-items:center}
-.hero h1{font-size:clamp(2.5rem,4.3vw,4.15rem);line-height:1.08;margin:1.3rem 0 1.4rem;letter-spacing:-.02em}
+.hero__grid{position:relative;z-index:1;display:grid;grid-template-columns:1.25fr .75fr;gap:clamp(2rem,5vw,5rem);align-items:center}
+.hero h1{font-size:clamp(2.1rem,3.3vw,3.2rem);line-height:1.12;margin:1.1rem 0 1.2rem;letter-spacing:-.015em}
 .hero h1 em{font-style:normal;color:var(--gold-d)}
 .hero .lead{max-width:58ch}
-.hero__art{position:relative;padding:clamp(1rem,2vw,1.8rem)}
+.hero__art{position:relative;padding:clamp(.5rem,1.5vw,1.2rem);max-width:460px;justify-self:center;width:100%}
 /* faint grid behind the artwork, fading out at the edges so it melts into the beige */
 .pp__art::before,.diagram::before,.loop__art::before{content:"";position:absolute;inset:-6%;pointer-events:none;
   background-image:linear-gradient(rgba(138,106,34,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(138,106,34,.07) 1px,transparent 1px);background-size:36px 36px;
@@ -650,7 +650,7 @@ section.cta p{color:var(--muted);max-width:62ch;font-size:clamp(1.03rem,1.2vw,1.
 @media(max-width:900px){
   .hero__grid,.pp__grid,.flow,.duo,.contact,.hub,.loop__panel.on,.about-hero__grid,.about-grid{grid-template-columns:1fr}
   .hero{min-height:0}
-  .hero__art{max-width:520px}
+  .hero__art{max-width:340px;justify-self:start}
   .bento{grid-template-columns:1fr 1fr}.cell,.cell.x4,.cell.x3,.cell.x6{grid-column:span 2}
   .flow__intro,.hub__stage{position:static}
   .hub__nav button i{display:none}
@@ -674,10 +674,10 @@ section.cta p{color:var(--muted);max-width:62ch;font-size:clamp(1.03rem,1.2vw,1.
 .hx{overflow:visible}
 .hx-dial{transform-box:view-box;transform-origin:230px 205px;animation:hxSpin 90s linear infinite}
 .hx-ring{stroke-dasharray:1;stroke-dashoffset:1;animation:hxDraw 2s cubic-bezier(.65,0,.35,1) .2s forwards}
-.hx-line{stroke-dasharray:1;stroke-dashoffset:1;animation:hxDraw 1.8s cubic-bezier(.4,0,.2,1) 1.1s forwards}
-.hx-area{opacity:0;animation:fadeIn 1s ease 2.3s forwards}
-.hx-peak{opacity:0;animation:fadeIn .4s ease 2.8s forwards}
-.hx-peak-halo{transform-box:fill-box;transform-origin:center;opacity:0;animation:hxPulse 2.4s ease-out 3s infinite}
+.hx-pl{transform-box:fill-box;transform:scaleY(0);animation:hxBar 10s cubic-bezier(.2,.8,.2,1) infinite;animation-delay:calc(1.2s + var(--i) * 90ms)}
+.hx-pl--p{fill:#1F7A55;fill-opacity:.85;transform-origin:center bottom}
+.hx-pl--l{fill:#B04A3E;fill-opacity:.8;transform-origin:center top}
+@keyframes hxBar{0%{transform:scaleY(0)}8%,88%{transform:scaleY(1)}96%,100%{transform:scaleY(0)}}
 .hx-node{transform-box:fill-box;transform-origin:center;opacity:0;transform:scale(.6);animation:hxPop .7s cubic-bezier(.2,.9,.25,1.25) forwards}
 .hx-n3{animation-delay:.5s}.hx-n1{animation-delay:.8s}.hx-n2{animation-delay:1.1s}
 .hx-runner{transform-box:view-box;transform-origin:230px 205px;opacity:0;animation:fadeIn .4s ease 2.2s forwards,hxSpin 9s linear 2.2s infinite}
@@ -689,7 +689,7 @@ section.cta p{color:var(--muted);max-width:62ch;font-size:clamp(1.03rem,1.2vw,1.
 @keyframes hxPing{0%{opacity:.8;transform:scale(1)}14%{opacity:0;transform:scale(1.6)}100%{opacity:0;transform:scale(1.6)}}
 @keyframes hxPulse{0%{opacity:.8;transform:scale(1)}70%,100%{opacity:0;transform:scale(2.4)}}
 @media(prefers-reduced-motion:reduce){
-  .hx-dial,.hx-runner,.hx-halo,.hx-peak-halo{animation:none!important}
-  .hx-ring,.hx-line{animation:none!important;stroke-dashoffset:0}
-  .hx-area,.hx-peak,.hx-node,.hx-runner{animation:none!important;opacity:1;transform:none}
+  .hx-dial,.hx-runner,.hx-halo{animation:none!important}
+  .hx-ring{animation:none!important;stroke-dashoffset:0}
+  .hx-pl,.hx-node,.hx-runner{animation:none!important;opacity:1;transform:none}
 }
