@@ -256,3 +256,71 @@ ART_ARCH = '''<svg viewBox="0 0 520 430" fill="none" aria-hidden="true">
   <g font-family="DM Sans,system-ui,sans-serif" font-size="11" font-weight="700" letter-spacing="1.6"><rect x="428" y="196" width="80" height="48" rx="14" fill="#fff" stroke="#B38A2A"/><text x="468" y="216" text-anchor="middle" fill="#8a6a1c">KILL</text><text x="468" y="231" text-anchor="middle" fill="#8a6a1c">SWITCH</text></g>
 </svg>'''
 
+
+
+def _spline(pts):
+    """Smooth Catmull-Rom path through points."""
+    d = "M %.1f %.1f" % pts[0]
+    for k in range(len(pts) - 1):
+        p0 = pts[k - 1] if k else pts[k]
+        p1, p2 = pts[k], pts[k + 1]
+        p3 = pts[k + 2] if k + 2 < len(pts) else p2
+        c1 = (p1[0] + (p2[0] - p0[0]) / 6, p1[1] + (p2[1] - p0[1]) / 6)
+        c2 = (p2[0] - (p3[0] - p1[0]) / 6, p2[1] - (p3[1] - p1[1]) / 6)
+        d += " C %.1f %.1f %.1f %.1f %.1f %.1f" % (c1 + c2 + p2)
+    return d
+
+
+def _validate_art():
+    """Backtest validation: simulated paths fan out, the expected range fills in,
+    the strategy's equity line draws through in-sample and out-of-sample periods,
+    then a 'validated' seal appears. Loops."""
+    import random
+    x0, x1, y0, N = 44, 536, 262, 34
+    xs = [x0 + i * (x1 - x0) / (N - 1) for i in range(N)]
+    split = xs[22]
+
+    def walk(seed, drift=4.2, vol=7.5):
+        r = random.Random(seed)
+        v, out = 0.0, [0.0]
+        for _ in range(N - 1):
+            v += drift + r.gauss(0, vol)
+            out.append(v)
+        return out
+
+    sims = [walk(s) for s in range(1, 61)]
+    lo = [sorted(s[i] for s in sims)[6] for i in range(N)]
+    hi = [sorted(s[i] for s in sims)[53] for i in range(N)]
+    main = walk(424, 4.6, 5.0)
+    Y = lambda v: y0 - 14 - v * 1.02
+    band = _spline([(x, Y(v)) for x, v in zip(xs, hi)]) + " L" + _spline([(x, Y(v)) for x, v in reversed(list(zip(xs, lo)))])[1:] + " Z"
+    paths = "".join('<path class="vx-sim" style="--i:%d" pathLength="1" d="%s"/>' % (k, _spline([(x, Y(v)) for x, v in zip(xs, sims[s])]))
+                    for k, s in enumerate([3, 8, 15, 22, 31, 40, 47, 55]))
+    ex, ey = xs[-1], Y(main[-1])
+    grid = "".join('<path d="M%d %.0fH%d"/>' % (x0, y, x1) for y in (102, 142, 182, 222))
+    return (
+        '<svg class="vx" viewBox="0 0 580 330" fill="none" shape-rendering="geometricPrecision" aria-hidden="true">'
+        '<defs><linearGradient id="vxBand" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#C29B40" stop-opacity=".22"/>'
+        '<stop offset="1" stop-color="#C29B40" stop-opacity=".06"/></linearGradient>'
+        '<linearGradient id="vxSeal" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#E2B95A"/><stop offset="1" stop-color="#A57A18"/></linearGradient></defs>'
+        # out-of-sample zone
+        '<rect x="%.1f" y="44" width="%.1f" height="218" fill="#0B1F3A" fill-opacity=".035"/>'
+        '<path d="M%.1f 44V262" stroke="#0B1F3A" stroke-opacity=".3" stroke-dasharray="3 5"/>'
+        '<g font-family="IBM Plex Mono,ui-monospace,monospace" font-size="10" font-weight="600" letter-spacing="1.6" fill="#7A7F8A">'
+        '<text x="%d" y="34">IN-SAMPLE</text><text x="%.1f" y="34">OUT-OF-SAMPLE</text></g>'
+        '<g stroke="#0B1F3A" stroke-opacity=".07">%s</g>'
+        '<path d="M%d 262H%d" stroke="#0B1F3A" stroke-opacity=".3" stroke-width="1.4"/>'
+        '<path class="vx-band" d="%s" fill="url(#vxBand)"/>'
+        '<g stroke="#6E8BB0" stroke-width="1.3" stroke-opacity=".55">%s</g>'
+        '<path class="vx-main" pathLength="1" d="%s" stroke="#0B1F3A" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>'
+        '<circle class="vx-end-halo" cx="%.1f" cy="%.1f" r="7" stroke="#C29B40" stroke-width="1.6"/>'
+        '<circle class="vx-end" cx="%.1f" cy="%.1f" r="5.5" fill="#C29B40" stroke="#FFFDF7" stroke-width="2"/>'
+        '<g transform="translate(%.1f %.1f)"><g class="vx-seal">'
+        '<circle r="23" fill="url(#vxSeal)"/><circle r="18.5" stroke="#FFFDF7" stroke-opacity=".6"/>'
+        '<path d="M-8 0.5 L-2.5 6 L8.5 -5.5" stroke="#0B1F3A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></g></g>'
+        '</svg>') % (
+        split, x1 - split, split, x0, split + 10, grid, x0, x1, band, paths,
+        _spline([(x, Y(v)) for x, v in zip(xs, main)]), ex, ey, ex, ey, ex - 40, ey - 4 - 42)
+
+
+ART_VALIDATE = _validate_art()

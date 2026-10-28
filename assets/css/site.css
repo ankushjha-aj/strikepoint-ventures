@@ -706,3 +706,36 @@ section.cta p{color:var(--muted);max-width:62ch;font-size:clamp(1.03rem,1.2vw,1.
   #loop .loop__panel{grid-column:1 / -1}
   #loop .loop__tabs button{padding:.9em 1.8em;font-size:1rem}
 }
+
+/* ---------- home: research panel — backtest validation ---------- */
+.vx{overflow:visible}
+.vx-sim{stroke-dasharray:1;stroke-dashoffset:1;animation:vxSim 10s cubic-bezier(.4,0,.2,1) infinite;animation-delay:calc(var(--i) * 80ms)}
+.vx-band{opacity:0;animation:vxBand 10s ease infinite}
+.vx-main{stroke-dasharray:1;stroke-dashoffset:1;animation:vxMain 10s cubic-bezier(.45,0,.25,1) infinite}
+.vx-end{opacity:0;animation:vxEnd 10s ease infinite}
+.vx-end-halo{transform-box:fill-box;transform-origin:center;opacity:0;animation:vxHalo 10s ease-out infinite}
+.vx-seal{transform-box:fill-box;transform-origin:center;opacity:0;transform:scale(.4);animation:vxSeal 10s cubic-bezier(.2,.9,.25,1.25) infinite}
+@keyframes vxSim{0%{stroke-dashoffset:1;opacity:1}22%{stroke-dashoffset:0}88%{stroke-dashoffset:0;opacity:1}96%,100%{stroke-dashoffset:0;opacity:0}}
+@keyframes vxBand{0%,16%{opacity:0}30%,88%{opacity:1}96%,100%{opacity:0}}
+@keyframes vxMain{0%,24%{stroke-dashoffset:1;opacity:1}60%{stroke-dashoffset:0}88%{stroke-dashoffset:0;opacity:1}96%,100%{stroke-dashoffset:0;opacity:0}}
+@keyframes vxEnd{0%,59%{opacity:0}62%,88%{opacity:1}96%,100%{opacity:0}}
+@keyframes vxHalo{0%,62%{opacity:0;transform:scale(1)}64%{opacity:.8}74%{opacity:0;transform:scale(2.6)}100%{opacity:0}}
+@keyframes vxSeal{0%,62%{opacity:0;transform:scale(.4)}68%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:scale(.9)}}
+@media(prefers-reduced-motion:reduce){
+  .vx-sim,.vx-main{animation:none!important;stroke-dashoffset:0}
+  .vx-band,.vx-end,.vx-seal{animation:none!important;opacity:1;transform:none}
+  .vx-end-halo{animation:none!important}
+}
+
+/* ---------- links: every clickable text turns navy on hover ---------- */
+.menu>a:not(.menu__cta),.drop>button{color:var(--muted)}
+.menu>a:not(.menu__cta):hover,.drop>button:hover,.menu>a.on,.drop>button.on{color:var(--navy)}
+.drop__panel a{color:var(--muted)}
+.drop__panel a:hover{color:var(--navy)}
+.more{color:var(--gold-d)}
+.more:hover{color:var(--navy);border-bottom-color:var(--navy)}
+.reach a,.reach a.mail,.foot__mail{color:var(--gold-d)}
+.reach a:hover,.reach a.mail:hover,.foot__mail:hover{color:var(--navy)}
+.foot__links a,.foot__legal-links button,.crumb,.cats span{color:var(--muted)}
+.foot__links a:hover,.foot__legal-links button:hover,.crumb:hover,.cats span:hover,.cats span.on{color:var(--navy)}
+.brand:hover .brand__txt b{color:var(--navy)}

@@ -209,7 +209,7 @@ def build_home():
             '<div class="loop__panel" data-t="t"><div><span class="tag">Proprietary Desk</span><h3>We trade our own money.</h3>'
             '<p>Tested proprietary strategies with an edge that has lasted for years. We trade our own capital using fully automated, risk managed systems that need very little human intervention. Real markets, not only backtests.</p>'
             '<a class="btn btn--solid" href="/services/proprietary-desk">See the Proprietary Desk →</a></div><div class="loop__art">%s</div></div>'
-            '</div></div></section>') % (tag("How we work"), ART_RESEARCH, ART_PROP)
+            '</div></div></section>') % (tag("How we work"), ART_VALIDATE, ART_PROP)
 
     blog = ('<section class="sec"><div class="wrap"><div class="sec__head rv">%s<h2>Latest from the blog</h2></div>'
             '<p class="empty rv">New posts are on the way. Check back soon.</p></div></section>') % tag("Latest")
