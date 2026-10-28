@@ -262,7 +262,7 @@
   --display:var(--serif);
   --r:10px; --r-sm:6px; --w:1280px;
   --pad:clamp(20px,4vw,48px);
-  --sec:clamp(4rem,8vw,6.5rem);
+  --sec:clamp(3.5rem,6vw,5rem);
   --a:#F7F3EA; --mid:#F4EFE4; --b:#EFE8D9;
   --shadow:0 1px 0 rgba(17,20,24,.04),0 18px 40px -28px rgba(11,31,58,.28);
 }
@@ -373,7 +373,7 @@ p{text-wrap:pretty}
 .hero__grid{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,4vw,4rem);align-items:center}
 .hero h1{font-size:clamp(1.9rem,2.7vw,2.6rem);line-height:1.15;margin:1rem 0 1.1rem;letter-spacing:-.015em}
 .hero h1 em{font-style:normal;color:var(--gold-d)}
-.hero .lead{max-width:58ch}
+.hero .lead{max-width:58ch;font-size:clamp(.98rem,1.05vw,1.06rem);line-height:1.7}
 .hero__art{position:relative;padding:clamp(.5rem,1.5vw,1.2rem);max-width:620px;justify-self:end;width:100%}
 /* faint grid behind the artwork, fading out at the edges so it melts into the beige */
 .pp__art::before,.diagram::before,.loop__art::before{content:"";position:absolute;inset:-6%;pointer-events:none;
@@ -429,9 +429,10 @@ p{text-wrap:pretty}
 .flow__list .pill{font-family:var(--mono);font-size:.66rem;letter-spacing:.12em;font-weight:600;color:var(--profit);border:1px solid rgba(31,122,85,.45);border-radius:4px;padding:.2em .6em}
 
 /* ---------- statement band ---------- */
-.statement{position:relative;padding:var(--sec) 0;margin-top:var(--sec);background:color-mix(in srgb,var(--bg-2) 78%,transparent);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.statement{position:relative;padding:clamp(2.5rem,4.5vw,3.5rem) 0;margin-top:clamp(2.5rem,4.5vw,3.5rem);background:color-mix(in srgb,var(--bg-2) 78%,transparent);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
 .statement + .statement{margin-top:0;border-top:0}
 .statement + .sec,.statement + section.cta{margin-top:0}
+.statement + .sec{padding-top:clamp(2.5rem,4.5vw,3.5rem)}
 .statement__head{max-width:760px;margin-bottom:clamp(2rem,3.5vw,3rem)}
 .statement__head h2{font-size:clamp(1.8rem,2.8vw,2.5rem);margin-top:.9rem}
 .statement__head p{color:var(--muted);margin-top:1rem;font-size:1.08rem}
