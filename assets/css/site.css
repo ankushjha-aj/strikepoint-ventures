@@ -694,3 +694,13 @@ section.cta p{color:var(--muted);max-width:62ch;font-size:clamp(1.03rem,1.2vw,1.
   .hx-ring{animation:none!important;stroke-dashoffset:0}
   .hx-pl,.hx-node,.hx-runner{animation:none!important;opacity:1;transform:none}
 }
+
+/* ---------- home: tabs sit to the right of the section heading ---------- */
+@media(min-width:901px){
+  #loop .wrap{display:grid;grid-template-columns:1fr auto;column-gap:3rem;align-items:end}
+  #loop .loop{display:contents}
+  #loop .sec__head{grid-column:1;grid-row:1}
+  #loop .loop__tabs{grid-column:2;grid-row:1;align-self:end;margin-bottom:clamp(2rem,3.5vw,3rem)}
+  #loop .loop__panel{grid-column:1 / -1}
+  #loop .loop__tabs button{padding:.9em 1.8em;font-size:1rem}
+}
