@@ -36,13 +36,13 @@ ART_PROP = '''<svg viewBox="0 0 520 430" fill="none" aria-hidden="true">
 </svg>'''
 
 def _research_art():
-    # Normal distribution probability density functions with wide horizontal spacing:
+    # Normal distribution probability density functions in StrikePoint Brand Gold & Blue:
     # Widescreen viewBox: 580x350
-    # Left curve (Green): mu=-2.4, var=1.0, peak at X=176.5
-    # Center curve (Blue): mu=0.0, var=0.42, peak at X=290.0 (tall quantitative peak)
-    # Right curve (Red): mu=+2.2, var=1.2, peak at X=394.0
-    # Broad baseline curve (Orange): mu=0.0, var=7.0, spanning across entire width
-    # Pure geometric/mathematical animation with zero text content.
+    # Left curve (Navy / Deep Blue): mu=-2.4, var=1.0, peak at X=176.5 (#0B1F3A)
+    # Center curve (Royal / Tech Blue): mu=0.0, var=0.42, peak at X=290.0 (#1A56A0, tall quantitative peak)
+    # Right curve (Rich Gold): mu=+2.2, var=1.2, peak at X=394.0 (#C29B40)
+    # Broad baseline curve (Champagne Gold): mu=0.0, var=7.0, spanning across entire width (#D9B45A)
+    # Pure geometric/mathematical animation with zero text content and clean background (no grid lines).
     import math
 
     def normal_pdf(x, mu, var):
@@ -55,32 +55,33 @@ def _research_art():
     def X(x):
         return 30.0 + (x + 5.5) * (520.0 / 11.0)
 
+    # Site brand palette: Gold (#C29B40 / #D9B45A) and Blue (#1A56A0 / #0B1F3A)
     curves = [
-        ("orange", 0.0, 7.0, "#D9822B", "areaOrange", 3.5, 320.0),
-        ("green", -2.4, 1.0, "#1B7F5C", "areaGreen", 3.5, 360.0),
-        ("red", 2.2, 1.2, "#C53030", "areaRed", 3.5, 380.0),
+        ("gold-wide", 0.0, 7.0, "#D9B45A", "areaGoldWide", 3.2, 320.0),
+        ("navy", -2.4, 1.0, "#0B1F3A", "areaNavy", 3.6, 360.0),
+        ("gold", 2.2, 1.2, "#C29B40", "areaGold", 3.6, 380.0),
         ("blue", 0.0, 0.42, "#1A56A0", "areaBlue", 4.0, 320.0)
     ]
     N = 110
 
     out = ['<svg class="eq-art dist-art anim-play" viewBox="0 0 580 350" fill="none" aria-hidden="true">',
            '  <defs>',
-           '    <radialGradient id="distBg" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#9CC3EA" stop-opacity=".32"/><stop offset=".6" stop-color="#9CC3EA" stop-opacity=".12"/><stop offset="1" stop-color="#9CC3EA" stop-opacity="0"/></radialGradient>',
-           '    <linearGradient id="areaBlue" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1A56A0" stop-opacity=".35"/><stop offset="1" stop-color="#1A56A0" stop-opacity="0"/></linearGradient>',
-           '    <linearGradient id="areaGreen" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1B7F5C" stop-opacity=".30"/><stop offset="1" stop-color="#1B7F5C" stop-opacity="0"/></linearGradient>',
-           '    <linearGradient id="areaRed" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#C53030" stop-opacity=".28"/><stop offset="1" stop-color="#C53030" stop-opacity="0"/></linearGradient>',
-           '    <linearGradient id="areaOrange" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#D9822B" stop-opacity=".24"/><stop offset="1" stop-color="#D9822B" stop-opacity="0"/></linearGradient>',
-           '    <filter id="distGlowBlue" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#1A56A0" flood-opacity=".45"/></filter>',
+           '    <radialGradient id="distBg" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#9CC3EA" stop-opacity=".25"/><stop offset=".65" stop-color="#9CC3EA" stop-opacity=".08"/><stop offset="1" stop-color="#9CC3EA" stop-opacity="0"/></radialGradient>',
+           '    <linearGradient id="areaBlue" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1A56A0" stop-opacity=".36"/><stop offset="1" stop-color="#1A56A0" stop-opacity="0"/></linearGradient>',
+           '    <linearGradient id="areaNavy" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0B1F3A" stop-opacity=".26"/><stop offset="1" stop-color="#0B1F3A" stop-opacity="0"/></linearGradient>',
+           '    <linearGradient id="areaGold" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#C29B40" stop-opacity=".34"/><stop offset="1" stop-color="#C29B40" stop-opacity="0"/></linearGradient>',
+           '    <linearGradient id="areaGoldWide" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#D9B45A" stop-opacity=".22"/><stop offset="1" stop-color="#D9B45A" stop-opacity="0"/></linearGradient>',
+           '    <filter id="distGlowBlue" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="2" stdDeviation="3.5" flood-color="#1A56A0" flood-opacity=".45"/></filter>',
+           '    <filter id="distGlowGold" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#C29B40" flood-opacity=".4"/></filter>',
            '  </defs>',
            '  <rect x="0" y="0" width="580" height="350" rx="16" fill="url(#distBg)"/>',
-           '  <g stroke="#0B1F3A" stroke-opacity=".12" stroke-width="1.2" stroke-dasharray="3 4"><path d="M30 80H550M30 140H550M30 200H550M30 260H550"/></g>',
-           '  <g stroke="#0B1F3A" stroke-opacity=".10" stroke-width="1.2" stroke-dasharray="3 4"><path d="M82 50V310M186 50V310M290 40V310M394 50V310M498 50V310"/></g>',
-           '  <path d="M20 310H560" stroke="#0B1F3A" stroke-opacity=".28" stroke-width="2" stroke-linecap="round"/>',
-           '  <g stroke="#0B1F3A" stroke-opacity=".32" stroke-width="1.5" stroke-linecap="round"><path d="M30 310V316M82 310V316M134 310V316M186 310V318M238 310V316M290 310V320M342 310V316M394 310V318M446 310V316M498 310V316M550 310V316"/></g>',
+           '  <!-- Clean baseline axis with subtle tick marks (background grid removed) -->',
+           '  <path d="M20 310H560" stroke="#0B1F3A" stroke-opacity=".2" stroke-width="1.8" stroke-linecap="round"/>',
+           '  <g stroke="#0B1F3A" stroke-opacity=".25" stroke-width="1.4" stroke-linecap="round"><path d="M30 310V315M82 310V315M134 310V315M186 310V317M238 310V315M290 310V319M342 310V315M394 310V317M446 310V315M498 310V315M550 310V315"/></g>',
            '  <g stroke-linecap="round">',
-           '    <line class="dist-drop drop-green" x1="176.5" y1="166.4" x2="176.5" y2="310" stroke="#1B7F5C" stroke-width="1.6" stroke-dasharray="3 4" stroke-opacity=".45"/>',
+           '    <line class="dist-drop drop-navy" x1="176.5" y1="166.4" x2="176.5" y2="310" stroke="#0B1F3A" stroke-width="1.6" stroke-dasharray="3 4" stroke-opacity=".4"/>',
            '    <line class="dist-drop drop-blue" x1="290.0" y1="113.0" x2="290.0" y2="310" stroke="#1A56A0" stroke-width="1.6" stroke-dasharray="3 4" stroke-opacity=".45"/>',
-           '    <line class="dist-drop drop-red" x1="394.0" y1="171.6" x2="394.0" y2="310" stroke="#C53030" stroke-width="1.6" stroke-dasharray="3 4" stroke-opacity=".45"/>',
+           '    <line class="dist-drop drop-gold" x1="394.0" y1="171.6" x2="394.0" y2="310" stroke="#C29B40" stroke-width="1.6" stroke-dasharray="3 4" stroke-opacity=".45"/>',
            '  </g>']
 
     # Filled areas under curves
@@ -107,16 +108,16 @@ def _research_art():
             pts.append(f"{px:.1f} {py:.1f}")
         d_pts = " ".join(("L " if i > 0 else "") + p for i, p in enumerate(pts))
         d_line = f"M {d_pts}"
-        filt = ' filter="url(#distGlowBlue)"' if name == "blue" else ''
+        filt = ' filter="url(#distGlowBlue)"' if name == "blue" else (' filter="url(#distGlowGold)"' if name == "gold" else '')
         out.append(f'  <path class="dist-curve curve-{name}"{filt} pathLength="1" d="{d_line}" fill="none" stroke="{col}" stroke-width="{w}" stroke-linecap="round" stroke-linejoin="round"/>')
 
-    # Peak nodes and halos (no text)
-    out.append('  <circle class="dist-peak peak-orange" cx="290.0" cy="261.7" r="4.5" fill="#fff" stroke="#D9822B" stroke-width="2.5"/>')
-    out.append('  <circle class="dist-halo halo-red" cx="394.0" cy="171.6" r="8" stroke="#C53030" stroke-width="1.8" fill="none"/>')
-    out.append('  <circle class="dist-peak peak-red" cx="394.0" cy="171.6" r="5" fill="#fff" stroke="#C53030" stroke-width="2.8"/>')
-    out.append('  <circle class="dist-halo halo-green" cx="176.5" cy="166.4" r="8" stroke="#1B7F5C" stroke-width="1.8" fill="none"/>')
-    out.append('  <circle class="dist-peak peak-green" cx="176.5" cy="166.4" r="5.5" fill="#fff" stroke="#1B7F5C" stroke-width="3"/>')
-    out.append('  <circle class="dist-halo halo-blue" cx="290.0" cy="113.0" r="9" stroke="#1A56A0" stroke-width="1.8" fill="none"/>')
+    # Peak nodes and halos in gold and blue palette (no text)
+    out.append('  <circle class="dist-peak peak-gold-wide" cx="290.0" cy="261.7" r="4.5" fill="#fff" stroke="#D9B45A" stroke-width="2.5"/>')
+    out.append('  <circle class="dist-halo halo-gold" cx="394.0" cy="171.6" r="8" stroke="#C29B40" stroke-width="1.8" fill="none"/>')
+    out.append('  <circle class="dist-peak peak-gold" cx="394.0" cy="171.6" r="5.5" fill="#fff" stroke="#C29B40" stroke-width="3"/>')
+    out.append('  <circle class="dist-halo halo-navy" cx="176.5" cy="166.4" r="8" stroke="#0B1F3A" stroke-width="1.8" fill="none"/>')
+    out.append('  <circle class="dist-peak peak-navy" cx="176.5" cy="166.4" r="5.5" fill="#fff" stroke="#0B1F3A" stroke-width="3"/>')
+    out.append('  <circle class="dist-halo halo-blue" cx="290.0" cy="113.0" r="9.5" stroke="#1A56A0" stroke-width="2" fill="none"/>')
     out.append('  <circle class="dist-peak peak-blue" cx="290.0" cy="113.0" r="6.5" fill="#fff" stroke="#1A56A0" stroke-width="3.5"/>')
     out.append('</svg>')
     return "\n".join(out)
