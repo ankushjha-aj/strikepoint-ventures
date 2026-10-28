@@ -3,3 +3,7 @@ dist/
 .DS_Store
 *.log
 .env
+
+# local UI screenshots
+UI_Images/
+new_UI_images/

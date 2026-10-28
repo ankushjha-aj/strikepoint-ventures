@@ -173,105 +173,71 @@ ART_ATLAS = '''<svg viewBox="0 0 520 430" fill="none" aria-hidden="true">
   </g>
 </svg>'''
 
-ART_HERO = '''<svg viewBox="0 0 460 400" fill="none" aria-hidden="true">
-  <defs>
-    <linearGradient id="nbFront" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#1A3F6D"/>
-      <stop offset="40%" stop-color="#133156"/>
-      <stop offset="100%" stop-color="#0A182B"/>
-    </linearGradient>
-    <linearGradient id="nbTop" x1="0" y1="1" x2="1" y2="0">
-      <stop offset="0%" stop-color="#2D5E99"/>
-      <stop offset="100%" stop-color="#4B86CE"/>
-    </linearGradient>
-    <linearGradient id="nbSide" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#0F243E"/>
-      <stop offset="100%" stop-color="#050C15"/>
-    </linearGradient>
+def _hero_art():
+    """The loop: Research -> Software -> Capital on a ring, with a growth curve drawing inside."""
+    import math
+    cx, cy, R = 230, 205, 140
+    def at(deg, r=R):  # 0 deg = top, clockwise
+        a = math.radians(deg - 90)
+        return cx + r * math.cos(a), cy + r * math.sin(a)
+    sw, cap, res = at(0), at(120), at(240)
+    pts = [(140, 262), (156, 255), (170, 259), (184, 245), (198, 248), (212, 233), (226, 237), (240, 219),
+           (254, 223), (268, 202), (282, 206), (296, 184), (310, 171), (322, 150)]
+    line = "M" + " L".join("%d %d" % p for p in pts)
+    area = line + " L322 300 L140 300 Z"
+    grid = "".join('<path d="M%d 80V330"/>' % x for x in range(118, 345, 28)) + \
+           "".join('<path d="M105 %dH355"/>' % y for y in range(93, 320, 28))
+    out = ['<svg class="hx" viewBox="0 0 460 400" fill="none" aria-hidden="true">',
+           '<defs>',
+           '<clipPath id="hxClip"><circle cx="%d" cy="%d" r="112"/></clipPath>' % (cx, cy),
+           '<linearGradient id="hxArea" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#C29B40" stop-opacity=".38"/><stop offset="1" stop-color="#C29B40" stop-opacity="0"/></linearGradient>',
+           '<linearGradient id="hxGold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#E2B95A"/><stop offset="1" stop-color="#A57A18"/></linearGradient>',
+           '<radialGradient id="hxCore" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#FFFDF7" stop-opacity=".9"/><stop offset="1" stop-color="#FFFDF7" stop-opacity="0"/></radialGradient>',
+           '<filter id="hxGlow" x="-50%" y="-50%" width="200%" height="200%"><feDropShadow dx="0" dy="0" stdDeviation="3.5" flood-color="#C29B40" flood-opacity=".8"/></filter>',
+           '</defs>',
+           # soft light core + dial ticks
+           '<circle cx="%d" cy="%d" r="125" fill="url(#hxCore)"/>' % (cx, cy),
+           '<g class="hx-dial"><circle cx="%d" cy="%d" r="172" stroke="#0B1F3A" stroke-opacity=".22" stroke-width="6" stroke-dasharray="1.2 10.5"/>'
+           '<circle cx="%d" cy="%d" r="172" stroke="#B08D3C" stroke-opacity=".6" stroke-width="10" stroke-dasharray="1.6 88.4"/></g>' % (cx, cy, cx, cy),
+           # inner chart, clipped to a circle
+           '<g clip-path="url(#hxClip)"><g class="hx-grid" stroke="#8A6A22" stroke-opacity=".12" stroke-width="1">%s</g>' % grid,
+           '<path d="M100 275H360" stroke="#0B1F3A" stroke-opacity=".25" stroke-dasharray="3 5"/>',
+           '<path class="hx-area" d="%s" fill="url(#hxArea)"/>' % area,
+           '<path class="hx-line" pathLength="1" d="%s" stroke="#0B1F3A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></g>' % line,
+           '<circle cx="%d" cy="%d" r="112" stroke="#0B1F3A" stroke-opacity=".12"/>' % (cx, cy),
+           '<circle class="hx-peak-halo" cx="322" cy="150" r="7" stroke="#B08D3C" stroke-width="1.6"/>',
+           '<circle class="hx-peak" cx="322" cy="150" r="5.5" fill="#B08D3C" stroke="#FFFDF7" stroke-width="2"/>',
+           # the loop ring
+           '<circle cx="%d" cy="%d" r="%d" stroke="#0B1F3A" stroke-opacity=".14" stroke-width="1.5"/>' % (cx, cy, R),
+           '<circle class="hx-ring" pathLength="1" cx="%d" cy="%d" r="%d" stroke="#B08D3C" stroke-width="2.2" transform="rotate(-90 %d %d)"/>' % (cx, cy, R, cx, cy),
+           # runner travelling the loop
+           '<g class="hx-runner"><circle cx="%d" cy="%d" r="5.5" fill="#C29B40" filter="url(#hxGlow)"/>'
+           '<circle cx="%.1f" cy="%.1f" r="3" fill="#C29B40" opacity=".45"/><circle cx="%.1f" cy="%.1f" r="2" fill="#C29B40" opacity=".25"/></g>' % (
+               cx, cy - R, *at(-7), *at(-13)),
+           ]
+    def node(pos, cls, delay_cls, disc, icon):
+        x, y = pos
+        return ('<g transform="translate(%.1f %.1f)"><circle class="hx-halo %s" r="31" stroke="#B08D3C" stroke-width="1.6"/>'
+                '<g class="hx-node %s">%s%s</g></g>') % (x, y, delay_cls, cls, disc, icon)
+    navy = '<circle r="31" fill="#0B1F3A"/><circle r="26" stroke="#B08D3C" stroke-opacity=".55"/>'
+    gold = '<circle r="31" fill="url(#hxGold)"/><circle r="26" stroke="#FFFDF7" stroke-opacity=".5"/>'
+    bell = '<path d="M-15 8 C-8 8 -6 -12 0 -12 C6 -12 8 8 15 8" stroke="#D9BE7A" stroke-width="2.4" stroke-linecap="round"/><path d="M-17 10H17" stroke="#FFFDF7" stroke-opacity=".5" stroke-width="1.4"/><path d="M0 -12V10" stroke="#D9BE7A" stroke-opacity=".6" stroke-dasharray="2 2.5"/>'
+    code = '<path d="M-8 -9 L-16 0 L-8 9 M8 -9 L16 0 L8 9" stroke="#FFFDF7" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 -12 L-4 12" stroke="#D9BE7A" stroke-width="2.4" stroke-linecap="round"/>'
+    bars = '<path d="M-12 11V3 M-4 11V-3 M4 11V-8" stroke="#0B1F3A" stroke-width="4.5" stroke-linecap="square"/><path d="M-14 -4 L-2 -11 L6 -7 L15 -15 M9 -15 H15 V-9" stroke="#0B1F3A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>'
+    out.append(node(sw, "hx-n1", "hx-h1", navy, code))
+    out.append(node(cap, "hx-n2", "hx-h2", gold, bars))
+    out.append(node(res, "hx-n3", "hx-h3", navy, bell))
+    lab = '<g font-family="IBM Plex Mono,ui-monospace,monospace" font-size="11.5" font-weight="600" letter-spacing="2.2" fill="#4A505C" text-anchor="middle">'
+    lab += '<text x="%.1f" y="%.1f">RESEARCH</text>' % (res[0], res[1] + 52)
+    lab += '<text x="%.1f" y="%.1f">SOFTWARE</text>' % (sw[0], sw[1] - 42)
+    lab += '<text x="%.1f" y="%.1f">CAPITAL</text></g>' % (cap[0], cap[1] + 52)
+    out.append(lab)
+    out.append('</svg>')
+    return "".join(out)
 
-    <linearGradient id="gdFront" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#E2B038"/>
-      <stop offset="40%" stop-color="#C59324"/>
-      <stop offset="100%" stop-color="#91670E"/>
-    </linearGradient>
-    <linearGradient id="gdTop" x1="0" y1="1" x2="1" y2="0">
-      <stop offset="0%" stop-color="#FCE58D"/>
-      <stop offset="100%" stop-color="#ECC452"/>
-    </linearGradient>
-    <linearGradient id="gdSide" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#946C13"/>
-      <stop offset="100%" stop-color="#593E05"/>
-    </linearGradient>
 
-    <filter id="lineGlow" x="-20%" y="-20%" width="140%" height="140%">
-      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#1B7F5C" flood-opacity="0.35"/>
-    </filter>
-  </defs>
+ART_HERO = _hero_art()
 
-  <path d="M20 322 H440" stroke="#0B1F3A" stroke-width="3" stroke-linecap="round"/>
-
-  <!-- Bar 1 (Research, h=75, y=247) -->
-  <g class="bar-3d bar-1">
-    <ellipse class="bar-shadow" cx="64" cy="324" rx="26" ry="4.5" fill="#0B1F3A" fill-opacity="0.18"/>
-    <path d="M32 247 H82 V318 Q82 322 78 322 H36 Q32 322 32 318 Z" fill="url(#nbFront)"/>
-    <polygon points="82,247 96,237 96,312 82,322" fill="url(#nbSide)"/>
-    <polygon points="32,247 46,237 96,237 82,247" fill="url(#nbTop)" stroke="rgba(255,255,255,0.2)" stroke-width="0.8"/>
-  </g>
-
-  <!-- Bar 2 (h=125, y=197) -->
-  <g class="bar-3d bar-2">
-    <ellipse class="bar-shadow" cx="140" cy="324" rx="26" ry="4.5" fill="#0B1F3A" fill-opacity="0.18"/>
-    <path d="M108 197 H158 V318 Q158 322 154 322 H112 Q108 322 108 318 Z" fill="url(#nbFront)"/>
-    <polygon points="158,197 172,187 172,312 158,322" fill="url(#nbSide)"/>
-    <polygon points="108,197 122,187 172,187 158,197" fill="url(#nbTop)" stroke="rgba(255,255,255,0.2)" stroke-width="0.8"/>
-  </g>
-
-  <!-- Bar 3 (Software, h=175, y=147) -->
-  <g class="bar-3d bar-3">
-    <ellipse class="bar-shadow" cx="216" cy="324" rx="26" ry="4.5" fill="#0B1F3A" fill-opacity="0.18"/>
-    <path d="M184 147 H234 V318 Q234 322 230 322 H188 Q184 322 184 318 Z" fill="url(#nbFront)"/>
-    <polygon points="234,147 248,137 248,312 234,322" fill="url(#nbSide)"/>
-    <polygon points="184,147 198,137 248,137 234,147" fill="url(#nbTop)" stroke="rgba(255,255,255,0.2)" stroke-width="0.8"/>
-  </g>
-
-  <!-- Bar 4 (Execution, h=230, y=92) -->
-  <g class="bar-3d bar-4">
-    <ellipse class="bar-shadow" cx="292" cy="324" rx="26" ry="4.5" fill="#0B1F3A" fill-opacity="0.18"/>
-    <path d="M260 92 H310 V318 Q310 322 306 322 H264 Q260 322 260 318 Z" fill="url(#nbFront)"/>
-    <polygon points="310,92 324,82 324,312 310,322" fill="url(#nbSide)"/>
-    <polygon points="260,92 274,82 324,82 310,92" fill="url(#nbTop)" stroke="rgba(255,255,255,0.2)" stroke-width="0.8"/>
-  </g>
-
-  <!-- Bar 5 (Capital - Gold, h=285, y=37) -->
-  <g class="bar-3d bar-5">
-    <ellipse class="bar-shadow" cx="368" cy="324" rx="28" ry="5" fill="#A57A18" fill-opacity="0.22"/>
-    <path d="M336 37 H386 V318 Q386 322 382 322 H340 Q336 322 336 318 Z" fill="url(#gdFront)"/>
-    <polygon points="386,37 400,27 400,312 386,322" fill="url(#gdSide)"/>
-    <polygon points="336,37 350,27 400,27 386,37" fill="url(#gdTop)" stroke="rgba(255,255,255,0.3)" stroke-width="0.8"/>
-  </g>
-
-  <!-- Ascending Green Trend Line -->
-  <path class="trend-line" filter="url(#lineGlow)" d="M64 226 L140 176 L216 126 L292 71 L368 16" stroke="#1B7F5C" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
-
-  <!-- Halo pulse on peak node 5 -->
-  <circle class="dot-halo" cx="368" cy="16" r="10" stroke="#1B7F5C" stroke-width="1.8" fill="none"/>
-
-  <!-- Glowing Nodes -->
-  <g fill="#fff" stroke="#1B7F5C" stroke-width="3.5">
-    <circle class="trend-dot dot-1" cx="64" cy="226" r="6"/>
-    <circle class="trend-dot dot-2" cx="140" cy="176" r="6"/>
-    <circle class="trend-dot dot-3" cx="216" cy="126" r="6"/>
-    <circle class="trend-dot dot-4" cx="292" cy="71" r="6.5"/>
-    <circle class="trend-dot dot-5" cx="368" cy="16" r="8"/>
-  </g>
-
-  <!-- Pillar labels -->
-  <g font-family="DM Sans,system-ui,sans-serif" font-size="12" font-weight="700" letter-spacing="2" fill="#51647B">
-    <text x="32" y="352">RESEARCH</text>
-    <text x="184" y="352">SOFTWARE</text>
-    <text x="336" y="352">CAPITAL</text>
-  </g>
-</svg>'''
 
 ART_FUNNEL = '''<svg class="fn-art" viewBox="0 0 520 430" fill="none" aria-hidden="true">
   <g font-family="DM Sans,system-ui,sans-serif" font-size="13" font-weight="700" letter-spacing="2" text-anchor="middle">
