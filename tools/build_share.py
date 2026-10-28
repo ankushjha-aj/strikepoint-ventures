@@ -72,8 +72,8 @@ body{display:block;min-height:0}
 .pal__opt i{width:30px;height:18px;border-radius:6px;border:1px solid rgba(11,31,58,.18);flex:none}
 """
 
-PALETTES = [("1", "Beige", "linear-gradient(#F7F3EA,#ECE5D5)"), ("2", "Ivory", "linear-gradient(#FAF8F4,#EFECE4)"),
-            ("3", "White", "linear-gradient(#FFFFFF,#F6F4EF)")]
+PALETTES = [("1", "Beige", "linear-gradient(#FFFCF5,#EDE5D3)"), ("2", "Sky", "linear-gradient(#FFFFFF,#DAE7F5)"),
+            ("3", "Pearl", "linear-gradient(#FFFFFF,#EAEAE6)"), ("4", "Sage", "linear-gradient(#FFFFFF,#DEEBE2)")]
 pal_html = ('<div class="pal" id="pal"><button type="button" id="palBtn"><span>Choose a background</span><span>▾</span></button>'
             '<div class="pal__body"><p class="pal__hint">Click through the pages, then pick the background you prefer.</p>%s</div></div>') % "".join(
     '<button type="button" class="pal__opt" data-v="%s"><i style="background:%s"></i>%s · %s</button>' % (v, g, v, n) for v, n, g in PALETTES)

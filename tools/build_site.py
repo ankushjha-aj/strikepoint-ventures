@@ -108,15 +108,29 @@ def notice():
             '<div class="notice__act"><button class="btn btn--solid" data-notice-close>I Accept</button></div></div></div>') % body
 
 
+THEMES = [("1", "Beige", "linear-gradient(135deg,#FFFCF5,#EDE5D3)"), ("2", "Sky", "linear-gradient(135deg,#FFFFFF,#DAE7F5)"),
+          ("3", "Pearl", "linear-gradient(135deg,#FFFFFF,#EAEAE6)"), ("4", "Sage", "linear-gradient(135deg,#FFFFFF,#DEEBE2)")]
+
+
+def theme_picker():
+    opts = "".join('<button type="button" class="theme__opt" data-theme-set="%s"><i style="background:%s"></i>%s</button>' % (v, g, n) for v, n, g in THEMES)
+    return ('<div class="theme" id="theme"><button type="button" class="theme__btn" aria-label="Change background" aria-expanded="false">'
+            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">'
+            '<path d="M12 3a9 9 0 1 0 0 18c1.1 0 1.7-.9 1.4-1.8-.3-.9.3-1.9 1.3-1.9H17a4 4 0 0 0 4-4c0-5-4-8.3-9-8.3z"/>'
+            '<circle cx="7.5" cy="11" r="1.2" fill="currentColor"/><circle cx="10.5" cy="7" r="1.2" fill="currentColor"/><circle cx="15" cy="7.5" r="1.2" fill="currentColor"/></svg></button>'
+            '<div class="theme__panel" role="menu"><span class="theme__title">Background</span>%s</div></div>') % opts
+
+
 def page(slug, title, desc, active, body):
     if slug in ("services", "research-technology", "atlas-helm", "proprietary-desk"):
         active = "services"
     html = ('<!DOCTYPE html>\n<html lang="en" data-theme="1">\n<head>\n<meta charset="UTF-8">'
             '<meta name="viewport" content="width=device-width, initial-scale=1.0">\n<title>%s</title>\n'
             '<meta name="description" content="%s">\n<link rel="icon" href="/assets/img/mark.svg">\n'
+            '<script>try{var t=localStorage.getItem("sp-theme");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>\n'
             '<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n'
-            '<link href="%s" rel="stylesheet">\n<link rel="stylesheet" href="/assets/css/site.css?v=@@V@@">\n</head>\n<body>\n%s\n<main>\n%s\n</main>\n%s\n%s\n'
-            '<script src="/assets/js/site.js?v=@@V@@"></script>\n</body>\n</html>\n') % (title, desc, FONTS, header(active), body, footer(), notice())
+            '<link href="%s" rel="stylesheet">\n<link rel="stylesheet" href="/assets/css/site.css?v=@@V@@">\n</head>\n<body>\n%s\n%s\n<main>\n%s\n</main>\n%s\n%s\n'
+            '<script src="/assets/js/site.js?v=@@V@@"></script>\n</body>\n</html>\n') % (title, desc, FONTS, header(active), theme_picker(), body, footer(), notice())
     html = html.replace("@@V@@", BUILD)
     open(os.path.join(OUT, slug + ".html"), "w", encoding="utf-8").write(html)
     print("built", slug)

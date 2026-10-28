@@ -150,6 +150,33 @@
     if (e.key === "Escape" && notice && notice.classList.contains("on")) e.preventDefault();
   });
 
+  // background theme picker (top-right)
+  var picker = $("#theme");
+  if (picker) {
+    var pbtn = $(".theme__btn", picker);
+    var mark = function () {
+      var cur = document.documentElement.getAttribute("data-theme") || "1";
+      $$(".theme__opt", picker).forEach(function (o) { o.classList.toggle("on", o.getAttribute("data-theme-set") === cur); });
+    };
+    var shut = function () { picker.classList.remove("open"); pbtn.setAttribute("aria-expanded", "false"); };
+    pbtn.addEventListener("click", function (e) {
+      e.stopPropagation();
+      var open = picker.classList.toggle("open");
+      pbtn.setAttribute("aria-expanded", open ? "true" : "false");
+    });
+    $$(".theme__opt", picker).forEach(function (o) {
+      o.addEventListener("click", function () {
+        var v = o.getAttribute("data-theme-set");
+        document.documentElement.setAttribute("data-theme", v);
+        try { localStorage.setItem("sp-theme", v); } catch (e) {}
+        mark(); shut();
+      });
+    });
+    document.addEventListener("click", function (e) { if (!e.target.closest || !e.target.closest("#theme")) shut(); });
+    document.addEventListener("keydown", function (e) { if (e.key === "Escape") shut(); });
+    mark();
+  }
+
   // contact form -> /api/contact
   var form = $("#contactForm");
   var topic = $("#t"), otherBox = $("#otherBox"), otherIn = $("#o");
