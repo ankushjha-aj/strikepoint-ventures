@@ -744,6 +744,13 @@ section.cta p{color:var(--muted);max-width:62ch;font-size:clamp(1.03rem,1.2vw,1.
 .foot__links a:hover,.foot__legal-links button:hover,.crumb:hover,.cats span:hover,.cats span.on{color:var(--navy)}
 .brand:hover .brand__txt b{color:var(--navy)}
 
+/* footer: make the hover change obvious (lighter grey → navy with gold underline) */
+.foot__links a,.foot__legal-links button{color:#6B6F78;text-decoration:underline;text-decoration-color:transparent;text-decoration-thickness:1.5px;text-underline-offset:5px;transition:color .2s,text-decoration-color .2s,padding .2s}
+.foot__links a:hover,.foot__legal-links button:hover{color:var(--navy);text-decoration-color:var(--gold)}
+.foot__mail{text-decoration:underline;text-decoration-color:transparent;text-decoration-thickness:1.5px;text-underline-offset:5px;transition:color .2s,text-decoration-color .2s}
+.foot__mail:hover{color:var(--navy);text-decoration-color:var(--gold)}
+.foot .chip:hover{color:var(--navy);border-color:var(--navy)}
+
 /* review copy */
 .page{display:none}.page.on{display:block}
 body{display:block;min-height:0}
