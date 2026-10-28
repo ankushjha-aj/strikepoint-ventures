@@ -141,7 +141,7 @@
     document.documentElement.style.overflow = "";
     document.body.style.overflow = "";
     lockEls.forEach(function (el) { el.removeAttribute("inert"); });
-    try { localStorage.setItem(KEY, "1"); } catch (e) {}
+    try { localStorage.setItem(KEY, "1"); } catch (e) { /* storage blocked: notice shows again next visit */ }
   }
   if (notice && !seen()) open();
   $$("[data-notice]").forEach(function (b) { b.addEventListener("click", open); });
@@ -168,7 +168,7 @@
       o.addEventListener("click", function () {
         var v = o.getAttribute("data-theme-set");
         document.documentElement.setAttribute("data-theme", v);
-        try { localStorage.setItem("sp-theme", v); } catch (e) {}
+        try { localStorage.setItem("sp-theme", v); } catch (e) { /* storage blocked: theme lasts for this page only */ }
         mark(); shut();
       });
     });

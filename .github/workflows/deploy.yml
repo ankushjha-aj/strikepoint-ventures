@@ -3,55 +3,111 @@ name: Build & Deploy to Hetzner
 on:
   push:
     branches: [ "main" ]
+  pull_request:
   workflow_dispatch:
 
+permissions:
+  contents: read
+
+env:
+  NODE_VERSION: "24.22.1"
+
 jobs:
-  build-and-deploy:
+  # ESLint + TypeScript type check + build
+  checks:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v4
+      - name: Checkout Repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: 22
-        cache: 'npm'
+      - name: Set up Node.js
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
 
-    - name: Install Dependencies
-      run: npm install
+      - name: Install Dependencies
+        run: npm ci
 
-    - name: Compile TypeScript
-      run: npm run build
+      - name: ESLint
+        run: npm run lint
 
-    - name: Deploy to Hetzner Server
-      uses: appleboy/ssh-action@v1.0.3
-      with:
-        host: ${{ secrets.HETZNER_HOST || '65.109.15.215' }}
-        username: ${{ secrets.HETZNER_USER || 'root' }}
-        key: ${{ secrets.HETZNER_SSH_KEY }}
-        port: 22
-        script: |
-          set -e
-          APP_DIR="/var/www/strikepoint-ventures"
-          mkdir -p $APP_DIR
-          cd $APP_DIR
-          
-          if [ -d ".git" ]; then
-            git fetch origin main
-            git reset --hard origin/main
-          else
-            git clone https://github.com/${{ github.repository }}.git .
-          fi
-          
-          npm install
-          npm run build
-          
-          # Restart or start PM2 process on port 9000
-          PORT=9000 pm2 restart strikepoint-ventures --update-env || PORT=9000 pm2 start dist/server.js --name strikepoint-ventures
-          pm2 save
-          
-          echo "Deployment complete! Testing port 9000..."
-          sleep 3
-          curl -f --retry 5 --retry-delay 2 --retry-connrefused -s http://127.0.0.1:9000/api/health
+      - name: Type check
+        run: npm run typecheck
+
+      - name: Compile TypeScript
+        run: npm run build
+
+  # Package vulnerabilities (OWASP CVE Lite, checks the lockfile against OSV)
+  dependency-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: CVE Lite scan
+        uses: OWASP/cve-lite-cli@4719fa9c53a0e42743d4482cd232d18bf1ac5657 # v1.40.0
+        with:
+          fail-on: high
+          node-version: ${{ env.NODE_VERSION }}
+
+  # Static security analysis (Semgrep)
+  semgrep:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Semgrep scan
+        run: |
+          python3 -m pip install --quiet semgrep==1.182.1
+          semgrep scan --metrics=off --error \
+            --config p/default --config p/javascript --config p/typescript \
+            --config p/nodejsscan --config p/expressjs --config p/secrets \
+            --config p/python --config p/github-actions \
+            --exclude node_modules --exclude dist --exclude pages/preview.html
+
+  deploy:
+    needs: [checks, dependency-scan, semgrep]
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to Hetzner Server
+        uses: appleboy/ssh-action@0ff4204d59e8e51228ff73bce53f80d53301dee2 # v1.2.5
+        with:
+          host: ${{ secrets.HETZNER_HOST || '65.109.15.215' }}
+          username: ${{ secrets.HETZNER_USER || 'root' }}
+          key: ${{ secrets.HETZNER_SSH_KEY }}
+          port: 22
+          script: |
+            set -e
+
+            # Make sure the server runs the pinned Node version (NodeSource package).
+            WANT="24.22.1"
+            if [ "$(node -v 2>/dev/null)" != "v$WANT" ]; then
+              apt-get update -qq
+              DEBIAN_FRONTEND=noninteractive apt-get install -y -qq --allow-downgrades "nodejs=$WANT-1nodesource1"
+            fi
+            node -v
+
+            APP_DIR="/var/www/strikepoint-ventures"
+            mkdir -p "$APP_DIR"
+            cd "$APP_DIR"
+
+            if [ -d ".git" ]; then
+              git fetch origin main
+              git reset --hard origin/main
+            else
+              git clone "https://github.com/ankushjha-aj/strikepoint-ventures.git" .
+            fi
+
+            npm ci
+            npm run build
+
+            # Restart or start PM2 process on port 9000
+            PORT=9000 pm2 restart strikepoint-ventures --update-env || PORT=9000 pm2 start dist/server.js --name strikepoint-ventures
+            pm2 save
+
+            echo "Deployment complete! Testing port 9000..."
+            sleep 3
+            curl -f --retry 5 --retry-delay 2 --retry-connrefused -s http://127.0.0.1:9000/api/health

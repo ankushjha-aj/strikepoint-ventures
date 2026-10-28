@@ -36,6 +36,18 @@ python tools/build_site.py
 
 The post gets its own page, appears on `/blog` (newest first, with the category filter), and the three newest posts show in "Latest from the blog" on the home page. Files starting with `_` are ignored.
 
+## Checks
+
+Node **24.22.1** (pinned in `.node-version` / `.nvmrc` and `package.json` engines).
+
+```bash
+npm run lint        # ESLint (server TypeScript + browser script)
+npm run typecheck   # TypeScript, no output
+npm run check       # both
+```
+
+Every push and pull request runs ESLint, the type check, an OWASP CVE Lite dependency scan (fails on high/critical) and a Semgrep security scan. The deploy to Hetzner only runs on `main` after all of them pass, and it makes sure the server is on Node 24.22.1.
+
 ## Running
 
 ```bash
