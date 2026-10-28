@@ -63,7 +63,7 @@ body{display:block;min-height:0}
 .bar{top:0}
 .wrap{padding-left:max(24px,env(safe-area-inset-left,0px));padding-right:max(24px,env(safe-area-inset-right,0px))}
 .pal{position:fixed;right:max(16px,env(safe-area-inset-right,0px));bottom:max(16px,env(safe-area-inset-bottom,0px));z-index:130;width:min(250px,calc(100% - 32px));
-  background:#fff;border:1px solid rgba(11,31,58,.15);border-radius:18px;box-shadow:0 20px 50px -18px rgba(11,31,58,.5);font:600 13px/1.3 "DM Sans",system-ui,sans-serif;color:#0B1F3A}
+  background:#fff;border:1px solid rgba(11,31,58,.15);border-radius:18px;box-shadow:0 20px 50px -18px rgba(11,31,58,.5);font:600 13px/1.3 "Inter",system-ui,sans-serif;color:#0B1F3A}
 .pal>button{width:100%;display:flex;justify-content:space-between;align-items:center;gap:8px;background:none;border:0;padding:12px 14px;cursor:pointer;font:inherit;color:inherit}
 .pal__body{display:none;padding:0 8px 10px}.pal.open .pal__body{display:grid;gap:3px}
 .pal__hint{padding:0 8px 8px;color:#51647B;font-weight:500}
@@ -72,8 +72,8 @@ body{display:block;min-height:0}
 .pal__opt i{width:30px;height:18px;border-radius:6px;border:1px solid rgba(11,31,58,.18);flex:none}
 """
 
-PALETTES = [("1", "Sky Blue", "linear-gradient(#F7FAFE,#D5E5F6)"), ("2", "Off White", "linear-gradient(#FDFDFC,#EEEEEA)"),
-            ("3", "White", "linear-gradient(#FFFFFF,#F9F9F9)")]
+PALETTES = [("1", "Beige", "linear-gradient(#F7F3EA,#ECE5D5)"), ("2", "Ivory", "linear-gradient(#FAF8F4,#EFECE4)"),
+            ("3", "White", "linear-gradient(#FFFFFF,#F6F4EF)")]
 pal_html = ('<div class="pal" id="pal"><button type="button" id="palBtn"><span>Choose a background</span><span>▾</span></button>'
             '<div class="pal__body"><p class="pal__hint">Click through the pages, then pick the background you prefer.</p>%s</div></div>') % "".join(
     '<button type="button" class="pal__opt" data-v="%s"><i style="background:%s"></i>%s · %s</button>' % (v, g, v, n) for v, n, g in PALETTES)
@@ -126,7 +126,7 @@ js = "window.SP_REVIEW = true;\n" + read(os.path.join(ROOT, "assets", "js", "sit
 
 html = ('<title>StrikePoint Ventures</title>\n'
         '<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n'
-        '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=DM+Sans:wght@400;500;600;700&display=swap">\n'
+        '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,800&family=Source+Serif+4:ital,opsz,wght@0,8..60,500;0,8..60,600;1,8..60,500;1,8..60,600&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap">\n'
         '<style>\n%s\n</style>\n<div id="site">\n%s\n%s\n%s\n%s\n%s\n</div>\n<script>\n%s\n%s\n</script>\n') % (
     css, header, "\n".join(sections), footer, notice, pal_html, js, router)
 

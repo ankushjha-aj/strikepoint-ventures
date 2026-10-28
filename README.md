@@ -34,4 +34,4 @@ npm run build
 npm start        # http://localhost:9000
 ```
 
-The default background palette is set in each page's `<html data-theme="1">` tag (1 Sky Blue, 2 Off White, 3 White). To change it site-wide, edit the `data-theme` value in `tools/build_site.py` and rebuild.
+The default background palette is set in each page's `<html data-theme="1">` tag (1 Beige, 2 Ivory, 3 White). To change it site-wide, edit the `data-theme` value in `tools/build_site.py` and rebuild.
