@@ -1,0 +1,1105 @@
+<title>StrikePoint Ventures</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=DM+Sans:wght@400;500;600;700&display=swap">
+<style>
+/* StrikePoint Ventures: site stylesheet */
+
+/* ---------- tokens ---------- */
+:root{
+  --ink:#0B1F3A; --muted:#4F6177; --soft:#7A8AA0;
+  --green:#1B7F5C; --green-d:#136548; --gold:#B38A2A;
+  --line:rgba(11,31,58,.12); --glass:rgba(255,255,255,.75);
+  --display:"Bricolage Grotesque","DM Sans",system-ui,sans-serif;
+  --body:"DM Sans",system-ui,sans-serif;
+  --r:20px; --w:1380px;
+  --a:#F7FAFE; --mid:#E9F1FA; --b:#D5E5F6; --angle:180deg;
+}
+:root[data-pal="1"]{--a:#F7FAFE;--mid:#E9F1FA;--b:#D5E5F6;--angle:180deg}
+:root[data-pal="2"]{--a:#FDFDFC;--mid:#F8F8F6;--b:#EEEEEA;--angle:180deg}
+:root[data-pal="3"]{--a:#FFFFFF;--mid:#FFFFFF;--b:#F9F9F9;--angle:180deg}
+:root{--grad:linear-gradient(var(--angle),var(--a),var(--mid) 50%,var(--b))}
+
+/* ---------- base ---------- */
+*{box-sizing:border-box;margin:0;padding:0}
+html{font-size:100%;scroll-behavior:smooth;overflow-x:clip;background:var(--b)}
+body{font-family:var(--body);color:var(--ink);background:var(--grad);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:clip;min-height:100vh;display:flex;flex-direction:column;background-repeat:no-repeat}
+main{flex:1 0 auto}
+img,svg{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit}
+h1,h2,h3,h4{font-family:var(--display);font-weight:700;letter-spacing:-.03em;line-height:1.06}
+.wrap{max-width:var(--w);margin:0 auto;padding:0 clamp(20px,3.5vw,40px);width:100%}
+.tag{display:inline-flex;align-items:center;gap:.6em;padding:.4em .95em .4em .75em;border-radius:99px;background:var(--glass);
+  border:1px solid rgba(27,127,92,.3);color:var(--green-d);font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
+.tag::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--green)}
+.lead{font-size:1.15rem;color:var(--muted);max-width:56ch}
+.sec{padding:3.2rem 0 1rem}
+.sec__head{max-width:820px;margin-bottom:1.6rem}
+.sec__head h2{font-size:clamp(1.8rem,3.4vw,2.8rem);margin-top:.8rem}
+.sec__head p{color:var(--muted);margin-top:.8rem;font-size:1.08rem;max-width:58ch}
+
+/* ---------- buttons ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.55em;padding:.85em 1.65em;border-radius:99px;font-weight:600;font-size:.92rem;border:1px solid transparent;cursor:pointer;text-decoration:none;position:relative;user-select:none;-webkit-user-select:none;transform:translateY(0) scale(1);transition:transform .22s cubic-bezier(.34,1.56,.64,1),box-shadow .22s cubic-bezier(.34,1.56,.64,1),background .2s ease,border-color .2s ease,color .2s ease;will-change:transform,box-shadow}
+.btn:hover{transform:translateY(-3.5px) scale(1.025)}
+.btn:active{transform:translateY(0) scale(.98);transition-duration:.1s}
+.btn--solid{background:linear-gradient(135deg,#238F69,#136548);color:#fff;box-shadow:0 10px 24px -10px rgba(19,101,72,.75)}
+.btn--solid:hover{background:linear-gradient(135deg,#2baa7d,#177554);color:#fff;box-shadow:0 18px 36px -10px rgba(19,101,72,.95),0 6px 14px -4px rgba(19,101,72,.45)}
+.btn--solid:active{box-shadow:0 6px 16px -6px rgba(19,101,72,.8)}
+.btn--soft{background:rgba(255,255,255,.9);border-color:var(--line);color:var(--ink);box-shadow:0 4px 14px -6px rgba(11,31,58,.08);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.btn--soft:hover{background:#fff;border-color:rgba(27,127,92,.45);color:var(--green-d);box-shadow:0 14px 30px -10px rgba(11,31,58,.18),0 4px 12px -4px rgba(27,127,92,.15)}
+.btn--soft:active{box-shadow:0 4px 10px -4px rgba(11,31,58,.1)}
+.btn--sm{padding:.58em 1.25em;font-size:.84rem}
+.more{color:var(--green-d);font-weight:700;display:inline-flex;align-items:center;gap:.3em;transition:transform .2s ease,color .2s ease}
+.more:hover{transform:translateX(3px);text-decoration:none}
+
+/* ---------- header (full-screen navbar) ---------- */
+.bar{position:sticky;top:0;z-index:60;width:100%;max-width:100%;margin:0;border-bottom:1px solid var(--line);border-top:0;border-left:0;border-right:0;border-radius:0;
+  background:color-mix(in srgb,var(--hdr,#fff) 88%,transparent);backdrop-filter:blur(20px) saturate(1.5);-webkit-backdrop-filter:blur(20px) saturate(1.5);box-shadow:0 8px 30px -18px rgba(11,31,58,.18)}
+.bar__in{display:flex;align-items:center;justify-content:space-between;height:84px;max-width:var(--w);margin:0 auto;padding:0 clamp(20px,3.5vw,40px);width:100%}
+.brand{display:inline-flex;align-items:center;gap:16px}
+.brand img{height:64px;width:auto}
+.brand__rule{width:1.5px;align-self:stretch;margin:10px 0;background:rgba(11,31,58,.3)}
+.brand__txt{display:flex;flex-direction:column;align-items:stretch;line-height:1}
+.brand__txt b{font-family:var(--display);font-weight:800;font-size:1.85rem;letter-spacing:.005em}
+.brand__txt b i{font-style:normal;color:var(--green)}
+.brand__txt em{display:flex;justify-content:space-between;font-style:normal;font-weight:700;font-size:.8rem;line-height:1;margin-top:5px;color:var(--muted)}
+.brand__txt em .sp{width:.45em}
+
+.menu{display:flex;align-items:center;gap:.3rem}
+.menu>a,.drop>button{padding:.55em .95em;border-radius:99px;font-weight:600;font-size:.92rem;background:none;border:0;cursor:pointer;display:inline-flex;align-items:center;gap:.4em;transition:background .2s ease,color .2s ease,transform .2s ease}
+.menu>a:hover,.drop>button:hover{background:rgba(11,31,58,.06);transform:translateY(-1px)}
+.menu>a.on,.drop>button.on{background:rgba(27,127,92,.12);color:var(--green-d)}
+.menu>a.menu__cta,.menu>a.cta{background:linear-gradient(135deg,#238F69,#136548);color:#fff!important;padding:.62em 1.4em;margin-left:.6rem;border-radius:99px;font-weight:700;font-size:.88rem;letter-spacing:.01em;display:inline-flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,.2);box-shadow:0 8px 22px -8px rgba(19,101,72,.8);text-decoration:none;width:auto;max-width:none;transform:translateY(0) scale(1);transition:transform .22s cubic-bezier(.34,1.56,.64,1),box-shadow .22s cubic-bezier(.34,1.56,.64,1),background .2s ease;will-change:transform,box-shadow}
+.menu>a.menu__cta:hover,.menu>a.cta:hover{background:linear-gradient(135deg,#2baa7d,#177554);color:#fff!important;transform:translateY(-3.5px) scale(1.04);box-shadow:0 18px 34px -8px rgba(19,101,72,.95),0 4px 12px -2px rgba(19,101,72,.4)}
+.menu>a.menu__cta:active,.menu>a.cta:active{transform:translateY(0) scale(.98);box-shadow:0 4px 12px -4px rgba(19,101,72,.8)}
+.menu>a.menu__cta.on,.menu>a.cta.on{box-shadow:0 0 0 2px #fff,0 0 0 4px var(--green),0 10px 24px -8px rgba(19,101,72,.8)}
+.drop{position:relative}
+.drop__panel{position:absolute;top:125%;left:50%;transform:translateX(-50%) translateY(8px);min-width:250px;padding:.5rem;border-radius:16px;background:#fff;border:1px solid var(--line);
+  box-shadow:0 30px 60px -30px rgba(11,31,58,.4);opacity:0;visibility:hidden;transition:.2s}
+.drop:hover .drop__panel,.drop:focus-within .drop__panel{opacity:1;visibility:visible;transform:translateX(-50%)}
+.drop__panel a{display:block;padding:.6rem .85rem;border-radius:10px;font-size:.9rem}
+.drop__panel a:hover{background:rgba(27,127,92,.1)}
+.burger{display:none;background:none;border:0;padding:8px;cursor:pointer;flex-direction:column;gap:5px}
+.burger span{width:24px;height:2px;background:var(--ink)}
+
+/* ---------- hero (clean, no patches, tight rhythm) ---------- */
+.hero{position:relative;padding:3rem 0 0}
+.hero::before,.hero::after{display:none!important}
+.hero__grid{position:relative;z-index:1;display:grid;grid-template-columns:1.15fr .85fr;gap:3rem;align-items:center}
+.hero h1{font-size:clamp(2.2rem,4.4vw,3.8rem);margin:.8rem 0 1rem}
+.hero h1 em{font-style:normal;color:var(--green)}
+.hero .lead{margin-bottom:1.4rem}
+.hero__art svg{width:100%;height:auto;overflow:visible}
+
+/* ---------- 3D Quant Chart (Hero) ---------- */
+.bar-3d{
+  transform-box:fill-box;
+  transform-origin:bottom center;
+  animation:barRise 1.25s cubic-bezier(.16,1,.3,1) both;
+  cursor:pointer;
+  transition:transform .28s cubic-bezier(.34,1.56,.64,1),filter .28s ease;
+}
+.bar-1{animation-delay:.15s}
+.bar-2{animation-delay:.28s}
+.bar-3{animation-delay:.41s}
+.bar-4{animation-delay:.54s}
+.bar-5{animation-delay:.67s}
+
+@keyframes barRise{
+  0%{transform:scaleY(0);opacity:0}
+  40%{opacity:1}
+  75%{transform:scaleY(1.04)}
+  90%{transform:scaleY(.99)}
+  100%{transform:scaleY(1);opacity:1}
+}
+
+.bar-3d:hover{
+  transform:translateY(-8px) scale(1.02);
+}
+.bar-3d:hover .bar-shadow{
+  opacity:.35;
+  transform:scale(1.1);
+}
+.bar-shadow{
+  transition:opacity .28s ease,transform .28s ease;
+  transform-box:fill-box;
+  transform-origin:center;
+}
+
+.trend-line{
+  stroke-dasharray:500;
+  stroke-dashoffset:500;
+  animation:drawTrend 1.5s cubic-bezier(.22,1,.36,1) .45s both;
+}
+@keyframes drawTrend{
+  to{stroke-dashoffset:0}
+}
+
+.trend-dot{
+  transform-box:fill-box;
+  transform-origin:center;
+  animation:popDot .55s cubic-bezier(.34,1.56,.64,1) both;
+  transition:transform .22s ease,stroke-width .22s ease;
+}
+.dot-1{animation-delay:.55s}
+.dot-2{animation-delay:.75s}
+.dot-3{animation-delay:.95s}
+.dot-4{animation-delay:1.15s}
+.dot-5{animation-delay:1.35s}
+
+@keyframes popDot{
+  0%{transform:scale(0);opacity:0}
+  100%{transform:scale(1);opacity:1}
+}
+.trend-dot:hover{
+  transform:scale(1.35);
+  stroke-width:4.5px;
+}
+
+.dot-halo{
+  transform-box:fill-box;
+  transform-origin:center;
+  animation:pulseHalo 2.4s ease-out 1.6s infinite;
+}
+@keyframes pulseHalo{
+  0%{transform:scale(.9);opacity:.7}
+  70%{transform:scale(2.2);opacity:0}
+  100%{transform:scale(2.2);opacity:0}
+}
+@media(prefers-reduced-motion:reduce){
+  .bar-3d,.trend-line,.trend-dot,.dot-halo{animation:none!important;transform:none!important;stroke-dashoffset:0!important;opacity:1!important}
+}
+.steps li{padding:1.1rem 1.4rem 1.3rem 0;display:grid;gap:.15rem}
+.steps li+li{padding-left:1.4rem;border-left:1px solid var(--line)}
+.steps b{font-family:var(--display);color:var(--green);font-size:.95rem}
+.steps span{font-family:var(--display);font-weight:700;font-size:1.35rem}
+.steps em{font-style:normal;color:var(--muted);font-size:.92rem}
+
+/* ---------- page head (clean, no patches) ---------- */
+.head{position:relative;padding:3rem 0 1.6rem}
+.head::before{display:none!important}
+.head h1{font-size:clamp(2.5rem,5.6vw,4.6rem);line-height:1;letter-spacing:-.034em;margin:.8rem 0 1rem;max-width:18ch}
+.head p{font-size:1.15rem;color:var(--muted);max-width:56ch}
+
+/* ---------- product / service pages (clean, no patches) ---------- */
+.pp{position:relative;padding:2.8rem 0 1.4rem}
+.pp::before,.pp::after{display:none!important}
+.pp__grid{position:relative;z-index:1;display:grid;grid-template-columns:1.05fr .95fr;gap:2.6rem;align-items:center}
+.crumb{display:inline-block;font-size:.86rem;font-weight:600;color:var(--muted);margin-bottom:1.1rem}
+.crumb:hover{color:var(--ink)}
+.pp h1{font-size:clamp(2.5rem,5.4vw,4.5rem);line-height:1;letter-spacing:-.034em;margin:.8rem 0 1rem}
+.pp h1 em{font-style:normal;background:linear-gradient(120deg,var(--gold),var(--green));-webkit-background-clip:text;background-clip:text;color:transparent}
+.pp__art svg{width:100%;height:auto;filter:drop-shadow(0 24px 36px rgba(11,31,58,.1))}
+.chips{position:relative;z-index:1;display:flex;flex-wrap:wrap;gap:.55rem;margin-top:1.8rem;padding-top:1.2rem;border-top:1px solid var(--line)}
+.chips span{padding:.45em 1em;border-radius:99px;background:var(--glass);border:1px solid var(--line);font-size:.84rem;font-weight:600}
+
+/* ---------- bento (clean, no patches) ---------- */
+.bento{display:grid;grid-template-columns:repeat(6,1fr);gap:16px}
+.cell{grid-column:span 2;position:relative;overflow:hidden;padding:1.7rem;border-radius:var(--r);background:var(--glass);border:1px solid var(--line);display:flex;flex-direction:column;justify-content:flex-start;transition:.3s}
+.cell.x4{grid-column:span 4}.cell.x3{grid-column:span 3}.cell.x6{grid-column:span 6}
+.cell:hover{transform:translateY(-4px);background:rgba(255,255,255,.94);box-shadow:0 24px 50px -28px rgba(11,31,58,.35)}
+.cell::before{display:none!important}
+.cell:nth-child(3n+2)::before,.cell:nth-child(3n)::before{display:none!important}
+.cell.star{background:linear-gradient(140deg,rgba(255,255,255,.95),rgba(211,237,224,.8));border:1.5px solid rgba(27,127,92,.45)}
+.cell__no{margin-bottom:.9rem;position:relative;font-family:var(--display);font-weight:700;color:var(--green);font-size:.95rem}
+.cell__flag{align-self:flex-start;margin-bottom:auto;position:relative;font-size:.65rem;font-weight:700;letter-spacing:.14em;color:var(--green-d);border:1px solid rgba(27,127,92,.5);border-radius:99px;padding:.25em .85em;margin-bottom:.9rem}
+.cell h3{font-size:1.35rem;margin-bottom:.45rem;position:relative}
+.cell p{color:var(--muted);position:relative;max-width:48ch;font-size:.95rem}
+
+/* ---------- flow & structure ---------- */
+.flow{display:grid;grid-template-columns:.85fr 1.15fr;gap:2.8rem;align-items:start}
+.flow__intro{position:sticky;top:120px}
+.flow__intro h2{font-size:clamp(1.8rem,3.4vw,2.8rem);margin-top:.8rem}
+.flow__list{list-style:none;counter-reset:f;position:relative}
+.flow__list::before{content:"";position:absolute;left:21px;top:8px;bottom:8px;width:2px;background:linear-gradient(var(--green),var(--gold) 80%,transparent)}
+.flow__list li{counter-increment:f;position:relative;padding:0 0 1.6rem 4.2rem}
+.flow__list li::before{content:counter(f);position:absolute;left:0;top:0;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:#fff;border:2px solid var(--green);font-weight:700;font-family:var(--display)}
+.flow__list h3{font-size:1.35rem;margin-bottom:.25rem}
+.flow__list p{color:var(--muted);max-width:52ch;font-size:.95rem}
+.flow__list .pill{display:inline-block;margin-left:.6rem;font-size:.65rem;letter-spacing:.12em;font-weight:700;color:var(--green-d);border:1px solid rgba(27,127,92,.5);border-radius:99px;padding:.2em .75em;vertical-align:.2em}
+
+.statement{padding:3rem 0 1rem}
+.statement p.big{font-family:var(--display);font-weight:600;font-size:clamp(1.6rem,3.5vw,2.6rem);line-height:1.18;letter-spacing:-.035em;max-width:30ch;margin-top:1rem}
+.statement mark{background:linear-gradient(transparent 62%,rgba(27,127,92,.28) 62%);color:inherit;padding:0 .1em}
+.statement .note{max-width:76ch;margin-top:1.6rem;padding-top:1rem;border-top:1px solid var(--line);color:var(--muted);font-size:.92rem}
+.aud{display:grid;grid-template-columns:repeat(2,1fr);gap:0 2.5rem;margin-top:1.8rem}
+.aud div{padding:1.1rem 0;border-top:1px solid var(--line)}
+.aud h4{font-family:var(--body);font-weight:700;font-size:1.02rem;letter-spacing:0;margin-bottom:.2rem}
+.aud p{color:var(--muted);font-size:.94rem}
+
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:2.8rem;align-items:center}
+.duo h2{font-size:clamp(1.8rem,3.4vw,2.8rem);margin:.8rem 0 .9rem}
+.duo p{color:var(--muted);font-size:1.05rem;max-width:54ch}
+.duo p+p{margin-top:.8rem}
+.duo p b{color:var(--ink)}
+.diagram svg{width:100%;height:auto;filter:drop-shadow(0 24px 36px rgba(11,31,58,.1))}
+/* funnel: hovered step pops out, the rest recede */
+.fn-step{transform-box:fill-box;transform-origin:center;cursor:pointer;transition:transform .35s cubic-bezier(.34,1.56,.64,1),filter .3s ease,opacity .3s ease}
+.fn-step rect{transition:opacity .25s ease}
+.fn-art:hover .fn-step{opacity:.72}
+.fn-art .fn-step:hover{opacity:1;transform:translateY(-8px) scale(1.07);filter:drop-shadow(0 16px 18px rgba(11,31,58,.38))}
+.fn-art .fn-step:hover rect{opacity:1}
+@media(prefers-reduced-motion:reduce){.fn-step{transition:none}.fn-art .fn-step:hover{transform:none}}
+.checks{list-style:none}
+.checks li{display:flex;gap:.9rem;padding:1rem .2rem;border-top:1px solid var(--line)}
+.checks li:last-child{border-bottom:1px solid var(--line)}
+.checks li::before{content:"✓";color:var(--green);font-weight:700}
+.checks b{display:block}
+.checks span{color:var(--muted);font-size:.94rem}
+.panel{max-width:1100px;padding:2.2rem;border-radius:var(--r);background:var(--glass);border:1px solid var(--line)}
+.panel h2{font-size:clamp(1.6rem,3vw,2.4rem);margin:.8rem 0 1rem}
+.panel p{color:var(--muted);font-size:1.02rem}
+.panel p+p{margin-top:.8rem}
+.panel b{color:var(--ink)}
+
+/* ---------- home: loop tabs ---------- */
+.loop__tabs{display:inline-flex;gap:.3rem;padding:.3rem;border-radius:99px;background:var(--glass);border:1px solid var(--line);margin-bottom:.7rem}
+.loop__tabs button{border:0;background:none;padding:.65em 1.4em;border-radius:99px;font-weight:700;cursor:pointer;color:var(--muted);transition:.2s}
+.loop__tabs button.on{background:var(--ink);color:#fff}
+.loop__panel{display:none;grid-template-columns:1fr 1fr;gap:3rem;align-items:center;padding:2.2rem;border-radius:var(--r);background:var(--glass);border:1px solid var(--line);box-shadow:0 30px 60px -40px rgba(11,31,58,.35)}
+.loop__panel.on{display:grid}
+.loop__panel h3{font-size:clamp(1.6rem,3vw,2.4rem);margin:.8rem 0 .8rem}
+.loop__panel p{color:var(--muted);max-width:52ch;margin-bottom:1.2rem}
+.loop__art svg{width:100%;height:auto;max-height:420px}
+
+.mini{display:grid;gap:.7rem;margin-top:.4rem}
+.mini div{padding:1rem 1.1rem;border-radius:16px;background:rgba(255,255,255,.8);border:1px solid var(--line)}
+.mini h4{font-size:1.1rem;margin-bottom:.2rem}
+.mini p{margin:0 0 .6rem;font-size:.92rem}
+.mini .acts{display:flex;gap:.9rem;align-items:center;flex-wrap:wrap}
+.mini .btn{padding:.5em 1.1em;font-size:.84rem}
+
+/* ---------- hub ---------- */
+.hub{display:grid;grid-template-columns:.9fr 1.1fr;gap:2.6rem;align-items:start}
+.hub__nav{list-style:none;border-top:1px solid var(--line)}
+.hub__nav button{width:100%;display:flex;align-items:center;gap:1rem;text-align:left;background:none;border:0;border-bottom:1px solid var(--line);padding:1.2rem .4rem;cursor:pointer;
+  font-family:var(--display);font-weight:600;font-size:clamp(1.4rem,2.4vw,2rem);letter-spacing:-.03em;color:rgba(11,31,58,.42);transition:color .25s}
+.hub__nav button span{font-family:var(--body);font-size:.78rem;font-weight:700;letter-spacing:.12em;color:var(--green);min-width:2rem}
+.hub__nav button i{margin-left:auto;font-style:normal;opacity:0;transform:translateX(-8px);transition:.25s;color:var(--green)}
+.hub__nav button.on,.hub__nav button:hover{color:var(--ink)}
+.hub__nav button.on i{opacity:1;transform:none}
+.hub__stage{position:sticky;top:120px}
+.hub__panel{display:none;padding:1.8rem 2rem 2.2rem;border-radius:var(--r);background:var(--glass);border:1px solid var(--line);box-shadow:0 30px 60px -40px rgba(11,31,58,.35)}
+.hub__panel.on{display:block}
+.hub__panel svg{width:100%;height:auto;max-height:300px;margin-bottom:.8rem}
+.hub__panel h2{font-size:clamp(1.6rem,2.8vw,2.3rem);margin:.8rem 0 .6rem}
+.hub__panel p{color:var(--muted);margin-bottom:1.3rem;max-width:54ch}
+
+/* ---------- about: chapters ---------- */
+.chap{padding:2.4rem 0}
+.chap+.chap{border-top:1px solid var(--line)}
+.chap__grid{display:grid;grid-template-columns:.7fr 1.3fr;gap:2.6rem;align-items:start}
+.chap__side{position:sticky;top:120px;display:flex;flex-direction:column;gap:.8rem;align-items:flex-start}
+.chap__no{font-family:var(--display);font-weight:800;font-size:clamp(3.5rem,7.5vw,6.5rem);line-height:.9;letter-spacing:-.06em;background:linear-gradient(160deg,var(--green),var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent}
+.chap h2{font-size:clamp(1.8rem,3.6vw,2.8rem);margin-bottom:1.1rem;max-width:20ch}
+.chap p{font-size:1.12rem;line-height:1.75;color:var(--muted);max-width:62ch}
+.chap p strong{color:var(--ink)}
+
+/* ---------- cta (full-screen banner) ---------- */
+section.cta{position:relative;overflow:hidden;width:100%;max-width:100%;margin:3.2rem 0 0;padding:3.8rem 0;border-radius:0;border-left:0;border-right:0;border-bottom:0;border-top:1px solid var(--line);
+  background:linear-gradient(135deg,rgba(255,255,255,.94),rgba(240,246,252,.75));box-shadow:none}
+section.cta::before{display:none!important}
+section.cta h2{font-size:clamp(2rem,4vw,3.2rem);max-width:22ch;margin-bottom:.8rem}
+section.cta p{color:var(--muted);max-width:62ch;font-size:1.08rem;margin-bottom:1.6rem}
+
+/* ---------- blog / contact ---------- */
+.cats{display:flex;gap:.55rem;flex-wrap:wrap;margin:.8rem 0 1.6rem}
+.cats span{padding:.5em 1.1em;border-radius:99px;border:1px solid var(--line);background:var(--glass);font-size:.88rem;color:var(--muted);cursor:pointer;transform:translateY(0) scale(1);transition:transform .2s cubic-bezier(.34,1.56,.64,1),box-shadow .2s ease,background .2s ease,color .2s ease}
+.cats span:hover{transform:translateY(-2px) scale(1.03);box-shadow:0 6px 16px -6px rgba(11,31,58,.15);background:#fff;color:var(--ink)}
+.cats span.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.empty{text-align:center;color:var(--muted);padding:3rem 1rem;border:1px dashed rgba(27,127,92,.5);border-radius:var(--r);background:var(--glass);font-size:1.02rem}
+.contact{display:grid;grid-template-columns:.9fr 1.1fr;gap:3rem;align-items:start;padding-bottom:2rem}
+.contact__info h2{font-size:clamp(1.6rem,3vw,2.4rem);margin-bottom:1.1rem}
+.next{list-style:none;counter-reset:n;margin-bottom:1.6rem}
+.next li{counter-increment:n;display:flex;gap:1rem;padding:.85rem 0;border-top:1px solid var(--line);color:var(--muted)}
+.next li::before{content:counter(n,decimal-leading-zero);font-family:var(--display);font-weight:700;color:var(--green)}
+.next b{color:var(--ink)}
+.reach a,.reach p{display:block;margin:.3rem 0;color:var(--muted)}
+.reach a.mail{font-weight:600;font-size:1.02rem;color:var(--green-d)}
+.form{padding:2rem;border-radius:var(--r);background:var(--glass);border:1px solid var(--line);box-shadow:0 30px 60px -40px rgba(11,31,58,.35)}
+.form label{display:block;font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:1rem 0 .35rem}
+.form label:first-child{margin-top:0}
+.form input,.form select,.form textarea{width:100%;padding:.85em 1.05em;border-radius:14px;border:1px solid var(--line);background:#fff;font:inherit;color:var(--ink)}
+.form input:focus,.form select:focus,.form textarea:focus{outline:2px solid rgba(27,127,92,.45);border-color:transparent}
+.form textarea{min-height:130px;resize:vertical}
+.form .btn{margin-top:1.2rem}
+.form .ok{margin-top:.9rem;color:var(--green-d);font-weight:600}
+.hp{position:absolute;left:-9999px}
+.form .other{display:none}
+.form .other.on{display:block}
+
+/* ---------- enhanced institutional footer (full-screen) ---------- */
+.foot{width:100%;max-width:100%;margin:3.2rem 0 0;border-top:1px solid var(--line);border-bottom:0;border-left:0;border-right:0;border-radius:0;background:var(--grad);padding:3.4rem 0 1.6rem}
+.foot__grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1.2fr;gap:2.5rem 3rem;padding-bottom:2.4rem;border-bottom:1px solid var(--line)}
+.foot__col h4{font-size:.78rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);margin-bottom:1.1rem}
+.foot__col--brand .brand img{height:54px}
+.foot__col--brand .brand{gap:12px;margin-bottom:1rem}
+.foot__mission{font-size:.92rem;line-height:1.6;color:var(--muted);max-width:38ch;margin-bottom:1.1rem}
+.foot__status{display:inline-flex;align-items:center;gap:.6rem;font-size:.78rem;font-weight:600;color:var(--green-d);background:rgba(27,127,92,.1);border:1px solid rgba(27,127,92,.25);padding:.35em .85em;border-radius:99px}
+.foot__dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 0 3px rgba(27,127,92,.25);animation:pulseDot 2s infinite}
+@keyframes pulseDot{0%{box-shadow:0 0 0 0 rgba(27,127,92,.5)}70%{box-shadow:0 0 0 6px rgba(27,127,92,0)}100%{box-shadow:0 0 0 0 rgba(27,127,92,0)}}
+.foot__links{list-style:none;display:grid;gap:.65rem}
+.foot__links a{font-size:.92rem;color:var(--muted);transition:color .2s,transform .2s;display:inline-block}
+.foot__links a:hover{color:var(--green-d);transform:translateX(2px)}
+.foot__contact-item{margin-bottom:.7rem;font-size:.88rem;color:var(--muted);display:grid;gap:.1rem}
+.foot__contact-item b{color:var(--ink);font-size:.76rem;text-transform:uppercase;letter-spacing:.08em}
+.foot__mail{color:var(--green-d);font-weight:600}
+.foot__mail:hover{text-decoration:underline}
+.chip{display:inline-flex;align-items:center;padding:.55em 1.15em;border-radius:99px;background:var(--glass);border:1px solid var(--line);font-size:.86rem;font-weight:600;transform:translateY(0) scale(1);transition:transform .22s cubic-bezier(.34,1.56,.64,1),box-shadow .22s ease,background .2s ease,border-color .2s ease,color .2s ease;will-change:transform,box-shadow}
+.chip:hover{background:#fff;border-color:rgba(27,127,92,.5);color:var(--green-d);transform:translateY(-2.5px) scale(1.025);box-shadow:0 10px 22px -8px rgba(27,127,92,.35)}
+.chip:active{transform:translateY(0) scale(.98)}
+.foot__compliance{padding:1.3rem 1.6rem;margin:1.8rem 0;border-radius:16px;background:var(--glass);border:1px solid var(--line);font-size:.82rem;line-height:1.6;color:var(--muted)}
+.foot__compliance-tag{display:inline-block;font-size:.68rem;font-weight:700;letter-spacing:.12em;color:var(--ink);margin-bottom:.4rem}
+.foot__legal{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1rem;font-size:.82rem;color:var(--muted);padding-top:1.6rem}
+.foot__legal-links{display:flex;flex-wrap:wrap;gap:.4rem 1.4rem}
+.foot__legal-links button{background:none;border:0;cursor:pointer;color:var(--muted);font:inherit;padding:0;transition:color .2s}
+.foot__legal-links button:hover{color:var(--green-d)}
+.foot__copy{color:var(--soft);font-size:.82rem}
+
+/* ---------- regulatory notice modal ---------- */
+.gate{position:fixed;inset:0;z-index:200;display:none;place-items:center;padding:1.2rem;background:rgba(11,31,58,.58);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.gate.on{display:grid}
+.gate__card{width:min(640px,100%);max-height:min(86vh,720px);display:flex;flex-direction:column;padding:2rem 2.2rem;border-radius:var(--r);background:#fff;border:1px solid var(--line);box-shadow:0 50px 120px -30px rgba(11,31,58,.7)}
+.gate__card .tag{align-self:flex-start}
+.gate__card h3{font-size:1.5rem;margin:.8rem 0 1rem}
+.notice__body{overflow-y:auto;color:var(--muted);font-size:.95rem;line-height:1.65;padding-right:.5rem}
+.notice__body p+p{margin-top:.9rem}
+.notice__act{display:flex;justify-content:center;margin-top:1.4rem}
+@media(max-width:560px){.gate__card{padding:1.5rem 1.3rem}}
+
+/* ---------- reveal ---------- */
+.rv{opacity:0;transform:translateY(16px);transition:opacity .65s ease,transform .65s ease}
+.rv.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}}
+
+/* ---------- responsive ---------- */
+.menu>a,.drop>button{white-space:nowrap}
+.sub{margin-top:.8rem;color:var(--muted);font-size:.95rem}
+.duo--rev>:first-child{order:2}
+.cell__flag+h3{margin-top:0}
+.chap__no{display:inline-block;padding:0 .14em .08em 0}
+.pp h1 em{display:inline-block;padding:0 .06em .1em 0}
+
+.drop.shut .drop__panel{opacity:0!important;visibility:hidden!important}
+
+@media(min-width:1101px){
+  .drop::after{content:"";position:absolute;left:-20px;right:-20px;top:100%;height:18px}
+  .drop__panel{top:calc(100% + 10px)}
+}
+
+@media(max-width:1100px){
+  .bar__in{height:76px;padding:0 20px}
+  .brand img{height:46px}.brand{gap:10px}.brand__txt b{font-size:1.25rem}.brand__txt em{font-size:.6rem;margin-top:3px}
+  .burger{display:flex}
+  .menu{position:fixed;top:calc(92px + env(safe-area-inset-top,0px));left:16px;right:16px;bottom:auto;max-height:calc(100vh - 120px);overflow-y:auto;
+    flex-direction:column;align-items:stretch;gap:.2rem;padding:1rem;border-radius:20px;background:#fff;border:1px solid var(--line);box-shadow:0 30px 60px -30px rgba(11,31,58,.5);display:none}
+  .menu.on{display:flex}
+  .menu>a,.drop>button{width:100%;justify-content:flex-start;padding:.8em 1em}
+  .menu>a.menu__cta,.menu>a.cta{margin:.6rem 0 0;width:100%;justify-content:center;padding:.8em 1.2em}
+  .drop .drop__panel,.drop.shut .drop__panel{display:none;position:static;transform:none;opacity:1!important;visibility:visible!important;min-width:0;box-shadow:none;border:0;padding:0 0 0 1rem;background:transparent}
+  .drop.open .drop__panel{display:block}
+  .drop:hover .drop__panel,.drop:focus-within .drop__panel,.drop .drop__panel{transform:none!important;left:auto;top:auto}
+  .drop>button .caret{margin-left:auto}
+  .drop.open>button{background:rgba(11,31,58,.06)}
+  .drop::after{display:none}
+  .drop__panel a{padding:.65rem .9rem}
+}
+
+@media(max-width:900px){
+  .hero__grid,.pp__grid,.flow,.duo,.contact,.hub,.chap__grid,.loop__panel.on{grid-template-columns:1fr}
+  .hero{padding-top:2.4rem}.hero__grid{gap:2rem}.hero__art{max-width:420px}
+  .steps{grid-template-columns:1fr;margin-top:2rem}.steps li+li{padding-left:0;border-left:0;border-top:1px solid var(--line)}
+  .bento{grid-template-columns:1fr 1fr}.cell,.cell.x4,.cell.x3,.cell.x6{grid-column:span 2}
+  .flow__intro,.hub__stage,.chap__side{position:static}
+  .hub__nav button i{display:none}
+  .aud{grid-template-columns:1fr}
+  .loop__panel{padding:1.6rem}
+  .duo--rev>:first-child{order:0}
+  .foot__grid{grid-template-columns:1fr 1fr;gap:2rem}
+  .foot__col--brand{grid-column:1 / -1}
+}
+
+@media(max-width:640px){
+  .foot__grid{grid-template-columns:1fr;gap:1.8rem}
+  .foot__legal{flex-direction:column;align-items:flex-start;gap:.8rem}
+  .foot__compliance{padding:1.1rem 1.2rem}
+}
+
+/* review copy */
+.page{display:none}.page.on{display:block}
+body{display:block;min-height:0}
+#site{min-height:100vh;display:flex;flex-direction:column}
+.page.on{flex:1 0 auto}
+.rv{opacity:1!important;transform:none!important;transition:none!important}
+.bar{top:0}
+.wrap{padding-left:max(24px,env(safe-area-inset-left,0px));padding-right:max(24px,env(safe-area-inset-right,0px))}
+.pal{position:fixed;right:max(16px,env(safe-area-inset-right,0px));bottom:max(16px,env(safe-area-inset-bottom,0px));z-index:130;width:min(250px,calc(100% - 32px));
+  background:#fff;border:1px solid rgba(11,31,58,.15);border-radius:18px;box-shadow:0 20px 50px -18px rgba(11,31,58,.5);font:600 13px/1.3 "DM Sans",system-ui,sans-serif;color:#0B1F3A}
+.pal>button{width:100%;display:flex;justify-content:space-between;align-items:center;gap:8px;background:none;border:0;padding:12px 14px;cursor:pointer;font:inherit;color:inherit}
+.pal__body{display:none;padding:0 8px 10px}.pal.open .pal__body{display:grid;gap:3px}
+.pal__hint{padding:0 8px 8px;color:#51647B;font-weight:500}
+.pal__opt{display:flex;align-items:center;gap:10px;border:1px solid transparent;background:none;border-radius:10px;padding:7px 8px;cursor:pointer;font:inherit;color:inherit;text-align:left}
+.pal__opt:hover{background:#f1f5f3}.pal__opt.on{border-color:#1B7F5C;background:#eef8f3}
+.pal__opt i{width:30px;height:18px;border-radius:6px;border:1px solid rgba(11,31,58,.18);flex:none}
+
+</style>
+<div id="site">
+<header class="bar"><div class="bar__in"><a class="brand" href="#home" aria-label="StrikePoint Ventures LLP"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA4NiAxMDAiIGZpbGw9Im5vbmUiPgogIDxwYXRoIGQ9Ik03NiA0MlY5SDl2ODJoMzYiIHN0cm9rZT0iIzBCMUYzQSIgc3Ryb2tlLXdpZHRoPSI4IiBzdHJva2UtbGluZWpvaW49Im1pdGVyIiBzdHJva2UtbGluZWNhcD0iYnV0dCIvPgogIDxyZWN0IHg9IjIwIiB5PSI1NiIgd2lkdGg9IjgiIGhlaWdodD0iMjQiIGZpbGw9IiMwQjFGM0EiLz4KICA8cmVjdCB4PSIzMiIgeT0iNDIiIHdpZHRoPSI4IiBoZWlnaHQ9IjM4IiBmaWxsPSIjMEIxRjNBIi8+CiAgPHJlY3QgeD0iNDQiIHk9IjI2IiB3aWR0aD0iOCIgaGVpZ2h0PSI1NCIgZmlsbD0iIzBCMUYzQSIvPgogIDxwYXRoIGQ9Ik01MiA5MUw3MCA1MEg4MUw2MyA5MVoiIGZpbGw9IiNDMjlCNDAiLz4KPC9zdmc+Cg==" alt=""><span class="brand__rule"></span><span class="brand__txt"><b>STRIKE<i>POINT</i></b><em aria-hidden="true"><span>V</span><span>E</span><span>N</span><span>T</span><span>U</span><span>R</span><span>E</span><span>S</span><span class="sp"></span><span>L</span><span>L</span><span>P</span></em></span></a><button class="burger" aria-label="Menu"><span></span><span></span><span></span></button><nav class="menu"><a href="#home">Home</a><a href="#about">About</a><div class="drop"><button type="button">Services ▾</button><div class="drop__panel"><a href="#research-technology">Research &amp; Technology</a><a href="#atlas-helm">Atlas &amp; Helm</a><a href="#proprietary-desk">Proprietary Desk</a></div></div><a href="#blog">Blog</a><a href="#contact" class="menu__cta">Contact</a></nav></div></header>
+<div class="page on" data-page="home">
+<section class="hero"><div class="wrap"><div class="hero__grid"><div class="rv"><span class="tag">Quant software • Research • Own-capital trading</span><h1>We research market edges, build the systems that trade them, and <em>back them with our own capital.</em></h1><p class="lead">StrikePoint Ventures is a data-led quantitative firm with years of experience in live markets. One team can look after every layer of your trading infrastructure, from research through data to execution.</p><div class="hero__act"><a href="#home" data-scroll="loop" class="btn btn--solid">Explore what we do →</a><a href="#contact" class="btn btn--soft">Get in touch</a></div></div><div class="hero__art rv"><svg viewBox="0 0 460 400" fill="none" aria-hidden="true">
+  <defs>
+    <linearGradient id="nbFront-1" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1A3F6D"/>
+      <stop offset="40%" stop-color="#133156"/>
+      <stop offset="100%" stop-color="#0A182B"/>
+    </linearGradient>
+    <linearGradient id="nbTop-1" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0%" stop-color="#2D5E99"/>
+      <stop offset="100%" stop-color="#4B86CE"/>
+    </linearGradient>
+    <linearGradient id="nbSide-1" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0F243E"/>
+      <stop offset="100%" stop-color="#050C15"/>
+    </linearGradient>
+
+    <linearGradient id="gdFront-1" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#E2B038"/>
+      <stop offset="40%" stop-color="#C59324"/>
+      <stop offset="100%" stop-color="#91670E"/>
+    </linearGradient>
+    <linearGradient id="gdTop-1" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0%" stop-color="#FCE58D"/>
+      <stop offset="100%" stop-color="#ECC452"/>
+    </linearGradient>
+    <linearGradient id="gdSide-1" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#946C13"/>
+      <stop offset="100%" stop-color="#593E05"/>
+    </linearGradient>
+
+    <filter id="lineGlow-1" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#1B7F5C" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+
+  <path d="M20 322 H440" stroke="#0B1F3A" stroke-width="3" stroke-linecap="round"/>
+
+  <!-- Bar 1 (Research, h=75, y=247) -->
+  <g class="bar-3d bar-1">
+    <ellipse class="bar-shadow" cx="64" cy="324" rx="26" ry="4.5" fill="#0B1F3A" fill-opacity="0.18"/>
+    <path d="M32 247 H82 V318 Q82 322 78 322 H36 Q32 322 32 318 Z" fill="url(#nbFront-1)"/>
+    <polygon points="82,247 96,237 96,312 82,322" fill="url(#nbSide-1)"/>
+    <polygon points="32,247 46,237 96,237 82,247" fill="url(#nbTop-1)" stroke="rgba(255,255,255,0.2)" stroke-width="0.8"/>
+  </g>
+
+  <!-- Bar 2 (h=125, y=197) -->
+  <g class="bar-3d bar-2">
+    <ellipse class="bar-shadow" cx="140" cy="324" rx="26" ry="4.5" fill="#0B1F3A" fill-opacity="0.18"/>
+    <path d="M108 197 H158 V318 Q158 322 154 322 H112 Q108 322 108 318 Z" fill="url(#nbFront-1)"/>
+    <polygon points="158,197 172,187 172,312 158,322" fill="url(#nbSide-1)"/>
+    <polygon points="108,197 122,187 172,187 158,197" fill="url(#nbTop-1)" stroke="rgba(255,255,255,0.2)" stroke-width="0.8"/>
+  </g>
+
+  <!-- Bar 3 (Software, h=175, y=147) -->
+  <g class="bar-3d bar-3">
+    <ellipse class="bar-shadow" cx="216" cy="324" rx="26" ry="4.5" fill="#0B1F3A" fill-opacity="0.18"/>
+    <path d="M184 147 H234 V318 Q234 322 230 322 H188 Q184 322 184 318 Z" fill="url(#nbFront-1)"/>
+    <polygon points="234,147 248,137 248,312 234,322" fill="url(#nbSide-1)"/>
+    <polygon points="184,147 198,137 248,137 234,147" fill="url(#nbTop-1)" stroke="rgba(255,255,255,0.2)" stroke-width="0.8"/>
+  </g>
+
+  <!-- Bar 4 (Execution, h=230, y=92) -->
+  <g class="bar-3d bar-4">
+    <ellipse class="bar-shadow" cx="292" cy="324" rx="26" ry="4.5" fill="#0B1F3A" fill-opacity="0.18"/>
+    <path d="M260 92 H310 V318 Q310 322 306 322 H264 Q260 322 260 318 Z" fill="url(#nbFront-1)"/>
+    <polygon points="310,92 324,82 324,312 310,322" fill="url(#nbSide-1)"/>
+    <polygon points="260,92 274,82 324,82 310,92" fill="url(#nbTop-1)" stroke="rgba(255,255,255,0.2)" stroke-width="0.8"/>
+  </g>
+
+  <!-- Bar 5 (Capital - Gold, h=285, y=37) -->
+  <g class="bar-3d bar-5">
+    <ellipse class="bar-shadow" cx="368" cy="324" rx="28" ry="5" fill="#A57A18" fill-opacity="0.22"/>
+    <path d="M336 37 H386 V318 Q386 322 382 322 H340 Q336 322 336 318 Z" fill="url(#gdFront-1)"/>
+    <polygon points="386,37 400,27 400,312 386,322" fill="url(#gdSide-1)"/>
+    <polygon points="336,37 350,27 400,27 386,37" fill="url(#gdTop-1)" stroke="rgba(255,255,255,0.3)" stroke-width="0.8"/>
+  </g>
+
+  <!-- Ascending Green Trend Line -->
+  <path class="trend-line" filter="url(#lineGlow-1)" d="M64 226 L140 176 L216 126 L292 71 L368 16" stroke="#1B7F5C" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Halo pulse on peak node 5 -->
+  <circle class="dot-halo" cx="368" cy="16" r="10" stroke="#1B7F5C" stroke-width="1.8" fill="none"/>
+
+  <!-- Glowing Nodes -->
+  <g fill="#fff" stroke="#1B7F5C" stroke-width="3.5">
+    <circle class="trend-dot dot-1" cx="64" cy="226" r="6"/>
+    <circle class="trend-dot dot-2" cx="140" cy="176" r="6"/>
+    <circle class="trend-dot dot-3" cx="216" cy="126" r="6"/>
+    <circle class="trend-dot dot-4" cx="292" cy="71" r="6.5"/>
+    <circle class="trend-dot dot-5" cx="368" cy="16" r="8"/>
+  </g>
+
+  <!-- Pillar labels -->
+  <g font-family="DM Sans,system-ui,sans-serif" font-size="12" font-weight="700" letter-spacing="2" fill="#51647B">
+    <text x="32" y="352">RESEARCH</text>
+    <text x="184" y="352">SOFTWARE</text>
+    <text x="336" y="352">CAPITAL</text>
+  </g>
+</svg></div></div></div></section><section class="sec" id="loop"><div class="wrap"><div class="sec__head rv"><span class="tag">How we work</span><h2>One loop, three disciplines.</h2><p>Research an edge, build the system that trades it, then run it on real capital.</p></div><div class="loop"><div class="loop__tabs" data-tabs><button data-t="r" class="on">Research</button><button data-t="b">Build</button><button data-t="t">Trade</button></div><div class="loop__panel on" data-t="r"><div class="rv"><span class="tag">Research</span><h3>Strategies you can defend with statistics.</h3><p>A strategy that should be doing more? We subject it to strict backtesting, statistical validation and careful edge research, then return a strategy you can back with statistics and fully own. Everything runs under NDA, and your strategy and IP remain yours.</p><a class="btn btn--solid" href="#research-technology">See Research &amp; Technology →</a></div><div class="loop__art"><svg class="eq-art" viewBox="0 0 520 400" fill="none" aria-hidden="true">
+  <defs>
+    <linearGradient id="eqArea-2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1B7F5C" stop-opacity=".45"/><stop offset="1" stop-color="#1B7F5C" stop-opacity="0"/></linearGradient>
+    <radialGradient id="eqBg-2" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#9CC3EA" stop-opacity=".30"/><stop offset=".6" stop-color="#9CC3EA" stop-opacity=".14"/><stop offset="1" stop-color="#9CC3EA" stop-opacity="0"/></radialGradient>
+    <filter id="eqGlow-2" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#B38A2A" flood-opacity=".45"/></filter>
+  </defs>
+  <rect x="0" y="0" width="520" height="400" fill="url(#eqBg-2)"/>
+  <g stroke="#0B1F3A" stroke-opacity=".16" stroke-width="1.5"><path d="M40 90H490M40 170H490M40 250H490M40 330H490"/></g>
+  <polygon class="eq-area" fill="url(#eqArea-2)" points="40.0,252.4 46.5,250.1 53.0,249.3 59.6,246.5 66.1,243.6 72.6,245.3 79.1,247.4 85.7,242.7 92.2,242.8 98.7,243.1 105.2,237.1 111.7,235.4 118.3,230.7 124.8,229.0 131.3,226.0 137.8,227.0 144.3,223.9 150.9,219.0 157.4,216.9 163.9,213.0 170.4,209.6 177.0,211.4 183.5,207.3 190.0,204.6 196.5,204.4 203.0,206.4 209.6,201.4 216.1,199.7 222.6,196.0 229.1,191.0 235.7,187.3 242.2,181.9 248.7,180.9 255.2,176.5 261.7,175.0 268.3,169.5 274.8,164.5 281.3,165.9 287.8,167.0 294.3,167.4 300.9,161.7 307.4,160.3 313.9,157.3 320.4,157.1 327.0,155.1 333.5,154.2 340.0,153.5 346.5,150.9 353.0,148.3 359.6,143.0 366.1,139.6 372.6,134.1 379.1,129.3 385.7,123.3 392.2,120.0 398.7,120.9 405.2,116.0 411.7,110.2 418.3,105.0 424.8,102.5 431.3,98.8 437.8,99.3 444.3,94.6 450.9,92.1 457.4,92.0 463.9,93.7 470.4,88.9 477.0,82.9 483.5,84.4 490.0,80.0 490,330 40,330"/>
+  <polyline class="eq-l" points="40.0,255.2 46.5,257.1 53.0,255.0 59.6,252.0 66.1,256.0 72.6,255.2 79.1,259.1 85.7,257.4 92.2,259.0 98.7,256.0 105.2,252.1 111.7,252.2 118.3,248.2 124.8,250.0 131.3,253.6 137.8,252.9 144.3,257.0 150.9,259.6 157.4,260.5 163.9,259.8 170.4,262.8 177.0,266.7 183.5,263.8 190.0,265.5 196.5,261.9 203.0,258.7 209.6,259.9 216.1,260.4 222.6,260.3 229.1,259.3 235.7,258.6 242.2,258.3 248.7,257.5 255.2,254.0 261.7,254.0 268.3,254.8 274.8,253.1 281.3,255.4 287.8,257.2 294.3,253.4 300.9,253.4 307.4,253.1 313.9,257.3 320.4,258.2 327.0,257.6 333.5,261.8 340.0,261.0 346.5,260.0 353.0,263.8 359.6,262.9 366.1,263.3 372.6,262.0 379.1,263.4 385.7,261.8 392.2,260.0 398.7,264.1 405.2,267.9 411.7,266.6 418.3,262.9 424.8,265.1 431.3,265.6 437.8,265.0 444.3,266.6 450.9,267.9 457.4,269.6 463.9,270.8 470.4,270.2 477.0,272.0 483.5,273.1 490.0,271.0" stroke="#4B86CE" stroke-opacity=".34" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <polyline class="eq-l" points="40.0,252.4 46.5,251.2 53.0,253.6 59.6,256.6 66.1,254.9 72.6,257.9 79.1,261.2 85.7,262.6 92.2,261.7 98.7,265.8 105.2,268.0 111.7,270.2 118.3,268.2 124.8,269.5 131.3,267.4 137.8,270.9 144.3,273.0 150.9,272.6 157.4,270.1 163.9,271.3 170.4,274.4 177.0,278.3 183.5,278.9 190.0,282.2 196.5,280.5 203.0,278.4 209.6,281.8 216.1,284.5 222.6,282.7 229.1,282.3 235.7,280.6 242.2,282.6 248.7,286.5 255.2,289.0 261.7,287.3 268.3,290.0 274.8,292.1 281.3,293.5 287.8,295.0 294.3,296.5 300.9,293.8 307.4,297.5 313.9,302.3 320.4,299.5 327.0,297.1 333.5,293.8 340.0,295.2 346.5,292.2 353.0,289.5 359.6,292.6 366.1,291.3 372.6,289.3 379.1,288.7 385.7,289.4 392.2,291.9 398.7,294.0 405.2,297.0 411.7,301.4 418.3,301.4 424.8,304.0 431.3,302.2 437.8,306.8 444.3,304.2 450.9,303.4 457.4,300.6 463.9,298.1 470.4,295.6 477.0,295.8 483.5,300.6 490.0,299.3" stroke="#8FB3E0" stroke-opacity=".34" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <polyline class="eq-l" points="40.0,254.4 46.5,253.5 53.0,253.9 59.6,255.1 66.1,252.0 72.6,251.7 79.1,253.5 85.7,256.1 92.2,253.7 98.7,254.4 105.2,252.6 111.7,254.4 118.3,257.4 124.8,257.7 131.3,255.6 137.8,258.9 144.3,257.0 150.9,254.0 157.4,252.1 163.9,249.9 170.4,254.5 177.0,254.0 183.5,251.6 190.0,255.8 196.5,258.3 203.0,260.7 209.6,261.1 216.1,262.2 222.6,263.0 229.1,261.3 235.7,265.9 242.2,270.2 248.7,273.8 255.2,277.5 261.7,281.6 268.3,278.2 274.8,275.8 281.3,279.8 287.8,280.3 294.3,282.4 300.9,284.4 307.4,286.2 313.9,285.5 320.4,285.4 327.0,287.1 333.5,290.2 340.0,292.1 346.5,295.8 353.0,295.9 359.6,294.6 366.1,296.2 372.6,300.2 379.1,303.4 385.7,305.0 392.2,304.7 398.7,302.9 405.2,304.4 411.7,302.5 418.3,302.0 424.8,303.1 431.3,304.7 437.8,305.3 444.3,304.1 450.9,305.3 457.4,304.3 463.9,305.1 470.4,307.8 477.0,308.1 483.5,307.0 490.0,311.1" stroke="#51647B" stroke-opacity=".34" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <polyline class="eq-l" points="40.0,252.9 46.5,249.9 53.0,246.4 59.6,247.5 66.1,244.4 72.6,242.1 79.1,244.2 85.7,244.6 92.2,247.8 98.7,245.4 105.2,244.2 111.7,241.1 118.3,238.8 124.8,237.5 131.3,235.7 137.8,235.3 144.3,238.7 150.9,238.1 157.4,242.3 163.9,245.4 170.4,243.3 177.0,247.2 183.5,250.7 190.0,254.1 196.5,251.1 203.0,253.9 209.6,257.9 216.1,255.2 222.6,258.5 229.1,255.8 235.7,254.5 242.2,251.8 248.7,248.2 255.2,247.6 261.7,245.3 268.3,249.3 274.8,247.2 281.3,247.2 287.8,245.5 294.3,248.9 300.9,247.0 307.4,243.5 313.9,247.3 320.4,248.8 327.0,248.4 333.5,245.8 340.0,248.1 346.5,250.9 353.0,253.1 359.6,252.2 366.1,250.3 372.6,251.3 379.1,252.5 385.7,253.5 392.2,254.8 398.7,255.6 405.2,259.2 411.7,259.3 418.3,255.6 424.8,256.4 431.3,254.5 437.8,257.4 444.3,256.0 450.9,254.0 457.4,252.6 463.9,252.6 470.4,252.9 477.0,251.8 483.5,248.7 490.0,251.7" stroke="#D9B45A" stroke-opacity=".34" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <polyline class="eq-l" points="40.0,250.8 46.5,248.0 53.0,248.5 59.6,249.7 66.1,248.5 72.6,251.8 79.1,254.4 85.7,257.5 92.2,257.5 98.7,259.7 105.2,262.6 111.7,261.7 118.3,258.6 124.8,261.0 131.3,259.9 137.8,261.3 144.3,259.0 150.9,259.0 157.4,261.6 163.9,264.6 170.4,269.2 177.0,270.1 183.5,271.7 190.0,275.1 196.5,276.9 203.0,279.1 209.6,277.5 216.1,281.1 222.6,277.7 229.1,278.5 235.7,278.4 242.2,279.3 248.7,277.2 255.2,275.2 261.7,275.4 268.3,276.3 274.8,275.1 281.3,272.8 287.8,274.3 294.3,273.0 300.9,269.9 307.4,270.8 313.9,273.7 320.4,276.6 327.0,275.5 333.5,274.7 340.0,271.6 346.5,269.3 353.0,272.1 359.6,275.4 366.1,278.0 372.6,281.3 379.1,280.3 385.7,278.0 392.2,275.3 398.7,278.0 405.2,275.7 411.7,277.9 418.3,279.2 424.8,277.9 431.3,282.1 437.8,286.1 444.3,284.0 450.9,286.4 457.4,288.3 463.9,288.3 470.4,287.5 477.0,292.2 483.5,294.3 490.0,295.5" stroke="#5FAE8C" stroke-opacity=".34" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <polyline class="eq-l" points="40.0,254.6 46.5,253.9 53.0,250.1 59.6,251.1 66.1,250.7 72.6,253.9 79.1,255.8 85.7,254.5 92.2,257.7 98.7,254.5 105.2,251.1 111.7,254.5 118.3,250.9 124.8,251.9 131.3,249.7 137.8,247.6 144.3,249.3 150.9,247.9 157.4,246.6 163.9,244.1 170.4,246.1 177.0,244.0 183.5,240.2 190.0,238.8 196.5,238.5 203.0,241.7 209.6,241.8 216.1,243.1 222.6,241.3 229.1,239.8 235.7,239.3 242.2,241.9 248.7,240.8 255.2,239.7 261.7,242.4 268.3,239.2 274.8,237.9 281.3,241.1 287.8,237.5 294.3,240.5 300.9,241.9 307.4,240.1 313.9,239.3 320.4,238.9 327.0,237.7 333.5,238.1 340.0,239.6 346.5,242.4 353.0,246.0 359.6,244.2 366.1,242.1 372.6,241.8 379.1,239.8 385.7,241.0 392.2,243.0 398.7,243.9 405.2,240.9 411.7,244.7 418.3,244.7 424.8,246.8 431.3,244.6 437.8,245.8 444.3,247.2 450.9,248.1 457.4,247.7 463.9,245.5 470.4,246.8 477.0,243.9 483.5,247.1 490.0,249.1" stroke="#1A3F6D" stroke-opacity=".34" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <polyline class="eq-l" points="40.0,256.0 46.5,254.4 53.0,253.2 59.6,256.4 66.1,259.7 72.6,261.0 79.1,259.7 85.7,257.7 92.2,256.3 98.7,256.2 105.2,259.8 111.7,261.3 118.3,264.5 124.8,265.0 131.3,265.1 137.8,268.2 144.3,270.9 150.9,269.3 157.4,273.8 163.9,272.0 170.4,269.4 177.0,266.3 183.5,268.0 190.0,268.2 196.5,268.2 203.0,267.7 209.6,264.4 216.1,263.5 222.6,265.9 229.1,263.6 235.7,264.3 242.2,264.2 248.7,263.0 255.2,267.7 261.7,266.2 268.3,265.5 274.8,266.2 281.3,266.7 287.8,267.7 294.3,270.9 300.9,271.3 307.4,275.8 313.9,276.5 320.4,275.9 327.0,277.0 333.5,277.2 340.0,274.0 346.5,271.4 353.0,275.1 359.6,273.4 366.1,273.0 372.6,277.4 379.1,279.2 385.7,282.1 392.2,286.2 398.7,286.6 405.2,283.7 411.7,285.8 418.3,283.4 424.8,282.5 431.3,286.2 437.8,283.8 444.3,283.7 450.9,280.8 457.4,279.7 463.9,278.3 470.4,280.3 477.0,278.4 483.5,275.5 490.0,273.2" stroke="#4B86CE" stroke-opacity=".34" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <polyline class="eq-l" points="40.0,250.1 46.5,250.4 53.0,253.7 59.6,257.6 66.1,261.2 72.6,263.8 79.1,266.7 85.7,266.8 92.2,265.3 98.7,265.1 105.2,265.8 111.7,264.7 118.3,266.4 124.8,266.8 131.3,264.8 137.8,265.7 144.3,268.5 150.9,265.3 157.4,263.5 163.9,264.7 170.4,265.9 177.0,265.8 183.5,265.1 190.0,267.5 196.5,271.7 203.0,274.2 209.6,272.0 216.1,275.0 222.6,275.5 229.1,278.1 235.7,280.6 242.2,283.5 248.7,284.4 255.2,287.2 261.7,291.2 268.3,294.6 274.8,297.4 281.3,297.6 287.8,301.4 294.3,305.4 300.9,306.0 307.4,306.8 313.9,305.2 320.4,309.1 327.0,310.0 333.5,310.9 340.0,315.0 346.5,311.2 353.0,313.6 359.6,317.1 366.1,317.4 372.6,320.3 379.1,319.4 385.7,320.8 392.2,324.0 398.7,327.8 405.2,326.0 411.7,328.0 418.3,325.7 424.8,326.1 431.3,322.6 437.8,324.4 444.3,326.6 450.9,328.6 457.4,326.1 463.9,325.1 470.4,326.5 477.0,330.0 483.5,328.6 490.0,324.8" stroke="#8FB3E0" stroke-opacity=".34" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <polyline class="eq-l" points="40.0,256.1 46.5,259.9 53.0,263.1 59.6,265.7 66.1,269.4 72.6,272.9 79.1,271.5 85.7,268.0 92.2,270.3 98.7,266.3 105.2,266.3 111.7,263.6 118.3,260.0 124.8,256.2 131.3,259.9 137.8,261.4 144.3,260.3 150.9,256.5 157.4,259.8 163.9,261.3 170.4,258.3 177.0,261.3 183.5,262.1 190.0,263.3 196.5,261.6 203.0,257.9 209.6,260.5 216.1,258.3 222.6,256.2 229.1,253.3 235.7,252.7 242.2,249.0 248.7,250.0 255.2,250.6 261.7,252.7 268.3,250.2 274.8,250.2 281.3,252.0 287.8,254.6 294.3,252.6 300.9,251.5 307.4,249.6 313.9,250.4 320.4,250.4 327.0,253.1 333.5,251.2 340.0,255.0 346.5,255.1 353.0,252.8 359.6,251.2 366.1,254.4 372.6,256.4 379.1,253.4 385.7,252.1 392.2,248.8 398.7,245.6 405.2,245.8 411.7,242.4 418.3,240.3 424.8,241.5 431.3,242.4 437.8,245.8 444.3,246.5 450.9,242.6 457.4,245.7 463.9,245.0 470.4,248.1 477.0,251.4 483.5,250.0 490.0,252.0" stroke="#51647B" stroke-opacity=".34" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <polyline class="eq-l" points="40.0,255.8 46.5,255.3 53.0,255.4 59.6,260.2 66.1,263.1 72.6,260.0 79.1,263.1 85.7,263.3 92.2,264.7 98.7,263.2 105.2,263.0 111.7,261.4 118.3,261.8 124.8,265.2 131.3,268.6 137.8,272.8 144.3,270.9 150.9,274.8 157.4,279.5 163.9,276.4 170.4,279.7 177.0,277.2 183.5,281.3 190.0,282.4 196.5,285.4 203.0,283.4 209.6,283.2 216.1,282.8 222.6,281.4 229.1,279.0 235.7,281.1 242.2,281.0 248.7,282.2 255.2,286.1 261.7,284.1 268.3,284.1 274.8,282.2 281.3,285.4 287.8,285.8 294.3,286.9 300.9,285.7 307.4,290.0 313.9,292.0 320.4,292.9 327.0,297.2 333.5,297.5 340.0,296.3 346.5,297.7 353.0,297.2 359.6,297.0 366.1,300.2 372.6,302.2 379.1,298.8 385.7,300.9 392.2,302.2 398.7,306.4 405.2,309.5 411.7,313.0 418.3,310.2 424.8,309.1 431.3,306.7 437.8,303.4 444.3,303.3 450.9,300.4 457.4,300.9 463.9,302.3 470.4,299.3 477.0,296.7 483.5,293.8 490.0,294.6" stroke="#D9B45A" stroke-opacity=".34" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <polyline class="eq-l" points="40.0,252.5 46.5,247.9 53.0,244.0 59.6,245.2 66.1,241.2 72.6,243.3 79.1,246.2 85.7,243.9 92.2,245.2 98.7,244.6 105.2,243.0 111.7,246.3 118.3,243.8 124.8,245.2 131.3,245.3 137.8,246.2 144.3,243.7 150.9,241.2 157.4,242.5 163.9,245.4 170.4,246.6 177.0,246.9 183.5,249.9 190.0,252.3 196.5,249.7 203.0,247.6 209.6,243.2 216.1,238.8 222.6,235.2 229.1,235.8 235.7,238.1 242.2,239.2 248.7,239.1 255.2,238.4 261.7,237.6 268.3,238.3 274.8,235.0 281.3,236.3 287.8,236.1 294.3,232.5 300.9,229.5 307.4,230.7 313.9,232.4 320.4,229.4 327.0,233.0 333.5,235.6 340.0,234.9 346.5,234.1 353.0,236.5 359.6,239.7 366.1,241.7 372.6,239.0 379.1,238.9 385.7,234.4 392.2,231.6 398.7,227.2 405.2,230.6 411.7,232.8 418.3,236.3 424.8,236.4 431.3,237.3 437.8,240.6 444.3,239.8 450.9,242.7 457.4,243.8 463.9,245.4 470.4,242.5 477.0,242.7 483.5,244.2 490.0,247.6" stroke="#5FAE8C" stroke-opacity=".34" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <polyline class="eq-l" points="40.0,251.2 46.5,249.9 53.0,246.6 59.6,244.1 66.1,246.3 72.6,249.5 79.1,247.5 85.7,245.2 92.2,245.2 98.7,242.6 105.2,242.3 111.7,244.2 118.3,247.1 124.8,251.2 131.3,250.1 137.8,247.0 144.3,243.7 150.9,244.1 157.4,242.8 163.9,239.4 170.4,236.9 177.0,236.2 183.5,237.0 190.0,237.0 196.5,239.8 203.0,242.6 209.6,241.2 216.1,237.2 222.6,236.9 229.1,237.8 235.7,239.1 242.2,239.6 248.7,237.2 255.2,237.8 261.7,234.1 268.3,237.0 274.8,238.7 281.3,238.6 287.8,239.5 294.3,236.7 300.9,234.1 307.4,230.6 313.9,229.8 320.4,233.8 327.0,233.3 333.5,233.0 340.0,233.2 346.5,235.2 353.0,233.6 359.6,230.3 366.1,233.7 372.6,232.4 379.1,233.6 385.7,233.6 392.2,230.4 398.7,226.7 405.2,225.6 411.7,228.3 418.3,224.9 424.8,227.7 431.3,228.8 437.8,226.2 444.3,227.8 450.9,229.8 457.4,226.2 463.9,222.6 470.4,224.3 477.0,225.3 483.5,227.2 490.0,230.4" stroke="#1A3F6D" stroke-opacity=".34" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <polyline class="eq-l" points="40.0,248.6 46.5,252.5 53.0,255.1 59.6,258.0 66.1,261.9 72.6,262.1 79.1,260.5 85.7,258.1 92.2,257.5 98.7,255.3 105.2,259.8 111.7,262.0 118.3,258.6 124.8,262.6 131.3,264.9 137.8,265.5 144.3,267.8 150.9,267.8 157.4,272.0 163.9,274.6 170.4,271.2 177.0,274.6 183.5,271.6 190.0,274.7 196.5,271.0 203.0,270.0 209.6,269.2 216.1,272.6 222.6,276.7 229.1,275.0 235.7,278.1 242.2,281.0 248.7,278.8 255.2,276.1 261.7,280.2 268.3,276.8 274.8,277.0 281.3,278.4 287.8,282.0 294.3,283.4 300.9,279.7 307.4,282.0 313.9,285.4 320.4,288.8 327.0,292.3 333.5,293.9 340.0,290.9 346.5,294.8 353.0,297.8 359.6,294.6 366.1,290.9 372.6,287.3 379.1,289.8 385.7,291.4 392.2,288.1 398.7,288.6 405.2,287.4 411.7,289.3 418.3,293.7 424.8,295.4 431.3,293.8 437.8,291.9 444.3,291.7 450.9,292.4 457.4,292.5 463.9,293.4 470.4,293.5 477.0,291.2 483.5,294.1 490.0,293.7" stroke="#4B86CE" stroke-opacity=".34" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle class="eq-o" cx="490.0" cy="271.0" r="6" fill="#8A97A8" opacity="0"/>
+  <circle class="eq-o" cx="490.0" cy="299.3" r="6" fill="#8A97A8" opacity="0"/>
+  <circle class="eq-o" cx="490.0" cy="311.1" r="6" fill="#8A97A8" opacity="0"/>
+  <circle class="eq-o" cx="490.0" cy="251.7" r="6" fill="#8A97A8" opacity="0"/>
+  <polyline class="eq-w" filter="url(#eqGlow-2)" points="40.0,252.4 46.5,250.1 53.0,249.3 59.6,246.5 66.1,243.6 72.6,245.3 79.1,247.4 85.7,242.7 92.2,242.8 98.7,243.1 105.2,237.1 111.7,235.4 118.3,230.7 124.8,229.0 131.3,226.0 137.8,227.0 144.3,223.9 150.9,219.0 157.4,216.9 163.9,213.0 170.4,209.6 177.0,211.4 183.5,207.3 190.0,204.6 196.5,204.4 203.0,206.4 209.6,201.4 216.1,199.7 222.6,196.0 229.1,191.0 235.7,187.3 242.2,181.9 248.7,180.9 255.2,176.5 261.7,175.0 268.3,169.5 274.8,164.5 281.3,165.9 287.8,167.0 294.3,167.4 300.9,161.7 307.4,160.3 313.9,157.3 320.4,157.1 327.0,155.1 333.5,154.2 340.0,153.5 346.5,150.9 353.0,148.3 359.6,143.0 366.1,139.6 372.6,134.1 379.1,129.3 385.7,123.3 392.2,120.0 398.7,120.9 405.2,116.0 411.7,110.2 418.3,105.0 424.8,102.5 431.3,98.8 437.8,99.3 444.3,94.6 450.9,92.1 457.4,92.0 463.9,93.7 470.4,88.9 477.0,82.9 483.5,84.4 490.0,80.0" stroke="#B38A2A" stroke-width="5.6" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle class="eq-d" data-i="5" cx="72.6" cy="245.3" r="8.5" fill="#1B7F5C" stroke="#fff" stroke-width="2.5"/>
+  <circle class="eq-d" data-i="12" cx="118.3" cy="230.7" r="8.5" fill="#1B7F5C" stroke="#fff" stroke-width="2.5"/>
+  <circle class="eq-d" data-i="19" cx="163.9" cy="213.0" r="8.5" fill="#1B7F5C" stroke="#fff" stroke-width="2.5"/>
+  <circle class="eq-d" data-i="26" cx="209.6" cy="201.4" r="8.5" fill="#1B7F5C" stroke="#fff" stroke-width="2.5"/>
+  <circle class="eq-d" data-i="33" cx="255.2" cy="176.5" r="8.5" fill="#1B7F5C" stroke="#fff" stroke-width="2.5"/>
+  <circle class="eq-d" data-i="40" cx="300.9" cy="161.7" r="8.5" fill="#1B7F5C" stroke="#fff" stroke-width="2.5"/>
+  <circle class="eq-d" data-i="47" cx="346.5" cy="150.9" r="8.5" fill="#1B7F5C" stroke="#fff" stroke-width="2.5"/>
+  <circle class="eq-d" data-i="54" cx="392.2" cy="120.0" r="8.5" fill="#1B7F5C" stroke="#fff" stroke-width="2.5"/>
+  <circle class="eq-d" data-i="61" cx="437.8" cy="99.3" r="8.5" fill="#1B7F5C" stroke="#fff" stroke-width="2.5"/>
+  <circle class="eq-halo" cx="490.0" cy="80.0" r="9" stroke="#B38A2A" stroke-width="1.8" fill="none" opacity="0"/>
+  <circle class="eq-tip" cx="490.0" cy="80.0" r="9.5" fill="#fff" stroke="#B38A2A" stroke-width="4.5"/>
+  <g font-family="DM Sans,system-ui,sans-serif" font-size="12" font-weight="700" letter-spacing="1.6">
+    <g class="eq-pill"><rect x="40" y="356" width="150" height="34" rx="17" fill="#0B1F3A"/><circle cx="60" cy="373" r="5" fill="#C29B40"/><text x="74" y="377.5" fill="#fff">VALIDATED</text></g>
+  </g>
+</svg></div></div><div class="loop__panel" data-t="b"><div><span class="tag">Technology &amp; products</span><h3>Software that trades. Terminals that show.</h3><p>Bespoke software for financial markets: execution systems, backtesting engines, analytics terminals and market data infrastructure, shaped around your workflow and connected to your broker. Created by a team that runs its own automated capital on these same systems.</p><a class="more" href="#research-technology">See Research &amp; Technology →</a></div><div class="mini"><div><h4>StrikePoint Atlas</h4><p>Market structure analytics for derivatives and cash: volatility surfaces and positioning flows. A hosted terminal for serious traders, offered as a subscription.</p><div class="acts"><a class="btn btn--solid" href="#contact">Request a demo</a><a class="more" href="#atlas-helm" data-scroll="atlas">Learn more →</a></div></div><div><h4>StrikePoint Helm</h4><p>The execution engine that trades our own capital each day. For clients we create custom builds around your strategy and hand over the code. You run it on your own infrastructure, so your funds and execution remain fully under your control.</p><div class="acts"><a class="btn btn--solid" href="#contact">Request a demo</a><a class="more" href="#atlas-helm" data-scroll="helm">Learn more →</a></div></div><p style="color:var(--muted);font-size:.9rem;margin:0">Live demos of both products will open soon. Request one today and we will hold your access for launch.</p></div></div><div class="loop__panel" data-t="t"><div><span class="tag">Proprietary Desk</span><h3>We trade our own money.</h3><p>Tested proprietary strategies with an edge that has lasted for years. We trade our own capital using fully automated, risk managed systems that need very little human intervention. Real markets, not only backtests.</p><a class="btn btn--solid" href="#proprietary-desk">See the Proprietary Desk →</a></div><div class="loop__art"><svg viewBox="0 0 520 430" fill="none" aria-hidden="true">
+  <defs>
+    <linearGradient id="g3-3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1B7F5C" stop-opacity=".32"/><stop offset="1" stop-color="#1B7F5C" stop-opacity="0"/></linearGradient>
+  </defs>
+  <g stroke="#0B1F3A" stroke-opacity=".09"><path d="M30 90H490M30 170H490M30 250H490M30 330H490"/></g>
+  <path d="M30 320L100 290L160 302L230 232L290 252L360 168L420 188L490 70V350H30Z" fill="url(#g3-3)"/>
+  <path d="M30 320L100 290L160 302L230 232L290 252L360 168L420 188L490 70" stroke="#1B7F5C" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <g fill="#fff" stroke="#1B7F5C" stroke-width="3.5"><circle cx="230" cy="232" r="7"/><circle cx="360" cy="168" r="7"/><circle cx="490" cy="70" r="8"/></g>
+  <path d="M30 350H490" stroke="#0B1F3A" stroke-width="3"/>
+  <g font-family="DM Sans,system-ui,sans-serif" font-size="12" font-weight="700" letter-spacing="1.6">
+    <rect x="44" y="52" width="148" height="34" rx="17" fill="#0B1F3A"/><circle cx="64" cy="69" r="5" fill="#C29B40"/><text x="78" y="73.5" fill="#fff">OWN CAPITAL</text>
+    <rect x="44" y="378" width="170" height="34" rx="17" fill="#fff" stroke="#0B1F3A" stroke-opacity=".14"/><circle cx="64" cy="395" r="5" fill="#1B7F5C"/><text x="78" y="399.5" fill="#0B1F3A">LIVE, AUTOMATED</text>
+  </g>
+</svg></div></div></div></div></section><section class="statement"><div class="wrap"><span class="tag">Why us</span><p class="big rv" style="margin-top:1.2rem">Grounded in discipline and experience.</p><div class="aud"><div class="rv"><h4>Institutional-Level Expertise</h4><p>Guided by quantitative market professionals with more than ten years of live trading experience.</p></div><div class="rv"><h4>Production-Ready Engineering</h4><p>Constructed on ultra-low latency pipelines, clean architecture and dependable infrastructure.</p></div><div class="rv"><h4>Validation Backed by Data</h4><p>We remove bias. Each strategy is thoroughly tested against extensive historical quantitative backtests.</p></div><div class="rv"><h4>End-to-end Infrastructure</h4><p>One team handles research, software, market data and execution, so you never have to piece together five different vendors.</p></div></div></div></section><section class="sec"><div class="wrap"><div class="sec__head rv"><span class="tag">Latest</span><h2>Latest from the blog</h2></div><p class="empty rv">New posts are on the way. Check back soon.</p></div></section><section class="cta"><div class="wrap"><div class="rv"><h2>Let's create your edge.</h2><p>Whether you are fine-tuning a strategy, automating execution, or building out your whole trading infrastructure, we would love to hear from you.</p><a href="#contact" class="btn btn--solid">Get in touch →</a></div></div></section>
+</div>
+<div class="page" data-page="about">
+<section class="head"><div class="wrap rv"><span class="tag">About</span><h1>Where market research becomes working systems.</h1><p>Taking pure mathematical research all the way to automated trading.</p></div></section><section class="chap"><div class="wrap chap__grid"><div class="chap__side rv"><span class="chap__no">01</span><span class="tag">How we trade</span></div><div class="rv"><h2>Trading with total conviction.</h2><p>At StrikePoint, we firmly follow our own advice. We actively run our cutting-edge, in-house mathematical strategies using our own proprietary capital. Our trades are carried out by fully automated, high-performance systems built to run smoothly with very little human intervention. Since we trade our own capital under strict, multi-layered risk management rules, clients can be confident that our software has been tested against the toughest conditions of live financial markets.</p></div></div></section><section class="chap"><div class="wrap chap__grid"><div class="chap__side rv"><span class="chap__no">02</span><span class="tag">What we build</span></div><div class="rv"><h2>Linking alpha discovery with production-ready execution.</h2><p>Our work covers the full lifecycle of systematic trading. By combining advanced statistical models with modern artificial intelligence, our research team finds structural market anomalies across many asset classes and timeframes. We do more than spot these edges: we also build the refined, ultra-low latency software and risk-managed infrastructure needed to trade them. From our real-time analytics terminal, <strong>StrikePoint Atlas</strong>, through to our flagship deployment software, <strong>StrikePoint Helm</strong>, we equip institutional clients, proprietary firms and professional traders with the tools to grow their operations securely.</p></div></div></section><section class="chap"><div class="wrap chap__grid"><div class="chap__side rv"><span class="chap__no">03</span><span class="tag">Who we are</span></div><div class="rv"><h2>Built with precision. Guided by data.</h2><p>STRIKEPOINT VENTURES is a leading quantitative research and technology company, data-driven and grounded in strong market discipline and more than ten years of live trading experience. We work where mathematical finance, advanced data science and institutional-quality software engineering meet. By finding and putting to work lasting statistical edges across global financial markets, we create the technology infrastructure behind modern systematic trading.</p></div></div></section><section class="statement"><div class="wrap"><span class="tag">Why us</span><p class="big rv" style="margin-top:1.2rem">Grounded in discipline and experience.</p><div class="aud"><div class="rv"><h4>Institutional-Level Expertise</h4><p>Guided by quantitative market professionals with more than ten years of live trading experience.</p></div><div class="rv"><h4>Production-Ready Engineering</h4><p>Constructed on ultra-low latency pipelines, clean architecture and dependable infrastructure.</p></div><div class="rv"><h4>Validation Backed by Data</h4><p>We remove bias. Each strategy is thoroughly tested against extensive historical quantitative backtests.</p></div><div class="rv"><h4>End-to-end Infrastructure</h4><p>One team handles research, software, market data and execution, so you never have to piece together five different vendors.</p></div></div></div></section><section class="cta"><div class="wrap"><div class="rv"><h2>Let's create your edge.</h2><p>Whether you are fine-tuning a strategy, automating execution, or building out your whole trading infrastructure, we would love to hear from you.</p><a href="#contact" class="btn btn--solid">Get in touch →</a></div></div></section>
+</div>
+<div class="page" data-page="services">
+<section class="head"><div class="wrap rv"><span class="tag">What we offer</span><h1>Everything between an idea and a live trade.</h1><p>From statistical edge research and backtesting engines to production low-latency execution and proprietary capital deployment, our team provides institutional derivatives solutions founded on mathematical rigor.</p></div></section><section class="sec" style="padding-top:1rem"><div class="wrap hub"><div class="hub__nav" data-tabs data-hover><button type="button" data-t="0" class="on"><span>01</span>Research &amp; Technology<i>→</i></button><button type="button" data-t="1"><span>02</span>Atlas &amp; Helm<i>→</i></button><button type="button" data-t="2"><span>03</span>Proprietary Desk<i>→</i></button></div><div class="hub__stage rv"><article class="hub__panel on" data-t="0"><svg class="eq-art" viewBox="0 0 520 400" fill="none" aria-hidden="true">
+  <defs>
+    <linearGradient id="eqArea-4" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1B7F5C" stop-opacity=".45"/><stop offset="1" stop-color="#1B7F5C" stop-opacity="0"/></linearGradient>
+    <radialGradient id="eqBg-4" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#9CC3EA" stop-opacity=".30"/><stop offset=".6" stop-color="#9CC3EA" stop-opacity=".14"/><stop offset="1" stop-color="#9CC3EA" stop-opacity="0"/></radialGradient>
+    <filter id="eqGlow-4" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#B38A2A" flood-opacity=".45"/></filter>
+  </defs>
+  <rect x="0" y="0" width="520" height="400" fill="url(#eqBg-4)"/>
+  <g stroke="#0B1F3A" stroke-opacity=".16" stroke-width="1.5"><path d="M40 90H490M40 170H490M40 250H490M40 330H490"/></g>
+  <polygon class="eq-area" fill="url(#eqArea-4)" points="40.0,252.4 46.5,250.1 53.0,249.3 59.6,246.5 66.1,243.6 72.6,245.3 79.1,247.4 85.7,242.7 92.2,242.8 98.7,243.1 105.2,237.1 111.7,235.4 118.3,230.7 124.8,229.0 131.3,226.0 137.8,227.0 144.3,223.9 150.9,219.0 157.4,216.9 163.9,213.0 170.4,209.6 177.0,211.4 183.5,207.3 190.0,204.6 196.5,204.4 203.0,206.4 209.6,201.4 216.1,199.7 222.6,196.0 229.1,191.0 235.7,187.3 242.2,181.9 248.7,180.9 255.2,176.5 261.7,175.0 268.3,169.5 274.8,164.5 281.3,165.9 287.8,167.0 294.3,167.4 300.9,161.7 307.4,160.3 313.9,157.3 320.4,157.1 327.0,155.1 333.5,154.2 340.0,153.5 346.5,150.9 353.0,148.3 359.6,143.0 366.1,139.6 372.6,134.1 379.1,129.3 385.7,123.3 392.2,120.0 398.7,120.9 405.2,116.0 411.7,110.2 418.3,105.0 424.8,102.5 431.3,98.8 437.8,99.3 444.3,94.6 450.9,92.1 457.4,92.0 463.9,93.7 470.4,88.9 477.0,82.9 483.5,84.4 490.0,80.0 490,330 40,330"/>
+  <polyline class="eq-l" points="40.0,255.2 46.5,257.1 53.0,255.0 59.6,252.0 66.1,256.0 72.6,255.2 79.1,259.1 85.7,257.4 92.2,259.0 98.7,256.0 105.2,252.1 111.7,252.2 118.3,248.2 124.8,250.0 131.3,253.6 137.8,252.9 144.3,257.0 150.9,259.6 157.4,260.5 163.9,259.8 170.4,262.8 177.0,266.7 183.5,263.8 190.0,265.5 196.5,261.9 203.0,258.7 209.6,259.9 216.1,260.4 222.6,260.3 229.1,259.3 235.7,258.6 242.2,258.3 248.7,257.5 255.2,254.0 261.7,254.0 268.3,254.8 274.8,253.1 281.3,255.4 287.8,257.2 294.3,253.4 300.9,253.4 307.4,253.1 313.9,257.3 320.4,258.2 327.0,257.6 333.5,261.8 340.0,261.0 346.5,260.0 353.0,263.8 359.6,262.9 366.1,263.3 372.6,262.0 379.1,263.4 385.7,261.8 392.2,260.0 398.7,264.1 405.2,267.9 411.7,266.6 418.3,262.9 424.8,265.1 431.3,265.6 437.8,265.0 444.3,266.6 450.9,267.9 457.4,269.6 463.9,270.8 470.4,270.2 477.0,272.0 483.5,273.1 490.0,271.0" stroke="#4B86CE" stroke-opacity=".34" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <polyline class="eq-l" points="40.0,252.4 46.5,251.2 53.0,253.6 59.6,256.6 66.1,254.9 72.6,257.9 79.1,261.2 85.7,262.6 92.2,261.7 98.7,265.8 105.2,268.0 111.7,270.2 118.3,268.2 124.8,269.5 131.3,267.4 137.8,270.9 144.3,273.0 150.9,272.6 157.4,270.1 163.9,271.3 170.4,274.4 177.0,278.3 183.5,278.9 190.0,282.2 196.5,280.5 203.0,278.4 209.6,281.8 216.1,284.5 222.6,282.7 229.1,282.3 235.7,280.6 242.2,282.6 248.7,286.5 255.2,289.0 261.7,287.3 268.3,290.0 274.8,292.1 281.3,293.5 287.8,295.0 294.3,296.5 300.9,293.8 307.4,297.5 313.9,302.3 320.4,299.5 327.0,297.1 333.5,293.8 340.0,295.2 346.5,292.2 353.0,289.5 359.6,292.6 366.1,291.3 372.6,289.3 379.1,288.7 385.7,289.4 392.2,291.9 398.7,294.0 405.2,297.0 411.7,301.4 418.3,301.4 424.8,304.0 431.3,302.2 437.8,306.8 444.3,304.2 450.9,303.4 457.4,300.6 463.9,298.1 470.4,295.6 477.0,295.8 483.5,300.6 490.0,299.3" stroke="#8FB3E0" stroke-opacity=".34" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <polyline class="eq-l" points="40.0,254.4 46.5,253.5 53.0,253.9 59.6,255.1 66.1,252.0 72.6,251.7 79.1,253.5 85.7,256.1 92.2,253.7 98.7,254.4 105.2,252.6 111.7,254.4 118.3,257.4 124.8,257.7 131.3,255.6 137.8,258.9 144.3,257.0 150.9,254.0 157.4,252.1 163.9,249.9 170.4,254.5 177.0,254.0 183.5,251.6 190.0,255.8 196.5,258.3 203.0,260.7 209.6,261.1 216.1,262.2 222.6,263.0 229.1,261.3 235.7,265.9 242.2,270.2 248.7,273.8 255.2,277.5 261.7,281.6 268.3,278.2 274.8,275.8 281.3,279.8 287.8,280.3 294.3,282.4 300.9,284.4 307.4,286.2 313.9,285.5 320.4,285.4 327.0,287.1 333.5,290.2 340.0,292.1 346.5,295.8 353.0,295.9 359.6,294.6 366.1,296.2 372.6,300.2 379.1,303.4 385.7,305.0 392.2,304.7 398.7,302.9 405.2,304.4 411.7,302.5 418.3,302.0 424.8,303.1 431.3,304.7 437.8,305.3 444.3,304.1 450.9,305.3 457.4,304.3 463.9,305.1 470.4,307.8 477.0,308.1 483.5,307.0 490.0,311.1" stroke="#51647B" stroke-opacity=".34" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <polyline class="eq-l" points="40.0,252.9 46.5,249.9 53.0,246.4 59.6,247.5 66.1,244.4 72.6,242.1 79.1,244.2 85.7,244.6 92.2,247.8 98.7,245.4 105.2,244.2 111.7,241.1 118.3,238.8 124.8,237.5 131.3,235.7 137.8,235.3 144.3,238.7 150.9,238.1 157.4,242.3 163.9,245.4 170.4,243.3 177.0,247.2 183.5,250.7 190.0,254.1 196.5,251.1 203.0,253.9 209.6,257.9 216.1,255.2 222.6,258.5 229.1,255.8 235.7,254.5 242.2,251.8 248.7,248.2 255.2,247.6 261.7,245.3 268.3,249.3 274.8,247.2 281.3,247.2 287.8,245.5 294.3,248.9 300.9,247.0 307.4,243.5 313.9,247.3 320.4,248.8 327.0,248.4 333.5,245.8 340.0,248.1 346.5,250.9 353.0,253.1 359.6,252.2 366.1,250.3 372.6,251.3 379.1,252.5 385.7,253.5 392.2,254.8 398.7,255.6 405.2,259.2 411.7,259.3 418.3,255.6 424.8,256.4 431.3,254.5 437.8,257.4 444.3,256.0 450.9,254.0 457.4,252.6 463.9,252.6 470.4,252.9 477.0,251.8 483.5,248.7 490.0,251.7" stroke="#D9B45A" stroke-opacity=".34" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <polyline class="eq-l" points="40.0,250.8 46.5,248.0 53.0,248.5 59.6,249.7 66.1,248.5 72.6,251.8 79.1,254.4 85.7,257.5 92.2,257.5 98.7,259.7 105.2,262.6 111.7,261.7 118.3,258.6 124.8,261.0 131.3,259.9 137.8,261.3 144.3,259.0 150.9,259.0 157.4,261.6 163.9,264.6 170.4,269.2 177.0,270.1 183.5,271.7 190.0,275.1 196.5,276.9 203.0,279.1 209.6,277.5 216.1,281.1 222.6,277.7 229.1,278.5 235.7,278.4 242.2,279.3 248.7,277.2 255.2,275.2 261.7,275.4 268.3,276.3 274.8,275.1 281.3,272.8 287.8,274.3 294.3,273.0 300.9,269.9 307.4,270.8 313.9,273.7 320.4,276.6 327.0,275.5 333.5,274.7 340.0,271.6 346.5,269.3 353.0,272.1 359.6,275.4 366.1,278.0 372.6,281.3 379.1,280.3 385.7,278.0 392.2,275.3 398.7,278.0 405.2,275.7 411.7,277.9 418.3,279.2 424.8,277.9 431.3,282.1 437.8,286.1 444.3,284.0 450.9,286.4 457.4,288.3 463.9,288.3 470.4,287.5 477.0,292.2 483.5,294.3 490.0,295.5" stroke="#5FAE8C" stroke-opacity=".34" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <polyline class="eq-l" points="40.0,254.6 46.5,253.9 53.0,250.1 59.6,251.1 66.1,250.7 72.6,253.9 79.1,255.8 85.7,254.5 92.2,257.7 98.7,254.5 105.2,251.1 111.7,254.5 118.3,250.9 124.8,251.9 131.3,249.7 137.8,247.6 144.3,249.3 150.9,247.9 157.4,246.6 163.9,244.1 170.4,246.1 177.0,244.0 183.5,240.2 190.0,238.8 196.5,238.5 203.0,241.7 209.6,241.8 216.1,243.1 222.6,241.3 229.1,239.8 235.7,239.3 242.2,241.9 248.7,240.8 255.2,239.7 261.7,242.4 268.3,239.2 274.8,237.9 281.3,241.1 287.8,237.5 294.3,240.5 300.9,241.9 307.4,240.1 313.9,239.3 320.4,238.9 327.0,237.7 333.5,238.1 340.0,239.6 346.5,242.4 353.0,246.0 359.6,244.2 366.1,242.1 372.6,241.8 379.1,239.8 385.7,241.0 392.2,243.0 398.7,243.9 405.2,240.9 411.7,244.7 418.3,244.7 424.8,246.8 431.3,244.6 437.8,245.8 444.3,247.2 450.9,248.1 457.4,247.7 463.9,245.5 470.4,246.8 477.0,243.9 483.5,247.1 490.0,249.1" stroke="#1A3F6D" stroke-opacity=".34" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <polyline class="eq-l" points="40.0,256.0 46.5,254.4 53.0,253.2 59.6,256.4 66.1,259.7 72.6,261.0 79.1,259.7 85.7,257.7 92.2,256.3 98.7,256.2 105.2,259.8 111.7,261.3 118.3,264.5 124.8,265.0 131.3,265.1 137.8,268.2 144.3,270.9 150.9,269.3 157.4,273.8 163.9,272.0 170.4,269.4 177.0,266.3 183.5,268.0 190.0,268.2 196.5,268.2 203.0,267.7 209.6,264.4 216.1,263.5 222.6,265.9 229.1,263.6 235.7,264.3 242.2,264.2 248.7,263.0 255.2,267.7 261.7,266.2 268.3,265.5 274.8,266.2 281.3,266.7 287.8,267.7 294.3,270.9 300.9,271.3 307.4,275.8 313.9,276.5 320.4,275.9 327.0,277.0 333.5,277.2 340.0,274.0 346.5,271.4 353.0,275.1 359.6,273.4 366.1,273.0 372.6,277.4 379.1,279.2 385.7,282.1 392.2,286.2 398.7,286.6 405.2,283.7 411.7,285.8 418.3,283.4 424.8,282.5 431.3,286.2 437.8,283.8 444.3,283.7 450.9,280.8 457.4,279.7 463.9,278.3 470.4,280.3 477.0,278.4 483.5,275.5 490.0,273.2" stroke="#4B86CE" stroke-opacity=".34" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <polyline class="eq-l" points="40.0,250.1 46.5,250.4 53.0,253.7 59.6,257.6 66.1,261.2 72.6,263.8 79.1,266.7 85.7,266.8 92.2,265.3 98.7,265.1 105.2,265.8 111.7,264.7 118.3,266.4 124.8,266.8 131.3,264.8 137.8,265.7 144.3,268.5 150.9,265.3 157.4,263.5 163.9,264.7 170.4,265.9 177.0,265.8 183.5,265.1 190.0,267.5 196.5,271.7 203.0,274.2 209.6,272.0 216.1,275.0 222.6,275.5 229.1,278.1 235.7,280.6 242.2,283.5 248.7,284.4 255.2,287.2 261.7,291.2 268.3,294.6 274.8,297.4 281.3,297.6 287.8,301.4 294.3,305.4 300.9,306.0 307.4,306.8 313.9,305.2 320.4,309.1 327.0,310.0 333.5,310.9 340.0,315.0 346.5,311.2 353.0,313.6 359.6,317.1 366.1,317.4 372.6,320.3 379.1,319.4 385.7,320.8 392.2,324.0 398.7,327.8 405.2,326.0 411.7,328.0 418.3,325.7 424.8,326.1 431.3,322.6 437.8,324.4 444.3,326.6 450.9,328.6 457.4,326.1 463.9,325.1 470.4,326.5 477.0,330.0 483.5,328.6 490.0,324.8" stroke="#8FB3E0" stroke-opacity=".34" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <polyline class="eq-l" points="40.0,256.1 46.5,259.9 53.0,263.1 59.6,265.7 66.1,269.4 72.6,272.9 79.1,271.5 85.7,268.0 92.2,270.3 98.7,266.3 105.2,266.3 111.7,263.6 118.3,260.0 124.8,256.2 131.3,259.9 137.8,261.4 144.3,260.3 150.9,256.5 157.4,259.8 163.9,261.3 170.4,258.3 177.0,261.3 183.5,262.1 190.0,263.3 196.5,261.6 203.0,257.9 209.6,260.5 216.1,258.3 222.6,256.2 229.1,253.3 235.7,252.7 242.2,249.0 248.7,250.0 255.2,250.6 261.7,252.7 268.3,250.2 274.8,250.2 281.3,252.0 287.8,254.6 294.3,252.6 300.9,251.5 307.4,249.6 313.9,250.4 320.4,250.4 327.0,253.1 333.5,251.2 340.0,255.0 346.5,255.1 353.0,252.8 359.6,251.2 366.1,254.4 372.6,256.4 379.1,253.4 385.7,252.1 392.2,248.8 398.7,245.6 405.2,245.8 411.7,242.4 418.3,240.3 424.8,241.5 431.3,242.4 437.8,245.8 444.3,246.5 450.9,242.6 457.4,245.7 463.9,245.0 470.4,248.1 477.0,251.4 483.5,250.0 490.0,252.0" stroke="#51647B" stroke-opacity=".34" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <polyline class="eq-l" points="40.0,255.8 46.5,255.3 53.0,255.4 59.6,260.2 66.1,263.1 72.6,260.0 79.1,263.1 85.7,263.3 92.2,264.7 98.7,263.2 105.2,263.0 111.7,261.4 118.3,261.8 124.8,265.2 131.3,268.6 137.8,272.8 144.3,270.9 150.9,274.8 157.4,279.5 163.9,276.4 170.4,279.7 177.0,277.2 183.5,281.3 190.0,282.4 196.5,285.4 203.0,283.4 209.6,283.2 216.1,282.8 222.6,281.4 229.1,279.0 235.7,281.1 242.2,281.0 248.7,282.2 255.2,286.1 261.7,284.1 268.3,284.1 274.8,282.2 281.3,285.4 287.8,285.8 294.3,286.9 300.9,285.7 307.4,290.0 313.9,292.0 320.4,292.9 327.0,297.2 333.5,297.5 340.0,296.3 346.5,297.7 353.0,297.2 359.6,297.0 366.1,300.2 372.6,302.2 379.1,298.8 385.7,300.9 392.2,302.2 398.7,306.4 405.2,309.5 411.7,313.0 418.3,310.2 424.8,309.1 431.3,306.7 437.8,303.4 444.3,303.3 450.9,300.4 457.4,300.9 463.9,302.3 470.4,299.3 477.0,296.7 483.5,293.8 490.0,294.6" stroke="#D9B45A" stroke-opacity=".34" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <polyline class="eq-l" points="40.0,252.5 46.5,247.9 53.0,244.0 59.6,245.2 66.1,241.2 72.6,243.3 79.1,246.2 85.7,243.9 92.2,245.2 98.7,244.6 105.2,243.0 111.7,246.3 118.3,243.8 124.8,245.2 131.3,245.3 137.8,246.2 144.3,243.7 150.9,241.2 157.4,242.5 163.9,245.4 170.4,246.6 177.0,246.9 183.5,249.9 190.0,252.3 196.5,249.7 203.0,247.6 209.6,243.2 216.1,238.8 222.6,235.2 229.1,235.8 235.7,238.1 242.2,239.2 248.7,239.1 255.2,238.4 261.7,237.6 268.3,238.3 274.8,235.0 281.3,236.3 287.8,236.1 294.3,232.5 300.9,229.5 307.4,230.7 313.9,232.4 320.4,229.4 327.0,233.0 333.5,235.6 340.0,234.9 346.5,234.1 353.0,236.5 359.6,239.7 366.1,241.7 372.6,239.0 379.1,238.9 385.7,234.4 392.2,231.6 398.7,227.2 405.2,230.6 411.7,232.8 418.3,236.3 424.8,236.4 431.3,237.3 437.8,240.6 444.3,239.8 450.9,242.7 457.4,243.8 463.9,245.4 470.4,242.5 477.0,242.7 483.5,244.2 490.0,247.6" stroke="#5FAE8C" stroke-opacity=".34" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <polyline class="eq-l" points="40.0,251.2 46.5,249.9 53.0,246.6 59.6,244.1 66.1,246.3 72.6,249.5 79.1,247.5 85.7,245.2 92.2,245.2 98.7,242.6 105.2,242.3 111.7,244.2 118.3,247.1 124.8,251.2 131.3,250.1 137.8,247.0 144.3,243.7 150.9,244.1 157.4,242.8 163.9,239.4 170.4,236.9 177.0,236.2 183.5,237.0 190.0,237.0 196.5,239.8 203.0,242.6 209.6,241.2 216.1,237.2 222.6,236.9 229.1,237.8 235.7,239.1 242.2,239.6 248.7,237.2 255.2,237.8 261.7,234.1 268.3,237.0 274.8,238.7 281.3,238.6 287.8,239.5 294.3,236.7 300.9,234.1 307.4,230.6 313.9,229.8 320.4,233.8 327.0,233.3 333.5,233.0 340.0,233.2 346.5,235.2 353.0,233.6 359.6,230.3 366.1,233.7 372.6,232.4 379.1,233.6 385.7,233.6 392.2,230.4 398.7,226.7 405.2,225.6 411.7,228.3 418.3,224.9 424.8,227.7 431.3,228.8 437.8,226.2 444.3,227.8 450.9,229.8 457.4,226.2 463.9,222.6 470.4,224.3 477.0,225.3 483.5,227.2 490.0,230.4" stroke="#1A3F6D" stroke-opacity=".34" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <polyline class="eq-l" points="40.0,248.6 46.5,252.5 53.0,255.1 59.6,258.0 66.1,261.9 72.6,262.1 79.1,260.5 85.7,258.1 92.2,257.5 98.7,255.3 105.2,259.8 111.7,262.0 118.3,258.6 124.8,262.6 131.3,264.9 137.8,265.5 144.3,267.8 150.9,267.8 157.4,272.0 163.9,274.6 170.4,271.2 177.0,274.6 183.5,271.6 190.0,274.7 196.5,271.0 203.0,270.0 209.6,269.2 216.1,272.6 222.6,276.7 229.1,275.0 235.7,278.1 242.2,281.0 248.7,278.8 255.2,276.1 261.7,280.2 268.3,276.8 274.8,277.0 281.3,278.4 287.8,282.0 294.3,283.4 300.9,279.7 307.4,282.0 313.9,285.4 320.4,288.8 327.0,292.3 333.5,293.9 340.0,290.9 346.5,294.8 353.0,297.8 359.6,294.6 366.1,290.9 372.6,287.3 379.1,289.8 385.7,291.4 392.2,288.1 398.7,288.6 405.2,287.4 411.7,289.3 418.3,293.7 424.8,295.4 431.3,293.8 437.8,291.9 444.3,291.7 450.9,292.4 457.4,292.5 463.9,293.4 470.4,293.5 477.0,291.2 483.5,294.1 490.0,293.7" stroke="#4B86CE" stroke-opacity=".34" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle class="eq-o" cx="490.0" cy="271.0" r="6" fill="#8A97A8" opacity="0"/>
+  <circle class="eq-o" cx="490.0" cy="299.3" r="6" fill="#8A97A8" opacity="0"/>
+  <circle class="eq-o" cx="490.0" cy="311.1" r="6" fill="#8A97A8" opacity="0"/>
+  <circle class="eq-o" cx="490.0" cy="251.7" r="6" fill="#8A97A8" opacity="0"/>
+  <polyline class="eq-w" filter="url(#eqGlow-4)" points="40.0,252.4 46.5,250.1 53.0,249.3 59.6,246.5 66.1,243.6 72.6,245.3 79.1,247.4 85.7,242.7 92.2,242.8 98.7,243.1 105.2,237.1 111.7,235.4 118.3,230.7 124.8,229.0 131.3,226.0 137.8,227.0 144.3,223.9 150.9,219.0 157.4,216.9 163.9,213.0 170.4,209.6 177.0,211.4 183.5,207.3 190.0,204.6 196.5,204.4 203.0,206.4 209.6,201.4 216.1,199.7 222.6,196.0 229.1,191.0 235.7,187.3 242.2,181.9 248.7,180.9 255.2,176.5 261.7,175.0 268.3,169.5 274.8,164.5 281.3,165.9 287.8,167.0 294.3,167.4 300.9,161.7 307.4,160.3 313.9,157.3 320.4,157.1 327.0,155.1 333.5,154.2 340.0,153.5 346.5,150.9 353.0,148.3 359.6,143.0 366.1,139.6 372.6,134.1 379.1,129.3 385.7,123.3 392.2,120.0 398.7,120.9 405.2,116.0 411.7,110.2 418.3,105.0 424.8,102.5 431.3,98.8 437.8,99.3 444.3,94.6 450.9,92.1 457.4,92.0 463.9,93.7 470.4,88.9 477.0,82.9 483.5,84.4 490.0,80.0" stroke="#B38A2A" stroke-width="5.6" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle class="eq-d" data-i="5" cx="72.6" cy="245.3" r="8.5" fill="#1B7F5C" stroke="#fff" stroke-width="2.5"/>
+  <circle class="eq-d" data-i="12" cx="118.3" cy="230.7" r="8.5" fill="#1B7F5C" stroke="#fff" stroke-width="2.5"/>
+  <circle class="eq-d" data-i="19" cx="163.9" cy="213.0" r="8.5" fill="#1B7F5C" stroke="#fff" stroke-width="2.5"/>
+  <circle class="eq-d" data-i="26" cx="209.6" cy="201.4" r="8.5" fill="#1B7F5C" stroke="#fff" stroke-width="2.5"/>
+  <circle class="eq-d" data-i="33" cx="255.2" cy="176.5" r="8.5" fill="#1B7F5C" stroke="#fff" stroke-width="2.5"/>
+  <circle class="eq-d" data-i="40" cx="300.9" cy="161.7" r="8.5" fill="#1B7F5C" stroke="#fff" stroke-width="2.5"/>
+  <circle class="eq-d" data-i="47" cx="346.5" cy="150.9" r="8.5" fill="#1B7F5C" stroke="#fff" stroke-width="2.5"/>
+  <circle class="eq-d" data-i="54" cx="392.2" cy="120.0" r="8.5" fill="#1B7F5C" stroke="#fff" stroke-width="2.5"/>
+  <circle class="eq-d" data-i="61" cx="437.8" cy="99.3" r="8.5" fill="#1B7F5C" stroke="#fff" stroke-width="2.5"/>
+  <circle class="eq-halo" cx="490.0" cy="80.0" r="9" stroke="#B38A2A" stroke-width="1.8" fill="none" opacity="0"/>
+  <circle class="eq-tip" cx="490.0" cy="80.0" r="9.5" fill="#fff" stroke="#B38A2A" stroke-width="4.5"/>
+  <g font-family="DM Sans,system-ui,sans-serif" font-size="12" font-weight="700" letter-spacing="1.6">
+    <g class="eq-pill"><rect x="40" y="356" width="150" height="34" rx="17" fill="#0B1F3A"/><circle cx="60" cy="373" r="5" fill="#C29B40"/><text x="74" y="377.5" fill="#fff">VALIDATED</text></g>
+  </g>
+</svg><span class="tag">Research &amp; technology</span><h2>Research &amp; Technology</h2><p>From edge research to the software that trades it. We put strategies through strict backtesting, statistical validation and careful research, then build the execution systems, backtesting engines, analytics terminals and market data infrastructure to run them, shaped around your workflow and connected to your broker. Covered entirely by NDA.</p><a href="#research-technology" class="btn btn--solid">See Research &amp; Technology →</a></article><article class="hub__panel" data-t="1"><svg viewBox="0 0 520 430" fill="none" aria-hidden="true">
+  <path d="M120 46Q260 -4 400 46" stroke="#B38A2A" stroke-width="2" stroke-dasharray="3 7" opacity=".7"/>
+  <g stroke="#0B1F3A" stroke-opacity=".45" stroke-width="3.5" stroke-dasharray="1 10" stroke-linecap="round">
+    <path d="M144 112H190V195H205"/><path d="M376 112H330V195H315"/><path d="M144 318H190V235H205"/><path d="M376 318H330V235H315"/>
+  </g>
+  <g fill="#1B7F5C"><circle cx="205" cy="195" r="5"/><circle cx="315" cy="195" r="5"/><circle cx="205" cy="235" r="5"/><circle cx="315" cy="235" r="5"/></g>
+  <g font-family="DM Sans,system-ui,sans-serif" font-weight="700" letter-spacing="1.6" font-size="10" text-anchor="middle">
+    <rect x="205" y="150" width="110" height="130" rx="30" fill="#0B1F3A"/>
+    <circle cx="260" cy="200" r="24" stroke="#C29B40" stroke-width="3.5"/><path d="M260 182l9 18-9 18-9-18z" fill="#C29B40"/>
+    <text x="260" y="262" fill="#fff">ATLAS</text>
+
+    <rect x="40" y="70" width="104" height="84" rx="24" fill="#fff" stroke="#0B1F3A" stroke-opacity=".16"/>
+    <path d="M70 108l14-12 12 8 20-20" stroke="#1B7F5C" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="92" y="138" fill="#51647B">DERIVATIVES</text>
+
+    <rect x="376" y="70" width="104" height="84" rx="24" fill="#fff" stroke="#0B1F3A" stroke-opacity=".16"/>
+    <path d="M402 104q6-14 12 0t12 0t12 0t12 0" stroke="#0B1F3A" stroke-width="4" stroke-linecap="round"/>
+    <text x="428" y="138" fill="#51647B">VOLATILITY</text>
+
+    <rect x="40" y="276" width="104" height="84" rx="24" fill="#fff" stroke="#0B1F3A" stroke-opacity=".16"/>
+    <circle cx="92" cy="308" r="15" stroke="#C29B40" stroke-width="4"/><circle cx="92" cy="308" r="4.5" fill="#C29B40"/>
+    <text x="92" y="344" fill="#51647B">CASH</text>
+
+    <rect x="376" y="276" width="104" height="84" rx="24" fill="#fff" stroke="#0B1F3A" stroke-opacity=".16"/>
+    <g><rect x="408" y="304" width="9" height="14" fill="#0B1F3A"/><rect x="421" y="296" width="9" height="22" fill="#1B7F5C"/><rect x="434" y="288" width="9" height="30" fill="#0B1F3A"/><rect x="447" y="298" width="9" height="20" fill="#C29B40"/></g>
+    <text x="428" y="344" fill="#51647B">POSITIONING</text>
+
+    <rect x="130" y="382" width="260" height="40" rx="20" fill="#fff" stroke="#0B1F3A" stroke-opacity=".14"/>
+    <circle cx="158" cy="402" r="5" fill="#1B7F5C"/><text x="270" y="406" fill="#0B1F3A" font-size="12">ONE VIEW OF THE MARKET</text>
+  </g>
+</svg><span class="tag">Products</span><h2>Atlas &amp; Helm</h2><p>Two products from our desk. Atlas is a hosted analytics terminal for derivatives and cash: volatility surfaces and positioning flows. Helm is the execution engine that trades our own capital every day, custom built around your strategy and run on your own infrastructure.</p><a href="#atlas-helm" class="btn btn--solid">See Atlas &amp; Helm →</a></article><article class="hub__panel" data-t="2"><svg viewBox="0 0 520 430" fill="none" aria-hidden="true">
+  <defs>
+    <linearGradient id="g3-6" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1B7F5C" stop-opacity=".32"/><stop offset="1" stop-color="#1B7F5C" stop-opacity="0"/></linearGradient>
+  </defs>
+  <g stroke="#0B1F3A" stroke-opacity=".09"><path d="M30 90H490M30 170H490M30 250H490M30 330H490"/></g>
+  <path d="M30 320L100 290L160 302L230 232L290 252L360 168L420 188L490 70V350H30Z" fill="url(#g3-6)"/>
+  <path d="M30 320L100 290L160 302L230 232L290 252L360 168L420 188L490 70" stroke="#1B7F5C" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <g fill="#fff" stroke="#1B7F5C" stroke-width="3.5"><circle cx="230" cy="232" r="7"/><circle cx="360" cy="168" r="7"/><circle cx="490" cy="70" r="8"/></g>
+  <path d="M30 350H490" stroke="#0B1F3A" stroke-width="3"/>
+  <g font-family="DM Sans,system-ui,sans-serif" font-size="12" font-weight="700" letter-spacing="1.6">
+    <rect x="44" y="52" width="148" height="34" rx="17" fill="#0B1F3A"/><circle cx="64" cy="69" r="5" fill="#C29B40"/><text x="78" y="73.5" fill="#fff">OWN CAPITAL</text>
+    <rect x="44" y="378" width="170" height="34" rx="17" fill="#fff" stroke="#0B1F3A" stroke-opacity=".14"/><circle cx="64" cy="395" r="5" fill="#1B7F5C"/><text x="78" y="399.5" fill="#0B1F3A">LIVE, AUTOMATED</text>
+  </g>
+</svg><span class="tag">Proprietary desk</span><h2>Proprietary Desk</h2><p>Tested proprietary strategies with an edge that has lasted across regimes. We trade our own capital using fully automated, risk-managed systems that need very little human intervention.</p><a href="#proprietary-desk" class="btn btn--solid">See the Proprietary Desk →</a></article></div></div></section><section class="cta"><div class="wrap"><div class="rv"><h2>Let's create your quantitative edge.</h2><p>Whether you are fine-tuning a strategy, automating execution, or deploying institutional capital, we would love to hear from you.</p><a href="#contact" class="btn btn--solid">Get in touch →</a></div></div></section>
+</div>
+<div class="page" data-page="research-technology">
+<section class="pp"><div class="wrap pp__grid"><div class="rv"><a href="#services" class="crumb">← All services</a><br><span class="tag">Research &amp; Technology</span><h1>Research &amp; <em>Technology</em></h1><p class="lead">We convert trading ideas into strategies you can back with statistics, then build the software that trades them: execution systems, backtesting engines, analytics terminals, risk tools and market data infrastructure, for any asset class, broker or exchange API. Created by a team that runs its own automated capital on these same systems.</p><div class="hero__act"><a href="#contact" class="btn btn--solid">Schedule a free scoping call →</a><a href="#contact" class="btn btn--soft">Talk to us</a></div><p class="sub">Thirty minutes, no obligation. Come with an idea, a half built strategy, or just a market you want to take on. If we are not the right fit, we will tell you.</p></div><div class="pp__art rv"><svg class="eq-art" viewBox="0 0 520 400" fill="none" aria-hidden="true">
+  <defs>
+    <linearGradient id="eqArea-7" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1B7F5C" stop-opacity=".45"/><stop offset="1" stop-color="#1B7F5C" stop-opacity="0"/></linearGradient>
+    <radialGradient id="eqBg-7" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#9CC3EA" stop-opacity=".30"/><stop offset=".6" stop-color="#9CC3EA" stop-opacity=".14"/><stop offset="1" stop-color="#9CC3EA" stop-opacity="0"/></radialGradient>
+    <filter id="eqGlow-7" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#B38A2A" flood-opacity=".45"/></filter>
+  </defs>
+  <rect x="0" y="0" width="520" height="400" fill="url(#eqBg-7)"/>
+  <g stroke="#0B1F3A" stroke-opacity=".16" stroke-width="1.5"><path d="M40 90H490M40 170H490M40 250H490M40 330H490"/></g>
+  <polygon class="eq-area" fill="url(#eqArea-7)" points="40.0,252.4 46.5,250.1 53.0,249.3 59.6,246.5 66.1,243.6 72.6,245.3 79.1,247.4 85.7,242.7 92.2,242.8 98.7,243.1 105.2,237.1 111.7,235.4 118.3,230.7 124.8,229.0 131.3,226.0 137.8,227.0 144.3,223.9 150.9,219.0 157.4,216.9 163.9,213.0 170.4,209.6 177.0,211.4 183.5,207.3 190.0,204.6 196.5,204.4 203.0,206.4 209.6,201.4 216.1,199.7 222.6,196.0 229.1,191.0 235.7,187.3 242.2,181.9 248.7,180.9 255.2,176.5 261.7,175.0 268.3,169.5 274.8,164.5 281.3,165.9 287.8,167.0 294.3,167.4 300.9,161.7 307.4,160.3 313.9,157.3 320.4,157.1 327.0,155.1 333.5,154.2 340.0,153.5 346.5,150.9 353.0,148.3 359.6,143.0 366.1,139.6 372.6,134.1 379.1,129.3 385.7,123.3 392.2,120.0 398.7,120.9 405.2,116.0 411.7,110.2 418.3,105.0 424.8,102.5 431.3,98.8 437.8,99.3 444.3,94.6 450.9,92.1 457.4,92.0 463.9,93.7 470.4,88.9 477.0,82.9 483.5,84.4 490.0,80.0 490,330 40,330"/>
+  <polyline class="eq-l" points="40.0,255.2 46.5,257.1 53.0,255.0 59.6,252.0 66.1,256.0 72.6,255.2 79.1,259.1 85.7,257.4 92.2,259.0 98.7,256.0 105.2,252.1 111.7,252.2 118.3,248.2 124.8,250.0 131.3,253.6 137.8,252.9 144.3,257.0 150.9,259.6 157.4,260.5 163.9,259.8 170.4,262.8 177.0,266.7 183.5,263.8 190.0,265.5 196.5,261.9 203.0,258.7 209.6,259.9 216.1,260.4 222.6,260.3 229.1,259.3 235.7,258.6 242.2,258.3 248.7,257.5 255.2,254.0 261.7,254.0 268.3,254.8 274.8,253.1 281.3,255.4 287.8,257.2 294.3,253.4 300.9,253.4 307.4,253.1 313.9,257.3 320.4,258.2 327.0,257.6 333.5,261.8 340.0,261.0 346.5,260.0 353.0,263.8 359.6,262.9 366.1,263.3 372.6,262.0 379.1,263.4 385.7,261.8 392.2,260.0 398.7,264.1 405.2,267.9 411.7,266.6 418.3,262.9 424.8,265.1 431.3,265.6 437.8,265.0 444.3,266.6 450.9,267.9 457.4,269.6 463.9,270.8 470.4,270.2 477.0,272.0 483.5,273.1 490.0,271.0" stroke="#4B86CE" stroke-opacity=".34" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <polyline class="eq-l" points="40.0,252.4 46.5,251.2 53.0,253.6 59.6,256.6 66.1,254.9 72.6,257.9 79.1,261.2 85.7,262.6 92.2,261.7 98.7,265.8 105.2,268.0 111.7,270.2 118.3,268.2 124.8,269.5 131.3,267.4 137.8,270.9 144.3,273.0 150.9,272.6 157.4,270.1 163.9,271.3 170.4,274.4 177.0,278.3 183.5,278.9 190.0,282.2 196.5,280.5 203.0,278.4 209.6,281.8 216.1,284.5 222.6,282.7 229.1,282.3 235.7,280.6 242.2,282.6 248.7,286.5 255.2,289.0 261.7,287.3 268.3,290.0 274.8,292.1 281.3,293.5 287.8,295.0 294.3,296.5 300.9,293.8 307.4,297.5 313.9,302.3 320.4,299.5 327.0,297.1 333.5,293.8 340.0,295.2 346.5,292.2 353.0,289.5 359.6,292.6 366.1,291.3 372.6,289.3 379.1,288.7 385.7,289.4 392.2,291.9 398.7,294.0 405.2,297.0 411.7,301.4 418.3,301.4 424.8,304.0 431.3,302.2 437.8,306.8 444.3,304.2 450.9,303.4 457.4,300.6 463.9,298.1 470.4,295.6 477.0,295.8 483.5,300.6 490.0,299.3" stroke="#8FB3E0" stroke-opacity=".34" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <polyline class="eq-l" points="40.0,254.4 46.5,253.5 53.0,253.9 59.6,255.1 66.1,252.0 72.6,251.7 79.1,253.5 85.7,256.1 92.2,253.7 98.7,254.4 105.2,252.6 111.7,254.4 118.3,257.4 124.8,257.7 131.3,255.6 137.8,258.9 144.3,257.0 150.9,254.0 157.4,252.1 163.9,249.9 170.4,254.5 177.0,254.0 183.5,251.6 190.0,255.8 196.5,258.3 203.0,260.7 209.6,261.1 216.1,262.2 222.6,263.0 229.1,261.3 235.7,265.9 242.2,270.2 248.7,273.8 255.2,277.5 261.7,281.6 268.3,278.2 274.8,275.8 281.3,279.8 287.8,280.3 294.3,282.4 300.9,284.4 307.4,286.2 313.9,285.5 320.4,285.4 327.0,287.1 333.5,290.2 340.0,292.1 346.5,295.8 353.0,295.9 359.6,294.6 366.1,296.2 372.6,300.2 379.1,303.4 385.7,305.0 392.2,304.7 398.7,302.9 405.2,304.4 411.7,302.5 418.3,302.0 424.8,303.1 431.3,304.7 437.8,305.3 444.3,304.1 450.9,305.3 457.4,304.3 463.9,305.1 470.4,307.8 477.0,308.1 483.5,307.0 490.0,311.1" stroke="#51647B" stroke-opacity=".34" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <polyline class="eq-l" points="40.0,252.9 46.5,249.9 53.0,246.4 59.6,247.5 66.1,244.4 72.6,242.1 79.1,244.2 85.7,244.6 92.2,247.8 98.7,245.4 105.2,244.2 111.7,241.1 118.3,238.8 124.8,237.5 131.3,235.7 137.8,235.3 144.3,238.7 150.9,238.1 157.4,242.3 163.9,245.4 170.4,243.3 177.0,247.2 183.5,250.7 190.0,254.1 196.5,251.1 203.0,253.9 209.6,257.9 216.1,255.2 222.6,258.5 229.1,255.8 235.7,254.5 242.2,251.8 248.7,248.2 255.2,247.6 261.7,245.3 268.3,249.3 274.8,247.2 281.3,247.2 287.8,245.5 294.3,248.9 300.9,247.0 307.4,243.5 313.9,247.3 320.4,248.8 327.0,248.4 333.5,245.8 340.0,248.1 346.5,250.9 353.0,253.1 359.6,252.2 366.1,250.3 372.6,251.3 379.1,252.5 385.7,253.5 392.2,254.8 398.7,255.6 405.2,259.2 411.7,259.3 418.3,255.6 424.8,256.4 431.3,254.5 437.8,257.4 444.3,256.0 450.9,254.0 457.4,252.6 463.9,252.6 470.4,252.9 477.0,251.8 483.5,248.7 490.0,251.7" stroke="#D9B45A" stroke-opacity=".34" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <polyline class="eq-l" points="40.0,250.8 46.5,248.0 53.0,248.5 59.6,249.7 66.1,248.5 72.6,251.8 79.1,254.4 85.7,257.5 92.2,257.5 98.7,259.7 105.2,262.6 111.7,261.7 118.3,258.6 124.8,261.0 131.3,259.9 137.8,261.3 144.3,259.0 150.9,259.0 157.4,261.6 163.9,264.6 170.4,269.2 177.0,270.1 183.5,271.7 190.0,275.1 196.5,276.9 203.0,279.1 209.6,277.5 216.1,281.1 222.6,277.7 229.1,278.5 235.7,278.4 242.2,279.3 248.7,277.2 255.2,275.2 261.7,275.4 268.3,276.3 274.8,275.1 281.3,272.8 287.8,274.3 294.3,273.0 300.9,269.9 307.4,270.8 313.9,273.7 320.4,276.6 327.0,275.5 333.5,274.7 340.0,271.6 346.5,269.3 353.0,272.1 359.6,275.4 366.1,278.0 372.6,281.3 379.1,280.3 385.7,278.0 392.2,275.3 398.7,278.0 405.2,275.7 411.7,277.9 418.3,279.2 424.8,277.9 431.3,282.1 437.8,286.1 444.3,284.0 450.9,286.4 457.4,288.3 463.9,288.3 470.4,287.5 477.0,292.2 483.5,294.3 490.0,295.5" stroke="#5FAE8C" stroke-opacity=".34" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <polyline class="eq-l" points="40.0,254.6 46.5,253.9 53.0,250.1 59.6,251.1 66.1,250.7 72.6,253.9 79.1,255.8 85.7,254.5 92.2,257.7 98.7,254.5 105.2,251.1 111.7,254.5 118.3,250.9 124.8,251.9 131.3,249.7 137.8,247.6 144.3,249.3 150.9,247.9 157.4,246.6 163.9,244.1 170.4,246.1 177.0,244.0 183.5,240.2 190.0,238.8 196.5,238.5 203.0,241.7 209.6,241.8 216.1,243.1 222.6,241.3 229.1,239.8 235.7,239.3 242.2,241.9 248.7,240.8 255.2,239.7 261.7,242.4 268.3,239.2 274.8,237.9 281.3,241.1 287.8,237.5 294.3,240.5 300.9,241.9 307.4,240.1 313.9,239.3 320.4,238.9 327.0,237.7 333.5,238.1 340.0,239.6 346.5,242.4 353.0,246.0 359.6,244.2 366.1,242.1 372.6,241.8 379.1,239.8 385.7,241.0 392.2,243.0 398.7,243.9 405.2,240.9 411.7,244.7 418.3,244.7 424.8,246.8 431.3,244.6 437.8,245.8 444.3,247.2 450.9,248.1 457.4,247.7 463.9,245.5 470.4,246.8 477.0,243.9 483.5,247.1 490.0,249.1" stroke="#1A3F6D" stroke-opacity=".34" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <polyline class="eq-l" points="40.0,256.0 46.5,254.4 53.0,253.2 59.6,256.4 66.1,259.7 72.6,261.0 79.1,259.7 85.7,257.7 92.2,256.3 98.7,256.2 105.2,259.8 111.7,261.3 118.3,264.5 124.8,265.0 131.3,265.1 137.8,268.2 144.3,270.9 150.9,269.3 157.4,273.8 163.9,272.0 170.4,269.4 177.0,266.3 183.5,268.0 190.0,268.2 196.5,268.2 203.0,267.7 209.6,264.4 216.1,263.5 222.6,265.9 229.1,263.6 235.7,264.3 242.2,264.2 248.7,263.0 255.2,267.7 261.7,266.2 268.3,265.5 274.8,266.2 281.3,266.7 287.8,267.7 294.3,270.9 300.9,271.3 307.4,275.8 313.9,276.5 320.4,275.9 327.0,277.0 333.5,277.2 340.0,274.0 346.5,271.4 353.0,275.1 359.6,273.4 366.1,273.0 372.6,277.4 379.1,279.2 385.7,282.1 392.2,286.2 398.7,286.6 405.2,283.7 411.7,285.8 418.3,283.4 424.8,282.5 431.3,286.2 437.8,283.8 444.3,283.7 450.9,280.8 457.4,279.7 463.9,278.3 470.4,280.3 477.0,278.4 483.5,275.5 490.0,273.2" stroke="#4B86CE" stroke-opacity=".34" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <polyline class="eq-l" points="40.0,250.1 46.5,250.4 53.0,253.7 59.6,257.6 66.1,261.2 72.6,263.8 79.1,266.7 85.7,266.8 92.2,265.3 98.7,265.1 105.2,265.8 111.7,264.7 118.3,266.4 124.8,266.8 131.3,264.8 137.8,265.7 144.3,268.5 150.9,265.3 157.4,263.5 163.9,264.7 170.4,265.9 177.0,265.8 183.5,265.1 190.0,267.5 196.5,271.7 203.0,274.2 209.6,272.0 216.1,275.0 222.6,275.5 229.1,278.1 235.7,280.6 242.2,283.5 248.7,284.4 255.2,287.2 261.7,291.2 268.3,294.6 274.8,297.4 281.3,297.6 287.8,301.4 294.3,305.4 300.9,306.0 307.4,306.8 313.9,305.2 320.4,309.1 327.0,310.0 333.5,310.9 340.0,315.0 346.5,311.2 353.0,313.6 359.6,317.1 366.1,317.4 372.6,320.3 379.1,319.4 385.7,320.8 392.2,324.0 398.7,327.8 405.2,326.0 411.7,328.0 418.3,325.7 424.8,326.1 431.3,322.6 437.8,324.4 444.3,326.6 450.9,328.6 457.4,326.1 463.9,325.1 470.4,326.5 477.0,330.0 483.5,328.6 490.0,324.8" stroke="#8FB3E0" stroke-opacity=".34" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <polyline class="eq-l" points="40.0,256.1 46.5,259.9 53.0,263.1 59.6,265.7 66.1,269.4 72.6,272.9 79.1,271.5 85.7,268.0 92.2,270.3 98.7,266.3 105.2,266.3 111.7,263.6 118.3,260.0 124.8,256.2 131.3,259.9 137.8,261.4 144.3,260.3 150.9,256.5 157.4,259.8 163.9,261.3 170.4,258.3 177.0,261.3 183.5,262.1 190.0,263.3 196.5,261.6 203.0,257.9 209.6,260.5 216.1,258.3 222.6,256.2 229.1,253.3 235.7,252.7 242.2,249.0 248.7,250.0 255.2,250.6 261.7,252.7 268.3,250.2 274.8,250.2 281.3,252.0 287.8,254.6 294.3,252.6 300.9,251.5 307.4,249.6 313.9,250.4 320.4,250.4 327.0,253.1 333.5,251.2 340.0,255.0 346.5,255.1 353.0,252.8 359.6,251.2 366.1,254.4 372.6,256.4 379.1,253.4 385.7,252.1 392.2,248.8 398.7,245.6 405.2,245.8 411.7,242.4 418.3,240.3 424.8,241.5 431.3,242.4 437.8,245.8 444.3,246.5 450.9,242.6 457.4,245.7 463.9,245.0 470.4,248.1 477.0,251.4 483.5,250.0 490.0,252.0" stroke="#51647B" stroke-opacity=".34" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <polyline class="eq-l" points="40.0,255.8 46.5,255.3 53.0,255.4 59.6,260.2 66.1,263.1 72.6,260.0 79.1,263.1 85.7,263.3 92.2,264.7 98.7,263.2 105.2,263.0 111.7,261.4 118.3,261.8 124.8,265.2 131.3,268.6 137.8,272.8 144.3,270.9 150.9,274.8 157.4,279.5 163.9,276.4 170.4,279.7 177.0,277.2 183.5,281.3 190.0,282.4 196.5,285.4 203.0,283.4 209.6,283.2 216.1,282.8 222.6,281.4 229.1,279.0 235.7,281.1 242.2,281.0 248.7,282.2 255.2,286.1 261.7,284.1 268.3,284.1 274.8,282.2 281.3,285.4 287.8,285.8 294.3,286.9 300.9,285.7 307.4,290.0 313.9,292.0 320.4,292.9 327.0,297.2 333.5,297.5 340.0,296.3 346.5,297.7 353.0,297.2 359.6,297.0 366.1,300.2 372.6,302.2 379.1,298.8 385.7,300.9 392.2,302.2 398.7,306.4 405.2,309.5 411.7,313.0 418.3,310.2 424.8,309.1 431.3,306.7 437.8,303.4 444.3,303.3 450.9,300.4 457.4,300.9 463.9,302.3 470.4,299.3 477.0,296.7 483.5,293.8 490.0,294.6" stroke="#D9B45A" stroke-opacity=".34" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <polyline class="eq-l" points="40.0,252.5 46.5,247.9 53.0,244.0 59.6,245.2 66.1,241.2 72.6,243.3 79.1,246.2 85.7,243.9 92.2,245.2 98.7,244.6 105.2,243.0 111.7,246.3 118.3,243.8 124.8,245.2 131.3,245.3 137.8,246.2 144.3,243.7 150.9,241.2 157.4,242.5 163.9,245.4 170.4,246.6 177.0,246.9 183.5,249.9 190.0,252.3 196.5,249.7 203.0,247.6 209.6,243.2 216.1,238.8 222.6,235.2 229.1,235.8 235.7,238.1 242.2,239.2 248.7,239.1 255.2,238.4 261.7,237.6 268.3,238.3 274.8,235.0 281.3,236.3 287.8,236.1 294.3,232.5 300.9,229.5 307.4,230.7 313.9,232.4 320.4,229.4 327.0,233.0 333.5,235.6 340.0,234.9 346.5,234.1 353.0,236.5 359.6,239.7 366.1,241.7 372.6,239.0 379.1,238.9 385.7,234.4 392.2,231.6 398.7,227.2 405.2,230.6 411.7,232.8 418.3,236.3 424.8,236.4 431.3,237.3 437.8,240.6 444.3,239.8 450.9,242.7 457.4,243.8 463.9,245.4 470.4,242.5 477.0,242.7 483.5,244.2 490.0,247.6" stroke="#5FAE8C" stroke-opacity=".34" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <polyline class="eq-l" points="40.0,251.2 46.5,249.9 53.0,246.6 59.6,244.1 66.1,246.3 72.6,249.5 79.1,247.5 85.7,245.2 92.2,245.2 98.7,242.6 105.2,242.3 111.7,244.2 118.3,247.1 124.8,251.2 131.3,250.1 137.8,247.0 144.3,243.7 150.9,244.1 157.4,242.8 163.9,239.4 170.4,236.9 177.0,236.2 183.5,237.0 190.0,237.0 196.5,239.8 203.0,242.6 209.6,241.2 216.1,237.2 222.6,236.9 229.1,237.8 235.7,239.1 242.2,239.6 248.7,237.2 255.2,237.8 261.7,234.1 268.3,237.0 274.8,238.7 281.3,238.6 287.8,239.5 294.3,236.7 300.9,234.1 307.4,230.6 313.9,229.8 320.4,233.8 327.0,233.3 333.5,233.0 340.0,233.2 346.5,235.2 353.0,233.6 359.6,230.3 366.1,233.7 372.6,232.4 379.1,233.6 385.7,233.6 392.2,230.4 398.7,226.7 405.2,225.6 411.7,228.3 418.3,224.9 424.8,227.7 431.3,228.8 437.8,226.2 444.3,227.8 450.9,229.8 457.4,226.2 463.9,222.6 470.4,224.3 477.0,225.3 483.5,227.2 490.0,230.4" stroke="#1A3F6D" stroke-opacity=".34" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <polyline class="eq-l" points="40.0,248.6 46.5,252.5 53.0,255.1 59.6,258.0 66.1,261.9 72.6,262.1 79.1,260.5 85.7,258.1 92.2,257.5 98.7,255.3 105.2,259.8 111.7,262.0 118.3,258.6 124.8,262.6 131.3,264.9 137.8,265.5 144.3,267.8 150.9,267.8 157.4,272.0 163.9,274.6 170.4,271.2 177.0,274.6 183.5,271.6 190.0,274.7 196.5,271.0 203.0,270.0 209.6,269.2 216.1,272.6 222.6,276.7 229.1,275.0 235.7,278.1 242.2,281.0 248.7,278.8 255.2,276.1 261.7,280.2 268.3,276.8 274.8,277.0 281.3,278.4 287.8,282.0 294.3,283.4 300.9,279.7 307.4,282.0 313.9,285.4 320.4,288.8 327.0,292.3 333.5,293.9 340.0,290.9 346.5,294.8 353.0,297.8 359.6,294.6 366.1,290.9 372.6,287.3 379.1,289.8 385.7,291.4 392.2,288.1 398.7,288.6 405.2,287.4 411.7,289.3 418.3,293.7 424.8,295.4 431.3,293.8 437.8,291.9 444.3,291.7 450.9,292.4 457.4,292.5 463.9,293.4 470.4,293.5 477.0,291.2 483.5,294.1 490.0,293.7" stroke="#4B86CE" stroke-opacity=".34" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle class="eq-o" cx="490.0" cy="271.0" r="6" fill="#8A97A8" opacity="0"/>
+  <circle class="eq-o" cx="490.0" cy="299.3" r="6" fill="#8A97A8" opacity="0"/>
+  <circle class="eq-o" cx="490.0" cy="311.1" r="6" fill="#8A97A8" opacity="0"/>
+  <circle class="eq-o" cx="490.0" cy="251.7" r="6" fill="#8A97A8" opacity="0"/>
+  <polyline class="eq-w" filter="url(#eqGlow-7)" points="40.0,252.4 46.5,250.1 53.0,249.3 59.6,246.5 66.1,243.6 72.6,245.3 79.1,247.4 85.7,242.7 92.2,242.8 98.7,243.1 105.2,237.1 111.7,235.4 118.3,230.7 124.8,229.0 131.3,226.0 137.8,227.0 144.3,223.9 150.9,219.0 157.4,216.9 163.9,213.0 170.4,209.6 177.0,211.4 183.5,207.3 190.0,204.6 196.5,204.4 203.0,206.4 209.6,201.4 216.1,199.7 222.6,196.0 229.1,191.0 235.7,187.3 242.2,181.9 248.7,180.9 255.2,176.5 261.7,175.0 268.3,169.5 274.8,164.5 281.3,165.9 287.8,167.0 294.3,167.4 300.9,161.7 307.4,160.3 313.9,157.3 320.4,157.1 327.0,155.1 333.5,154.2 340.0,153.5 346.5,150.9 353.0,148.3 359.6,143.0 366.1,139.6 372.6,134.1 379.1,129.3 385.7,123.3 392.2,120.0 398.7,120.9 405.2,116.0 411.7,110.2 418.3,105.0 424.8,102.5 431.3,98.8 437.8,99.3 444.3,94.6 450.9,92.1 457.4,92.0 463.9,93.7 470.4,88.9 477.0,82.9 483.5,84.4 490.0,80.0" stroke="#B38A2A" stroke-width="5.6" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle class="eq-d" data-i="5" cx="72.6" cy="245.3" r="8.5" fill="#1B7F5C" stroke="#fff" stroke-width="2.5"/>
+  <circle class="eq-d" data-i="12" cx="118.3" cy="230.7" r="8.5" fill="#1B7F5C" stroke="#fff" stroke-width="2.5"/>
+  <circle class="eq-d" data-i="19" cx="163.9" cy="213.0" r="8.5" fill="#1B7F5C" stroke="#fff" stroke-width="2.5"/>
+  <circle class="eq-d" data-i="26" cx="209.6" cy="201.4" r="8.5" fill="#1B7F5C" stroke="#fff" stroke-width="2.5"/>
+  <circle class="eq-d" data-i="33" cx="255.2" cy="176.5" r="8.5" fill="#1B7F5C" stroke="#fff" stroke-width="2.5"/>
+  <circle class="eq-d" data-i="40" cx="300.9" cy="161.7" r="8.5" fill="#1B7F5C" stroke="#fff" stroke-width="2.5"/>
+  <circle class="eq-d" data-i="47" cx="346.5" cy="150.9" r="8.5" fill="#1B7F5C" stroke="#fff" stroke-width="2.5"/>
+  <circle class="eq-d" data-i="54" cx="392.2" cy="120.0" r="8.5" fill="#1B7F5C" stroke="#fff" stroke-width="2.5"/>
+  <circle class="eq-d" data-i="61" cx="437.8" cy="99.3" r="8.5" fill="#1B7F5C" stroke="#fff" stroke-width="2.5"/>
+  <circle class="eq-halo" cx="490.0" cy="80.0" r="9" stroke="#B38A2A" stroke-width="1.8" fill="none" opacity="0"/>
+  <circle class="eq-tip" cx="490.0" cy="80.0" r="9.5" fill="#fff" stroke="#B38A2A" stroke-width="4.5"/>
+  <g font-family="DM Sans,system-ui,sans-serif" font-size="12" font-weight="700" letter-spacing="1.6">
+    <g class="eq-pill"><rect x="40" y="356" width="150" height="34" rx="17" fill="#0B1F3A"/><circle cx="60" cy="373" r="5" fill="#C29B40"/><text x="74" y="377.5" fill="#fff">VALIDATED</text></g>
+  </g>
+</svg></div></div><div class="wrap"><div class="chips"><span>Hypothesis research</span><span>Backtesting</span><span>Validation</span><span>Execution systems</span><span>Market data</span><span>Independent audit</span></div></div></section>
+<section class="statement"><div class="wrap"><p class="big rv" style="max-width:46ch">An edge you cannot validate is only a guess. Most strategies do not fail because the idea was poor. They fail because <mark>no one stress tested them honestly</mark> before real money was committed.</p></div></section>
+<section class="sec"><div class="wrap"><div class="sec__head rv"><span class="tag">Research</span><h2>From a hypothesis to a strategy you can stand behind.</h2></div><div class="bento"><div class="cell x4 rv"><span class="cell__no">01</span><h3>Signal &amp; Hypothesis Discovery</h3><p>We search for repeatable, tradable patterns that have a clear economic reason to exist. A candidate signal with no rationale other than a good backtest does not go live.</p></div><div class="cell  rv"><span class="cell__no">02</span><h3>Strategy Building</h3><p>We take a loose idea to a fully specified rule set: entries, exits, sizing, risk limits and regime filters, written precisely enough to automate with no interpretation.</p></div><div class="cell  rv"><span class="cell__no">03</span><h3>Validation &amp; Resilience Testing</h3><p>Walk forward testing, out of sample checks, Monte Carlo resampling, parameter sweeps and regime analysis. If your Sharpe holds up on only one parameter set, we say so before the market does.</p></div><div class="cell x4 star rv"><span class="cell__flag">OUR STRONGEST SPECIALTY</span><h3>Options &amp; Volatility Studies</h3><p>Volatility surfaces and Greeks behaviour. Signals based on IV percentile, volatility of volatility, model free implied volatility, realised volatility and the variance risk premium, covering index options and more.</p></div><div class="cell x3 rv"><span class="cell__no">05</span><h3>Execution-Conscious Modelling</h3><p>Backtests that reflect reality: transaction costs, slippage, fill probability, margin and liquidity limits. A strategy that works only with free, instant fills does not really work.</p></div><div class="cell x3 rv"><span class="cell__no">06</span><h3>Strategy Review &amp; Independent Opinion</h3><p>Already bought or built a strategy? We examine it for overfitting, look ahead bias, survivorship bias and blind spots in execution. Independent, direct and written down.</p></div></div></div></section>
+<section class="sec"><div class="wrap"><div class="sec__head rv"><span class="tag">Technology</span><h2>Everything your trading operation requires, from data through to execution.</h2></div><div class="bento"><div class="cell x4 rv"><span class="cell__no">01</span><h3>Automated Execution Systems</h3><p>Signal handling, order routing for complex option structures, position management, real time risk checks, kill switches and full audit trails. Works across brokers and accounts, deployed on your own infrastructure.</p></div><div class="cell  rv"><span class="cell__no">02</span><h3>Backtesting &amp; Simulation</h3><p>Event driven backtesters with realistic fills, slippage, costs and margin modelling. Designed for options: Greeks, IV surfaces and expiry mechanics all handled properly.</p></div><div class="cell  rv"><span class="cell__no">03</span><h3>Market Data Pipelines</h3><p>Live and historical data ingestion, tick storage on TimescaleDB, data quality checks, corporate action adjustments and clean APIs for your research stack.</p></div><div class="cell x4 rv"><span class="cell__no">04</span><h3>Dashboards &amp; Terminals</h3><p>Live P&amp;L and exposure monitoring along with volatility and positioning analytics. Web based, on your own servers or in the cloud, built on the same framework as our own Atlas terminal.</p></div><div class="cell x3 rv"><span class="cell__no">05</span><h3>Broker &amp; Exchange Integrations</h3><p>Adapters for any venue that has an API: Indian brokers such as Kite, Shoonya and XTS, global gateways like Interactive Brokers, and crypto exchanges via Binance and CCXT.</p></div><div class="cell x3 rv"><span class="cell__no">06</span><h3>Strategy Audit &amp; System Recovery</h3><p>Inherited a bot that fires orders twice? A backtest that looks too good to be true? We audit existing systems for execution bugs, overfitting and infrastructure risk, then fix them.</p></div></div></div></section>
+<section class="sec"><div class="wrap flow"><div class="flow__intro rv"><span class="tag">How a project runs</span><h2>No open ended billing. No unpleasant surprises.</h2></div><ol class="flow__list rv"><li><h3>Scoping call<span class="pill">FREE</span></h3><p>Thirty minutes. You explain what you want to achieve and we raise the awkward questions early. We say upfront whether it can be done.</p></li><li><h3>Written proposal</h3><p>Fixed scope, timeline, milestones and cost, in writing, before any work starts.</p></li><li><h3>Research &amp; backtesting</h3><p>Hypothesis testing on quality data using execution aware assumptions. You see interim results, not a black box.</p></li><li><h3>Validation gauntlet</h3><p>Walk forward, out of sample, sensitivity and regime tests. Most ideas fail here. That is the purpose.</p></li><li><h3>Build, deploy &amp; handover</h3><p>Working software at each stage, then deployed on your infrastructure with the report, code, backtest framework, documentation, tests and a support period. All of it is yours, under NDA.</p></li></ol></div></section>
+<section class="sec"><div class="wrap duo"><div class="rv"><span class="tag">Deliverables</span><h2>What you receive.</h2><p>Not a PDF of promises. A complete, working research package that belongs to you, and if you want it automated, the same team can build and run it.</p></div><ul class="checks rv"><li><div><b>Written research report</b><span>with candid statistics, covering what failed and the reasons</span></div></li><li><div><b>Complete strategy codebase</b><span>in documented, tested Python, with nothing hidden</span></div></li><li><div><b>Reusable backtest framework</b><span>set up for your market and yours to keep</span></div></li><li><div><b>Live deployment specification</b><span>ready to be automated on your broker</span></div></li></ul></div></section>
+<section class="sec"><div class="wrap duo"><div class="rv"><span class="tag">Our standard</span><h2>Most ideas do not pass our validation. Good.</h2><p>Most of the strategy ideas we study do not make it through the validation gauntlet. We treat that as a success, because the cheapest place to lose money is in a backtest.</p><p>We will never inflate a Sharpe ratio, cherry pick a date range or conceal a drawdown to make a report look better. You pay for the truth about your strategy, not for flattery.</p></div><div class="diagram rv"><svg class="fn-art" viewBox="0 0 520 430" fill="none" aria-hidden="true">
+  <g font-family="DM Sans,system-ui,sans-serif" font-size="13" font-weight="700" letter-spacing="2" text-anchor="middle">
+    <g class="fn-step"><rect x="30" y="40" width="460" height="62" rx="20" fill="#0B1F3A" opacity=".95"/><text x="260" y="77" fill="#fff">IDEAS</text></g>
+    <g class="fn-step"><rect x="70" y="118" width="380" height="62" rx="20" fill="#0B1F3A" opacity=".8"/><text x="260" y="155" fill="#fff">HYPOTHESES</text></g>
+    <g class="fn-step"><rect x="110" y="196" width="300" height="62" rx="20" fill="#0B1F3A" opacity=".62"/><text x="260" y="233" fill="#fff">BACKTESTS</text></g>
+    <g class="fn-step"><rect x="150" y="274" width="220" height="62" rx="20" fill="#136548" opacity=".9"/><text x="260" y="311" fill="#fff">VALIDATED</text></g>
+    <g class="fn-step"><rect x="190" y="352" width="140" height="62" rx="20" fill="#B38A2A"/><text x="260" y="389" fill="#fff">LIVE</text></g>
+  </g>
+</svg></div></div></section>
+<section class="sec"><div class="wrap duo duo--rev"><div class="rv"><span class="tag">Proof</span><h2>Made first for our own money.</h2><p>Every framework we sell started inside our own proprietary trading operation. Our execution engine runs live automated options strategies on Indian index derivatives on every trading day. Our backtester has been checked against real fills, real slippage and real expiry day behaviour.</p><p>When we call it production grade, we mean it is <b>running in production today</b>, with our own capital at stake.</p></div><div class="diagram rv"><svg viewBox="0 0 520 430" fill="none" aria-hidden="true">
+  <g font-family="DM Sans,system-ui,sans-serif" font-size="13" font-weight="700" letter-spacing="2" text-anchor="middle">
+    <rect x="110" y="24" width="300" height="56" rx="18" fill="#fff" stroke="#0B1F3A" stroke-opacity=".18"/><text x="260" y="58" fill="#0B1F3A">MARKET DATA</text>
+    <rect x="110" y="108" width="300" height="56" rx="18" fill="#fff" stroke="#0B1F3A" stroke-opacity=".18"/><text x="260" y="142" fill="#0B1F3A">SIGNALS</text>
+    <rect x="110" y="192" width="300" height="56" rx="18" fill="#0B1F3A"/><text x="260" y="226" fill="#fff">RISK CHECKS</text>
+    <rect x="110" y="276" width="300" height="56" rx="18" fill="#fff" stroke="#0B1F3A" stroke-opacity=".18"/><text x="260" y="310" fill="#0B1F3A">EXECUTION</text>
+    <rect x="110" y="360" width="300" height="56" rx="18" fill="#136548"/><text x="260" y="394" fill="#fff">YOUR BROKER</text>
+  </g>
+  <g stroke="#0B1F3A" stroke-opacity=".4" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M260 82v24M260 166v24M260 250v24M260 334v24"/><path d="M254 98l6 8 6-8M254 182l6 8 6-8M254 266l6 8 6-8M254 350l6 8 6-8"/></g>
+  <path d="M440 220V52h-30M440 220v82h-30" stroke="#B38A2A" stroke-width="2.5" stroke-dasharray="2 8" stroke-linecap="round"/>
+  <g font-family="DM Sans,system-ui,sans-serif" font-size="11" font-weight="700" letter-spacing="1.6"><rect x="428" y="196" width="80" height="48" rx="14" fill="#fff" stroke="#B38A2A"/><text x="468" y="216" text-anchor="middle" fill="#8a6a1c">KILL</text><text x="468" y="231" text-anchor="middle" fill="#8a6a1c">SWITCH</text></g>
+</svg></div></div></section>
+<section class="statement"><div class="wrap"><span class="tag">Who we work with</span><p class="big rv">If this describes you, we should speak.</p><div class="aud"><div class="rv"><h4>Independent systematic traders</h4><p>You have a proven manual strategy, or an idea, and want it validated and turned into disciplined, hands off automated execution.</p></div><div class="rv"><h4>Prop desks &amp; family offices</h4><p>You need research capacity, execution, risk or data infrastructure without having to hire a full quant and tech team.</p></div><div class="rv"><h4>Fintech &amp; advisory firms</h4><p>You need white label research, analytics dashboards or backtesting capability to offer your own clients.</p></div><div class="rv"><h4>Research teams</h4><p>You want clean, dependable market data pipelines that your models can trust.</p></div><div class="rv"><h4>Strategy buyers &amp; builders</h4><p>You bought or built a strategy and want an independent, direct audit.</p></div></div><p class="note rv">We do not sell tips, signals or guaranteed strategies. We do not manage capital or provide investment advice. Your strategy, your money, your broker, your call. Searching for tips, signals or managed accounts? We are not that kind of firm and never will be.</p></div></section>
+<section class="cta"><div class="wrap"><div class="rv"><h2>Got an idea worth testing?</h2><p>Tell us your market, your timeframe and what you want to test or automate, even roughly. We reply within one business day with an honest assessment: whether it can be done, how we would approach it, what it would cost, and whether you actually need custom software at all.</p><a href="#contact" class="btn btn--solid">Schedule a free scoping call →</a></div></div></section>
+</div>
+<div class="page" data-page="atlas-helm">
+<section class="pp"><div class="wrap pp__grid"><div class="rv"><a href="#services" class="crumb">← All services</a><br><span class="tag">Our products</span><h1>Atlas &amp; <em>Helm</em></h1><p class="lead">Two products from our desk. StrikePoint Atlas is a real-time analytics terminal for derivatives and cash. StrikePoint Helm is the execution engine that trades our own capital every day, built around your strategy and deployed straight to you.</p><div class="hero__act"><a href="#contact" class="btn btn--solid">Request a demo →</a><a href="#contact" class="btn btn--soft">Talk to us</a></div><p class="sub">Live demos of both products will open soon. Request one now and we will hold your access for launch.</p></div><div class="pp__art rv"><svg viewBox="0 0 520 430" fill="none" aria-hidden="true">
+  <g font-family="DM Sans,system-ui,sans-serif" font-size="13" font-weight="700" letter-spacing="2" text-anchor="middle">
+    <rect x="110" y="24" width="300" height="56" rx="18" fill="#fff" stroke="#0B1F3A" stroke-opacity=".18"/><text x="260" y="58" fill="#0B1F3A">MARKET DATA</text>
+    <rect x="110" y="108" width="300" height="56" rx="18" fill="#fff" stroke="#0B1F3A" stroke-opacity=".18"/><text x="260" y="142" fill="#0B1F3A">SIGNALS</text>
+    <rect x="110" y="192" width="300" height="56" rx="18" fill="#0B1F3A"/><text x="260" y="226" fill="#fff">RISK CHECKS</text>
+    <rect x="110" y="276" width="300" height="56" rx="18" fill="#fff" stroke="#0B1F3A" stroke-opacity=".18"/><text x="260" y="310" fill="#0B1F3A">EXECUTION</text>
+    <rect x="110" y="360" width="300" height="56" rx="18" fill="#136548"/><text x="260" y="394" fill="#fff">YOUR BROKER</text>
+  </g>
+  <g stroke="#0B1F3A" stroke-opacity=".4" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M260 82v24M260 166v24M260 250v24M260 334v24"/><path d="M254 98l6 8 6-8M254 182l6 8 6-8M254 266l6 8 6-8M254 350l6 8 6-8"/></g>
+  <path d="M440 220V52h-30M440 220v82h-30" stroke="#B38A2A" stroke-width="2.5" stroke-dasharray="2 8" stroke-linecap="round"/>
+  <g font-family="DM Sans,system-ui,sans-serif" font-size="11" font-weight="700" letter-spacing="1.6"><rect x="428" y="196" width="80" height="48" rx="14" fill="#fff" stroke="#B38A2A"/><text x="468" y="216" text-anchor="middle" fill="#8a6a1c">KILL</text><text x="468" y="231" text-anchor="middle" fill="#8a6a1c">SWITCH</text></g>
+</svg></div></div><div class="wrap"><div class="chips"><span>Volatility surfaces</span><span>Market structure</span><span>Positioning flows</span><span>Your broker</span><span>Your infrastructure</span><span>Custom builds</span></div></div></section>
+<section class="sec" id="atlas"><div class="wrap duo"><div class="rv"><span class="tag">Analytics terminal · Subscription</span><h2>StrikePoint Atlas</h2><p>A real-time analytics terminal for financial markets, spanning derivatives and cash. We reveal what is truly going on behind the scenes using multi-layered financial data, as a hosted terminal offered on subscription.</p><ul class="checks rv"><li><div><b>Volatility surfaces</b><span>See how implied volatility bends across strikes and expiries, and where the market is pricing convexity.</span></div></li><li><div><b>Market structure</b><span>See how the market is built underneath price, across derivatives and cash, so the pressure behind a move becomes visible.</span></div></li><li><div><b>Positioning flows</b><span>Follow how positioning shifts through the session instead of guessing it from price alone.</span></div></li><li><div><b>Derivatives and cash, together</b><span>One terminal that spans both, built for institutional clients, proprietary firms and active traders.</span></div></li></ul><p style="margin-top:1.6rem"><a href="#contact" class="btn btn--solid">Request an Atlas demo →</a></p></div><div class="diagram rv"><svg viewBox="0 0 520 430" fill="none" aria-hidden="true">
+  <path d="M120 46Q260 -4 400 46" stroke="#B38A2A" stroke-width="2" stroke-dasharray="3 7" opacity=".7"/>
+  <g stroke="#0B1F3A" stroke-opacity=".45" stroke-width="3.5" stroke-dasharray="1 10" stroke-linecap="round">
+    <path d="M144 112H190V195H205"/><path d="M376 112H330V195H315"/><path d="M144 318H190V235H205"/><path d="M376 318H330V235H315"/>
+  </g>
+  <g fill="#1B7F5C"><circle cx="205" cy="195" r="5"/><circle cx="315" cy="195" r="5"/><circle cx="205" cy="235" r="5"/><circle cx="315" cy="235" r="5"/></g>
+  <g font-family="DM Sans,system-ui,sans-serif" font-weight="700" letter-spacing="1.6" font-size="10" text-anchor="middle">
+    <rect x="205" y="150" width="110" height="130" rx="30" fill="#0B1F3A"/>
+    <circle cx="260" cy="200" r="24" stroke="#C29B40" stroke-width="3.5"/><path d="M260 182l9 18-9 18-9-18z" fill="#C29B40"/>
+    <text x="260" y="262" fill="#fff">ATLAS</text>
+
+    <rect x="40" y="70" width="104" height="84" rx="24" fill="#fff" stroke="#0B1F3A" stroke-opacity=".16"/>
+    <path d="M70 108l14-12 12 8 20-20" stroke="#1B7F5C" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="92" y="138" fill="#51647B">DERIVATIVES</text>
+
+    <rect x="376" y="70" width="104" height="84" rx="24" fill="#fff" stroke="#0B1F3A" stroke-opacity=".16"/>
+    <path d="M402 104q6-14 12 0t12 0t12 0t12 0" stroke="#0B1F3A" stroke-width="4" stroke-linecap="round"/>
+    <text x="428" y="138" fill="#51647B">VOLATILITY</text>
+
+    <rect x="40" y="276" width="104" height="84" rx="24" fill="#fff" stroke="#0B1F3A" stroke-opacity=".16"/>
+    <circle cx="92" cy="308" r="15" stroke="#C29B40" stroke-width="4"/><circle cx="92" cy="308" r="4.5" fill="#C29B40"/>
+    <text x="92" y="344" fill="#51647B">CASH</text>
+
+    <rect x="376" y="276" width="104" height="84" rx="24" fill="#fff" stroke="#0B1F3A" stroke-opacity=".16"/>
+    <g><rect x="408" y="304" width="9" height="14" fill="#0B1F3A"/><rect x="421" y="296" width="9" height="22" fill="#1B7F5C"/><rect x="434" y="288" width="9" height="30" fill="#0B1F3A"/><rect x="447" y="298" width="9" height="20" fill="#C29B40"/></g>
+    <text x="428" y="344" fill="#51647B">POSITIONING</text>
+
+    <rect x="130" y="382" width="260" height="40" rx="20" fill="#fff" stroke="#0B1F3A" stroke-opacity=".14"/>
+    <circle cx="158" cy="402" r="5" fill="#1B7F5C"/><text x="270" y="406" fill="#0B1F3A" font-size="12">ONE VIEW OF THE MARKET</text>
+  </g>
+</svg></div></div></section>
+<section class="sec" id="helm"><div class="wrap duo duo--rev"><div class="rv"><span class="tag">Execution engine · Custom built</span><h2>StrikePoint Helm</h2><p>The execution engine that trades our own capital every day. Your capital, your broker, our advanced trading engine, deployed straight to you.</p><ul class="checks rv"><li><div><b>Plugged into your broker</b><span>We deploy Helm directly for clients and integrate it smoothly with the brokers they already prefer.</span></div></li><li><div><b>Runs where you choose</b><span>Locally on your own machines, or securely on remote servers.</span></div></li><li><div><b>Custom builds, code handed over</b><span>Designed around your strategy, then the code is handed over to you.</span></div></li><li><div><b>Your funds stay in your control</b><span>You run it on your own infrastructure, so your funds and execution remain fully under your control.</span></div></li></ul><p style="margin-top:1.6rem"><a href="#contact" class="btn btn--solid">Request a Helm demo →</a></p></div><div class="diagram rv"><svg viewBox="0 0 520 430" fill="none" aria-hidden="true">
+  <defs><linearGradient id="g2-12" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#0B1F3A"/><stop offset="1" stop-color="#1B7F5C"/></linearGradient></defs>
+  <path d="M128 215H205M325 215H395" stroke="#0B1F3A" stroke-opacity=".45" stroke-width="3.5" stroke-dasharray="1 10" stroke-linecap="round"/>
+  <path d="M196 208l12 7-12 7M386 208l12 7-12 7" stroke="#0B1F3A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <g font-family="DM Sans,system-ui,sans-serif" font-weight="700" letter-spacing="1.6" font-size="12" text-anchor="middle">
+    <rect x="30" y="165" width="90" height="100" rx="26" fill="#fff" stroke="#0B1F3A" stroke-opacity=".16"/>
+    <path d="M52 238l16-28 14 14 20-34" stroke="#1B7F5C" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><text x="75" y="256" fill="#51647B" font-size="10">SIGNAL</text>
+    <rect x="215" y="150" width="100" height="130" rx="30" fill="#0B1F3A"/>
+    <path d="M265 178l22 9v18c0 14-9 24-22 30-13-6-22-16-22-30v-18z" stroke="#C29B40" stroke-width="3.5" stroke-linejoin="round" fill="none"/><text x="265" y="268" fill="#fff" font-size="10">RISK</text>
+    <rect x="400" y="165" width="90" height="100" rx="26" fill="#fff" stroke="#0B1F3A" stroke-opacity=".16"/>
+    <g fill="#0B1F3A"><rect x="420" y="214" width="9" height="16"/><rect x="434" y="202" width="9" height="28"/><rect x="448" y="188" width="9" height="42"/></g><rect x="462" y="226" width="6" height="6" fill="#C29B40"/><text x="445" y="256" fill="#51647B" font-size="10">BROKER</text>
+  </g>
+  <g stroke="#0B1F3A" stroke-opacity=".12"><path d="M75 300V360H445V300"/><path d="M265 280V360"/></g>
+  <g font-family="DM Sans,system-ui,sans-serif" font-size="12" font-weight="700" letter-spacing="1.6">
+    <rect x="120" y="345" width="280" height="40" rx="20" fill="#fff" stroke="#0B1F3A" stroke-opacity=".14"/>
+    <circle cx="146" cy="365" r="5" fill="#1B7F5C"/><text x="162" y="369" fill="#0B1F3A">YOUR MACHINES  ·  YOUR BROKER</text>
+  </g>
+  <path d="M90 110Q265 20 440 110" stroke="#B38A2A" stroke-width="2" stroke-dasharray="3 7" opacity=".7"/>
+</svg></div></div></section>
+<section class="sec"><div class="wrap flow"><div class="flow__intro rv"><span class="tag">Getting started</span><h2>From request to running.</h2></div><ol class="flow__list rv"><li><h3>Request a demo</h3><p>Live demos open soon. Ask now and we will hold your access for launch.</p></li><li><h3>Tell us what you need</h3><p>For Atlas, the access you want. For Helm, your strategy and your broker.</p></li><li><h3>We set you up</h3><p>Atlas is a hosted terminal on subscription. Helm is a custom build shaped to your strategy, with the code handed over, documentation, tests and a support period.</p></li><li><h3>You are live</h3><p>Atlas shows volatility and positioning in one place, in real time. Helm runs on your own machines or remote servers, with your own broker.</p></li></ol></div></section>
+<section class="cta"><div class="wrap"><div class="rv"><h2>Want to discuss specifics?</h2><p>Describe your strategy or research question and we'll explain how we can help.</p><a href="#contact" class="btn btn--solid">Request a demo →</a></div></div></section>
+</div>
+<div class="page" data-page="proprietary-desk">
+<section class="pp"><div class="wrap pp__grid"><div class="rv"><a href="#services" class="crumb">← All services</a><br><span class="tag">Our own capital</span><h1>Proprietary <em>Desk</em></h1><p class="lead">Our own capital. Automated execution. Hands-free trading. We trade our in-house strategies and models through fully automated, high-performance, risk-managed systems that need minimal human intervention.</p><div class="hero__act"><a href="#contact" class="btn btn--solid">Start a conversation →</a><a href="#contact" class="btn btn--soft">Talk to us</a></div></div><div class="pp__art rv"><svg viewBox="0 0 520 430" fill="none" aria-hidden="true">
+  <defs>
+    <linearGradient id="g3-13" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1B7F5C" stop-opacity=".32"/><stop offset="1" stop-color="#1B7F5C" stop-opacity="0"/></linearGradient>
+  </defs>
+  <g stroke="#0B1F3A" stroke-opacity=".09"><path d="M30 90H490M30 170H490M30 250H490M30 330H490"/></g>
+  <path d="M30 320L100 290L160 302L230 232L290 252L360 168L420 188L490 70V350H30Z" fill="url(#g3-13)"/>
+  <path d="M30 320L100 290L160 302L230 232L290 252L360 168L420 188L490 70" stroke="#1B7F5C" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <g fill="#fff" stroke="#1B7F5C" stroke-width="3.5"><circle cx="230" cy="232" r="7"/><circle cx="360" cy="168" r="7"/><circle cx="490" cy="70" r="8"/></g>
+  <path d="M30 350H490" stroke="#0B1F3A" stroke-width="3"/>
+  <g font-family="DM Sans,system-ui,sans-serif" font-size="12" font-weight="700" letter-spacing="1.6">
+    <rect x="44" y="52" width="148" height="34" rx="17" fill="#0B1F3A"/><circle cx="64" cy="69" r="5" fill="#C29B40"/><text x="78" y="73.5" fill="#fff">OWN CAPITAL</text>
+    <rect x="44" y="378" width="170" height="34" rx="17" fill="#fff" stroke="#0B1F3A" stroke-opacity=".14"/><circle cx="64" cy="395" r="5" fill="#1B7F5C"/><text x="78" y="399.5" fill="#0B1F3A">LIVE, AUTOMATED</text>
+  </g>
+</svg></div></div><div class="wrap"><div class="chips"><span>Own capital</span><span>Fully automated</span><span>Risk-managed</span><span>Statistically validated</span><span>Live markets</span></div></div></section>
+<section class="sec"><div class="wrap"><div class="sec__head rv"><span class="tag">How we trade</span><h2>Conviction, with the risk managed.</h2></div><div class="bento"><div class="cell x4 rv"><span class="cell__no">01</span><h3>Our capital is on the line</h3><p>Proven proprietary strategies with an edge that has lasted across regimes, traded with our own money, not client money.</p></div><div class="cell  rv"><span class="cell__no">02</span><h3>Backtest first</h3><p>Strategies are examined with robust statistical methods before any capital is put at risk.</p></div><div class="cell  rv"><span class="cell__no">03</span><h3>Algo trade</h3><p>Trading ideas become fully automated, risk-managed trading systems.</p></div><div class="cell x4 rv"><span class="cell__no">04</span><h3>Live markets, not just backtests</h3><p>Everything we sell began here, tested against real fills, real slippage and real expiry-day behaviour.</p></div><div class="cell x6 rv"><span class="cell__no">05</span><h3>Minimal intervention</h3><p>High-performance systems that run on their own, under multi-layered risk management.</p></div></div></div></section>
+<section class="sec"><div class="wrap flow"><div class="flow__intro rv"><span class="tag">The cycle</span><h2>Idea to live capital.</h2></div><ol class="flow__list rv"><li><h3>Validate</h3><p>Hypotheses are tested statistically before they ever see capital.</p></li><li><h3>Automate</h3><p>Strategies are turned into fully automated, risk-managed systems.</p></li><li><h3>Trade</h3><p>Systems run live on firm capital, with minimal human intervention.</p></li></ol></div></section>
+<section class="cta"><div class="wrap"><div class="rv"><h2>Want to discuss specifics?</h2><p>Describe your strategy or research question and we'll explain how we can help.</p><a href="#contact" class="btn btn--solid">Start a conversation →</a></div></div></section>
+</div>
+<div class="page" data-page="blog">
+<section class="head"><div class="wrap rv"><span class="tag">Insights</span><h1>The blog</h1><p>Writing on research, market microstructure and the systems we build.</p></div></section><section class="sec" style="padding-top:1rem"><div class="wrap"><div class="cats"><span class="on">All</span><span>Markets</span><span>Research</span><span>Software</span></div><p class="empty rv">New posts are on the way. Check back soon.</p></div></section>
+</div>
+<div class="page" data-page="contact">
+<section class="head"><div class="wrap rv"><span class="tag">Contact</span><h1>Tell us what you are building.</h1><p>We are happy to help. Share your market, your idea or your question and we will take it from there.</p></div></section><section class="sec" style="padding-top:1rem"><div class="wrap contact"><div class="contact__info rv"><h2>What happens next</h2><ol class="next"><li><span><b>You write to us.</b> Tell us your market, your idea or your question.</span></li><li><span><b>We reply within one business day.</b> With an honest assessment, and a call if it makes sense.</span></li><li><span><b>We scope it together.</b> Written scope, timeline and cost before any work begins.</span></li></ol><div class="reach"><a class="mail" href="mailto:contact@strikepointventures.com">contact@strikepointventures.com</a><p>StrikePoint Ventures LLP · Delhi, India</p><p>Monday to Friday, 9 AM to 6 PM</p><p><a href="https://www.linkedin.com/" target="_blank" rel="noopener" style="display:inline">LinkedIn</a></p></div></div><form class="form rv" id="contactForm"><label for="n">Name</label><input id="n" name="name" required placeholder="Your name"><label for="e">Email</label><input id="e" name="email" type="email" required placeholder="you@example.com"><label for="t">Regarding</label><select id="t" name="topic"><option>Research &amp; Technology</option><option>Atlas &amp; Helm</option><option>Proprietary Desk</option><option>Other</option></select><div class="other" id="otherBox"><label for="o">What would you like to discuss?</label><input id="o" name="other" placeholder="Tell us in a few words"></div><label for="m">Message</label><textarea id="m" name="message" required placeholder="Tell us about your market, strategy or question"></textarea><input class="hp" name="website" tabindex="-1" autocomplete="off"><button class="btn btn--solid" type="submit">Send message →</button><p class="ok" id="formMsg"></p></form></div></section>
+</div>
+<footer class="foot"><div class="wrap"><div class="foot__grid">  <div class="foot__col foot__col--brand">    <a class="brand" href="#home" aria-label="StrikePoint Ventures LLP"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA4NiAxMDAiIGZpbGw9Im5vbmUiPgogIDxwYXRoIGQ9Ik03NiA0MlY5SDl2ODJoMzYiIHN0cm9rZT0iIzBCMUYzQSIgc3Ryb2tlLXdpZHRoPSI4IiBzdHJva2UtbGluZWpvaW49Im1pdGVyIiBzdHJva2UtbGluZWNhcD0iYnV0dCIvPgogIDxyZWN0IHg9IjIwIiB5PSI1NiIgd2lkdGg9IjgiIGhlaWdodD0iMjQiIGZpbGw9IiMwQjFGM0EiLz4KICA8cmVjdCB4PSIzMiIgeT0iNDIiIHdpZHRoPSI4IiBoZWlnaHQ9IjM4IiBmaWxsPSIjMEIxRjNBIi8+CiAgPHJlY3QgeD0iNDQiIHk9IjI2IiB3aWR0aD0iOCIgaGVpZ2h0PSI1NCIgZmlsbD0iIzBCMUYzQSIvPgogIDxwYXRoIGQ9Ik01MiA5MUw3MCA1MEg4MUw2MyA5MVoiIGZpbGw9IiNDMjlCNDAiLz4KPC9zdmc+Cg==" alt=""><span class="brand__rule"></span><span class="brand__txt"><b>STRIKE<i>POINT</i></b><em aria-hidden="true"><span>V</span><span>E</span><span>N</span><span>T</span><span>U</span><span>R</span><span>E</span><span>S</span><span class="sp"></span><span>L</span><span>L</span><span>P</span></em></span></a>    <p class="foot__mission">Quantitative research, institutional-grade software systems, and proprietary execution models engineered for modern derivatives and capital markets.</p>  </div>  <div class="foot__col">    <h4>Solutions</h4>    <ul class="foot__links">      <li><a href="#research-technology">Research &amp; Technology</a></li>      <li><a href="#atlas-helm" data-scroll="atlas">StrikePoint Atlas Terminal</a></li>      <li><a href="#atlas-helm" data-scroll="helm">StrikePoint Helm Execution</a></li>      <li><a href="#proprietary-desk">Proprietary Trading Desk</a></li>      <li><a href="#services">All Services Directory</a></li>    </ul>  </div>  <div class="foot__col">    <h4>Firm &amp; Research</h4>    <ul class="foot__links">      <li><a href="#about">About Firm</a></li>      <li><a href="#about" data-scroll="principles">Method &amp; Philosophy</a></li>      <li><a href="#blog">Research &amp; Insights</a></li>      <li><a href="#contact">Schedule Scoping Call</a></li>    </ul>  </div>  <div class="foot__col">    <h4>Desk &amp; Offices</h4>    <div class="foot__contact-item"><b>Direct Desk Email</b><a href="mailto:contact@strikepointventures.com" class="foot__mail">contact@strikepointventures.com</a></div>    <div class="foot__contact-item"><b>Headquarters</b><span>Delhi, India</span></div>    <div class="foot__contact-item"><b>Market Hours</b><span>Mon – Fri · 09:00 – 18:00 IST</span></div>    <div style="margin-top:.8rem"><a class="chip" href="https://www.linkedin.com/" target="_blank" rel="noopener">Follow on LinkedIn ↗</a></div>  </div></div><div class="foot__legal">  <div class="foot__legal-links"><button type="button" data-notice>Disclaimers</button><button type="button" data-notice>Privacy Policy</button><button type="button" data-notice>Terms &amp; Conditions</button><button type="button" data-notice>Risk Profile</button><button type="button" data-notice>Grievance Redressal</button></div>  <span class="foot__copy">© 2026 StrikePoint Ventures LLP. All rights reserved.</span></div></div></footer>
+<div class="gate" id="notice" role="dialog" aria-modal="true" aria-labelledby="noticeT"><div class="gate__card"><span class="tag">Attention</span><h3 id="noticeT">Important Regulatory Notice &amp; Disclaimer</h3><div class="notice__body"><p>No Financial Services Provided: StrikePoint Ventures is a financial technology and quantitative software provider.</p><p>No Public Communication Channels: We do not operate any public WhatsApp, Telegram, or social media premium groups for trading tips or signals.</p><p>Technology &amp; Strategy Tools Disclosure: Any software, terminal dashboards (including StrikePoint Atlas and StrikePoint Helm), backtesting metrics, or quantitative insights published on this website are for educational, informational, and research support purposes only. They do not constitute a direct recommendation, buy/sell advice, or financial solicitation.</p><p>User Responsibility &amp; Broker Deployment: All automated rules, parameters, or strategies executed via our software are deployed at the user's sole discretion within their personal broker infrastructure. Users are entirely responsible for their own trading decisions, regulatory compliance, and risk exposures. Investments in the securities market are subject to market risks.</p></div><div class="notice__act"><button class="btn btn--solid" data-notice-close>I Accept</button></div></div></div>
+<div class="pal" id="pal"><button type="button" id="palBtn"><span>Choose a background</span><span>▾</span></button><div class="pal__body"><p class="pal__hint">Click through the pages, then pick the background you prefer.</p><button type="button" class="pal__opt" data-v="1"><i style="background:linear-gradient(#F7FAFE,#D5E5F6)"></i>1 · Sky Blue</button><button type="button" class="pal__opt" data-v="2"><i style="background:linear-gradient(#FDFDFC,#EEEEEA)"></i>2 · Off White</button><button type="button" class="pal__opt" data-v="3"><i style="background:linear-gradient(#FFFFFF,#F9F9F9)"></i>3 · White</button></div></div>
+</div>
+<script>
+window.SP_REVIEW = true;
+/* StrikePoint Ventures: site behaviour */
+(function () {
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+
+  // mobile menu
+  var burger = $(".burger"), menu = $(".menu");
+  if (burger && menu) burger.addEventListener("click", function () { menu.classList.toggle("on"); });
+
+  // tapping anywhere outside the open menu (or pressing Escape) closes it
+  function closeMenu() { if (menu) menu.classList.remove("on"); $$(".drop").forEach(function (d) { d.classList.remove("open"); }); }
+  document.addEventListener("click", function (e) {
+    if (!menu || !menu.classList.contains("on")) return;
+    if (e.target.closest && (e.target.closest(".menu") || e.target.closest(".burger"))) return;
+    closeMenu();
+  });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeMenu(); });
+
+  // Services opens on click inside the collapsed menu
+  $$(".drop > button").forEach(function (b) {
+    b.addEventListener("click", function () { b.parentNode.classList.toggle("open"); });
+  });
+  if (burger && menu) burger.addEventListener("click", function () { if (!menu.classList.contains("on")) $$(".drop").forEach(function (d) { d.classList.remove("open"); }); });
+
+  // close the Services dropdown after a choice (until the pointer leaves)
+  $$(".drop").forEach(function (d) {
+    d.addEventListener("click", function (e) {
+      if (!e.target.closest || !e.target.closest(".drop__panel a")) return;
+      d.classList.add("shut"); d.classList.remove("open");
+      if (document.activeElement && document.activeElement.blur) document.activeElement.blur();
+    });
+    d.addEventListener("mouseleave", function () { d.classList.remove("shut"); });
+  });
+
+  // header takes on the page colour at the current scroll position
+  var bar = $(".bar");
+  function hex(v) {
+    v = (v || "").trim().replace("#", "");
+    if (v.length === 3) v = v.replace(/(.)/g, "$1$1");
+    var n = parseInt(v, 16);
+    return isNaN(n) ? [255, 255, 255] : [(n >> 16) & 255, (n >> 8) & 255, n & 255];
+  }
+  function mix(a, b, t) { return a.map(function (x, i) { return Math.round(x + (b[i] - x) * t); }); }
+  function tint() {
+    if (!bar) return;
+    var cs = getComputedStyle(document.documentElement);
+    var A = hex(cs.getPropertyValue("--a")), M = hex(cs.getPropertyValue("--mid")), B = hex(cs.getPropertyValue("--b"));
+    var h = Math.max(1, document.documentElement.scrollHeight);
+    var t = Math.min(1, Math.max(0, (window.scrollY + 60) / h));
+    var c = t < 0.5 ? mix(A, M, t * 2) : mix(M, B, (t - 0.5) * 2);
+    bar.style.setProperty("--hdr", "rgb(" + c.join(",") + ")");
+  }
+  var ticking = false;
+  window.addEventListener("scroll", function () {
+    if (!ticking) { ticking = true; requestAnimationFrame(function () { tint(); ticking = false; }); }
+  }, { passive: true });
+  window.addEventListener("resize", tint);
+  if ("MutationObserver" in window) new MutationObserver(tint).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+  tint();
+
+  // reveal on scroll
+  var items = $$(".rv");
+  if ("IntersectionObserver" in window) {
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    items.forEach(function (el) { io.observe(el); });
+  } else items.forEach(function (el) { el.classList.add("in"); });
+
+  // research chart: curves race, the winner turns gold, green dots mark its wins.
+  // The markup is already the finished chart; this replays it while visible (and on every tab switch).
+  (function () {
+    var svgs = $$("svg.eq-art");
+    if (!svgs.length || (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches)) return;
+    var CYCLE = 9000, NAVY = [11, 31, 58], GOLD = [179, 138, 42];
+    function S(t, a, b) { return Math.min(1, Math.max(0, (t - a) / (b - a))); }
+    function E(x) { return 1 - Math.pow(1 - x, 3); }
+    function B(x) { var c = 1.70158, d = c + 1; return 1 + d * Math.pow(x - 1, 3) + c * Math.pow(x - 1, 2); }
+    function mix(a, b, k) { return "rgb(" + a.map(function (v, i) { return Math.round(v + (b[i] - v) * k); }).join(",") + ")"; }
+    function parse(el) { return el.getAttribute("points").trim().split(/\s+/); }
+    function show(el, k) { el.setAttribute("opacity", k); el.setAttribute("transform", "translate(0," + ((1 - E(k)) * 10).toFixed(1) + ")"); }
+    var items = svgs.map(function (svg) {
+      var w = svg.querySelector(".eq-w"), tip = svg.querySelector(".eq-tip");
+      var it = {
+        svg: svg, w: w, wp: parse(w), glow: w.getAttribute("filter"), tip: tip, halo: svg.querySelector(".eq-halo"),
+        area: svg.querySelector(".eq-area"), pill: svg.querySelector(".eq-pill"), start: performance.now(), visible: true,
+        ls: $$(".eq-l", svg).map(function (el) { return { el: el, p: parse(el) }; }),
+        os: $$(".eq-o", svg),
+        ds: $$(".eq-d", svg).map(function (el) { el.style.transformBox = "fill-box"; el.style.transformOrigin = "center"; return { el: el, i: +el.getAttribute("data-i") }; })
+      };
+      it.N = it.wp.length;
+      return it;
+    });
+    function render(it, t) {
+      var n = Math.floor(S(t, .04, .56) * (it.N - 1)) + 1, f = E(S(t, .6, .78));
+      it.ls.forEach(function (l) { l.el.setAttribute("points", l.p.slice(0, n).join(" ")); l.el.setAttribute("stroke-opacity", (.85 + (.34 - .85) * f).toFixed(3)); });
+      it.w.setAttribute("points", it.wp.slice(0, n).join(" "));
+      it.w.setAttribute("stroke", mix(NAVY, GOLD, f));
+      it.w.setAttribute("stroke-width", (3.4 + 2.2 * f).toFixed(2));
+      if (f > .05 && it.glow) it.w.setAttribute("filter", it.glow); else it.w.removeAttribute("filter");
+      var head = it.wp[n - 1].split(",");
+      it.tip.setAttribute("cx", head[0]); it.tip.setAttribute("cy", head[1]); it.tip.setAttribute("opacity", S(t, .04, .08));
+      it.halo.setAttribute("cx", head[0]); it.halo.setAttribute("cy", head[1]);
+      var ph = (t * CYCLE / 1600) % 1;
+      it.halo.setAttribute("r", (8 + ph * 18).toFixed(1)); it.halo.setAttribute("opacity", (f * (1 - ph)).toFixed(3));
+      it.ds.forEach(function (d) {
+        var k = S(n - 1 - d.i, 0, 5);
+        d.el.setAttribute("opacity", Math.min(1, k * 3)); d.el.style.transform = "scale(" + (k > 0 ? B(k) : 0).toFixed(3) + ")";
+      });
+      it.os.forEach(function (o) { o.setAttribute("opacity", (S(t, .56, .6) * (1 - f) * .7).toFixed(3)); });
+      it.area.setAttribute("opacity", S(t, .72, .9).toFixed(3));
+      show(it.pill, S(t, .8, .9));
+    }
+    if ("IntersectionObserver" in window) {
+      var io = new IntersectionObserver(function (es) {
+        es.forEach(function (e) {
+          items.forEach(function (it) {
+            if (it.svg !== e.target) return;
+            if (e.isIntersecting && !it.visible) it.start = performance.now();
+            it.visible = e.isIntersecting;
+          });
+        });
+      }, { threshold: .15 });
+      items.forEach(function (it) { io.observe(it.svg); });
+    }
+    function frame(now) {
+      if (!document.hidden) items.forEach(function (it) { if (it.visible) render(it, ((now - it.start) % CYCLE) / CYCLE); });
+      requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  })();
+
+  // tab groups: [data-tabs] holds buttons[data-t], panels carry data-t
+  $$("[data-tabs]").forEach(function (group) {
+    var scope = group.parentNode;
+    var btns = $$("button[data-t]", group), panels = $$("[data-t]:not(button)", scope);
+    function show(t) {
+      btns.forEach(function (b) { b.classList.toggle("on", b.getAttribute("data-t") === t); });
+      panels.forEach(function (p) { p.classList.toggle("on", p.getAttribute("data-t") === t); });
+    }
+    btns.forEach(function (b) {
+      var t = b.getAttribute("data-t");
+      b.addEventListener("click", function () { show(t); });
+      if (group.hasAttribute("data-hover")) b.addEventListener("mouseenter", function () { show(t); });
+    });
+  });
+
+  // regulatory notice: modal, blocks the page until accepted
+  var notice = $("#notice"), KEY = "sp-notice-ack";
+  var lockEls = $$("header.bar, main, .page, footer.foot");
+  function seen() { try { return localStorage.getItem(KEY); } catch (e) { return null; } }
+  function open() {
+    if (!notice) return;
+    notice.classList.add("on");
+    document.documentElement.style.overflow = "hidden";
+    document.body.style.overflow = "hidden";
+    lockEls.forEach(function (el) { el.setAttribute("inert", ""); });
+    var b = $("[data-notice-close]", notice);
+    if (b) b.focus();
+  }
+  function close() {
+    if (!notice) return;
+    notice.classList.remove("on");
+    document.documentElement.style.overflow = "";
+    document.body.style.overflow = "";
+    lockEls.forEach(function (el) { el.removeAttribute("inert"); });
+    try { localStorage.setItem(KEY, "1"); } catch (e) {}
+  }
+  if (notice && !seen()) open();
+  $$("[data-notice]").forEach(function (b) { b.addEventListener("click", open); });
+  $$("[data-notice-close]").forEach(function (b) { b.addEventListener("click", close); });
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && notice && notice.classList.contains("on")) e.preventDefault();
+  });
+
+  // contact form -> /api/contact
+  var form = $("#contactForm");
+  var topic = $("#t"), otherBox = $("#otherBox"), otherIn = $("#o");
+  function syncOther() {
+    if (!topic || !otherBox) return;
+    var on = topic.value === "Other";
+    otherBox.classList.toggle("on", on);
+    if (otherIn) otherIn.required = on;
+  }
+  if (topic) { topic.addEventListener("change", syncOther); syncOther(); }
+  if (form) form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var f = new FormData(form);
+    if (f.get("website")) return;
+    if (window.SP_REVIEW) { $("#formMsg").textContent = "This is a review copy, so the form is not connected."; return; }
+    var out = $("#formMsg"), btn = $("button[type=submit]", form);
+    btn.disabled = true;
+    fetch("/api/contact", {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name: f.get("name"), email: f.get("email"), topic: (f.get("topic") === "Other" && f.get("other")) ? "Other: " + f.get("other") : f.get("topic"), message: f.get("message") })
+    }).then(function (r) { return r.json(); })
+      .then(function (d) { out.textContent = d.message || "Thank you. We will reply within one business day."; form.reset(); })
+      .catch(function () { out.textContent = "Something went wrong. Please email us directly."; })
+      .then(function () { btn.disabled = false; });
+  });
+})();
+
+
+(function () {
+  var names = ['home', 'about', 'services', 'research-technology', 'atlas-helm', 'proprietary-desk', 'blog', 'contact'], titles = {"home": "StrikePoint Ventures", "about": "About", "services": "Services", "research-technology": "Research & Technology", "atlas-helm": "Atlas & Helm", "proprietary-desk": "Proprietary Desk", "blog": "Blog", "contact": "Contact"};
+  var pages = [].slice.call(document.querySelectorAll('.page'));
+  function show(t) {
+    if (names.indexOf(t) < 0) t = 'home';
+    pages.forEach(function (p) { p.classList.toggle('on', p.getAttribute('data-page') === t); });
+    [].forEach.call(document.querySelectorAll('.menu > a'), function (a) { a.classList.toggle('on', a.getAttribute('href') === '#' + t); });
+    var svc = ['services','research-technology','atlas-helm','proprietary-desk'].indexOf(t) > -1; var db = document.querySelector('.drop > button'); if (db) db.classList.toggle('on', svc);
+    try { document.title = titles[t] === 'StrikePoint Ventures' ? 'StrikePoint Ventures' : titles[t] + ' · StrikePoint Ventures'; } catch (e) {}
+    window.scrollTo(0, 0);
+  }
+  window.addEventListener('hashchange', function () { show((location.hash || '').replace('#', '')); });
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest ? e.target.closest('a[href^="#"]') : null;
+    if (!a) return;
+    var t = a.getAttribute('href').slice(1);
+    if (names.indexOf(t) < 0) return;
+    e.preventDefault();
+    try { history.replaceState(null, '', '#' + t); } catch (x) {}
+    show(t);
+    var m = document.querySelector('.menu'); if (m) m.classList.remove('on');
+    var s = a.getAttribute('data-scroll');
+    if (s) setTimeout(function () { var el = document.getElementById(s); if (el) el.scrollIntoView({ behavior: 'smooth' }); }, 40);
+  });
+  show((location.hash || '').replace('#', ''));
+
+  // background palette picker
+  var K = 'sp-review-palette-v2', pal = document.getElementById('pal');
+  function get() { try { return localStorage.getItem(K); } catch (e) { return null; } }
+  function put(v) { try { localStorage.setItem(K, v); } catch (e) {} }
+  function apply(v) {
+    document.documentElement.setAttribute('data-pal', v);
+    [].forEach.call(pal.querySelectorAll('.pal__opt'), function (b) { b.classList.toggle('on', b.getAttribute('data-v') === v); });
+  }
+  pal.querySelector('#palBtn').addEventListener('click', function () { pal.classList.toggle('open'); });
+  pal.addEventListener('click', function (e) { var b = e.target.closest('.pal__opt'); if (b) { var v = b.getAttribute('data-v'); put(v); apply(v); } });
+  if (window.innerWidth > 900) pal.classList.add('open');
+  apply(get() || '1');
+})();
+
+</script>
