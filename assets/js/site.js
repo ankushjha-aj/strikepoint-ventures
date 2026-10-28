@@ -67,67 +67,44 @@
     items.forEach(function (el) { io.observe(el); });
   } else items.forEach(function (el) { el.classList.add("in"); });
 
-  // research chart: curves race, the winner turns gold, green dots mark its wins.
-  // The markup is already the finished chart; this replays it while visible (and on every tab switch).
+  // Normal distribution curves animation controller.
+  // Replays whenever it scrolls into view and when the research tab is selected.
   (function () {
-    var svgs = $$("svg.eq-art");
-    if (!svgs.length || (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches)) return;
-    var CYCLE = 9000, NAVY = [11, 31, 58], GOLD = [179, 138, 42];
-    function S(t, a, b) { return Math.min(1, Math.max(0, (t - a) / (b - a))); }
-    function E(x) { return 1 - Math.pow(1 - x, 3); }
-    function B(x) { var c = 1.70158, d = c + 1; return 1 + d * Math.pow(x - 1, 3) + c * Math.pow(x - 1, 2); }
-    function mix(a, b, k) { return "rgb(" + a.map(function (v, i) { return Math.round(v + (b[i] - v) * k); }).join(",") + ")"; }
-    function parse(el) { return el.getAttribute("points").trim().split(/\s+/); }
-    function show(el, k) { el.setAttribute("opacity", k); el.setAttribute("transform", "translate(0," + ((1 - E(k)) * 10).toFixed(1) + ")"); }
-    var items = svgs.map(function (svg) {
-      var w = svg.querySelector(".eq-w"), tip = svg.querySelector(".eq-tip");
-      var it = {
-        svg: svg, w: w, wp: parse(w), glow: w.getAttribute("filter"), tip: tip, halo: svg.querySelector(".eq-halo"),
-        area: svg.querySelector(".eq-area"), pill: svg.querySelector(".eq-pill"), start: performance.now(), visible: true,
-        ls: $$(".eq-l", svg).map(function (el) { return { el: el, p: parse(el) }; }),
-        os: $$(".eq-o", svg),
-        ds: $$(".eq-d", svg).map(function (el) { el.style.transformBox = "fill-box"; el.style.transformOrigin = "center"; return { el: el, i: +el.getAttribute("data-i") }; })
-      };
-      it.N = it.wp.length;
-      return it;
-    });
-    function render(it, t) {
-      var n = Math.floor(S(t, .04, .56) * (it.N - 1)) + 1, f = E(S(t, .6, .78));
-      it.ls.forEach(function (l) { l.el.setAttribute("points", l.p.slice(0, n).join(" ")); l.el.setAttribute("stroke-opacity", (.85 + (.34 - .85) * f).toFixed(3)); });
-      it.w.setAttribute("points", it.wp.slice(0, n).join(" "));
-      it.w.setAttribute("stroke", mix(NAVY, GOLD, f));
-      it.w.setAttribute("stroke-width", (3.4 + 2.2 * f).toFixed(2));
-      if (f > .05 && it.glow) it.w.setAttribute("filter", it.glow); else it.w.removeAttribute("filter");
-      var head = it.wp[n - 1].split(",");
-      it.tip.setAttribute("cx", head[0]); it.tip.setAttribute("cy", head[1]); it.tip.setAttribute("opacity", S(t, .04, .08));
-      it.halo.setAttribute("cx", head[0]); it.halo.setAttribute("cy", head[1]);
-      var ph = (t * CYCLE / 1600) % 1;
-      it.halo.setAttribute("r", (8 + ph * 18).toFixed(1)); it.halo.setAttribute("opacity", (f * (1 - ph)).toFixed(3));
-      it.ds.forEach(function (d) {
-        var k = S(n - 1 - d.i, 0, 5);
-        d.el.setAttribute("opacity", Math.min(1, k * 3)); d.el.style.transform = "scale(" + (k > 0 ? B(k) : 0).toFixed(3) + ")";
-      });
-      it.os.forEach(function (o) { o.setAttribute("opacity", (S(t, .56, .6) * (1 - f) * .7).toFixed(3)); });
-      it.area.setAttribute("opacity", S(t, .72, .9).toFixed(3));
-      show(it.pill, S(t, .8, .9));
+    var svgs = $$("svg.dist-art");
+    if (!svgs.length) return;
+
+    function replay(svg) {
+      svg.classList.remove("anim-play");
+      void svg.offsetWidth; // trigger reflow
+      svg.classList.add("anim-play");
     }
+
     if ("IntersectionObserver" in window) {
-      var io = new IntersectionObserver(function (es) {
-        es.forEach(function (e) {
-          items.forEach(function (it) {
-            if (it.svg !== e.target) return;
-            if (e.isIntersecting && !it.visible) it.start = performance.now();
-            it.visible = e.isIntersecting;
-          });
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) {
+            replay(e.target);
+          }
         });
-      }, { threshold: .15 });
-      items.forEach(function (it) { io.observe(it.svg); });
+      }, { threshold: 0.15 });
+
+      svgs.forEach(function (svg) {
+        io.observe(svg);
+      });
     }
-    function frame(now) {
-      if (!document.hidden) items.forEach(function (it) { if (it.visible) render(it, ((now - it.start) % CYCLE) / CYCLE); });
-      requestAnimationFrame(frame);
-    }
-    requestAnimationFrame(frame);
+
+    // Trigger fresh animation on tab switches to Research panel
+    document.addEventListener("click", function (e) {
+      var btn = e.target.closest("button[data-t]");
+      if (btn) {
+        var t = btn.getAttribute("data-t");
+        if (t === "r" || t === "0") {
+          setTimeout(function () {
+            svgs.forEach(replay);
+          }, 35);
+        }
+      }
+    });
   })();
 
   // tab groups: [data-tabs] holds buttons[data-t], panels carry data-t

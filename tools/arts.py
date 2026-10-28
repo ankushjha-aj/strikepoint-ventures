@@ -36,57 +36,88 @@ ART_PROP = '''<svg viewBox="0 0 520 430" fill="none" aria-hidden="true">
 </svg>'''
 
 def _research_art():
-    # Equity curves race: 14 strategy curves, one winner (gold line, green wins). site.js animates it;
-    # this markup is the finished state, shown with no JS or reduced motion.
-    N, L = 70, 14
-    seed = 3
-    while seed < 500:
-        r = random.Random(seed)
-        paths = []
-        for k in range(L):
-            v, a = 0.0, []
-            d = 1.15 if k == 0 else (r.random() - .5) * 1.0
-            for i in range(N):
-                v += d + (r.random() - .5) * 5
-                a.append(v)
-            paths.append(a)
-        if paths[0][-1] > max(a[-1] for a in paths[1:]) + 10:
-            break
-        seed += 1
-    mn = min(min(a) for a in paths)
-    mx = max(max(a) for a in paths)
+    # Normal distribution probability density functions with wide horizontal spacing:
+    # Widescreen viewBox: 580x350
+    # Left curve (Green): mu=-2.4, var=1.0, peak at X=176.5
+    # Center curve (Blue): mu=0.0, var=0.42, peak at X=290.0 (tall quantitative peak)
+    # Right curve (Red): mu=+2.2, var=1.2, peak at X=394.0
+    # Broad baseline curve (Orange): mu=0.0, var=7.0, spanning across entire width
+    # Pure geometric/mathematical animation with zero text content.
+    import math
 
-    def X(i):
-        return 40 + i * 450 / (N - 1)
+    def normal_pdf(x, mu, var):
+        sigma = math.sqrt(var)
+        return (1.0 / (sigma * math.sqrt(2 * math.pi))) * math.exp(-((x - mu) ** 2) / (2 * var))
 
-    def Y(v):
-        return 330 - (v - mn) / (mx - mn) * 250
+    W, H = 580, 350
+    base_y = 310.0
 
-    def pts(a):
-        return " ".join("%.1f,%.1f" % (X(i), Y(v)) for i, v in enumerate(a))
+    def X(x):
+        return 30.0 + (x + 5.5) * (520.0 / 11.0)
 
-    palette = ["#1A3F6D", "#4B86CE", "#8FB3E0", "#51647B", "#D9B45A", "#5FAE8C"]
-    out = ['<svg class="eq-art" viewBox="0 0 520 400" fill="none" aria-hidden="true">',
+    curves = [
+        ("orange", 0.0, 7.0, "#D9822B", "areaOrange", 3.5, 320.0),
+        ("green", -2.4, 1.0, "#1B7F5C", "areaGreen", 3.5, 360.0),
+        ("red", 2.2, 1.2, "#C53030", "areaRed", 3.5, 380.0),
+        ("blue", 0.0, 0.42, "#1A56A0", "areaBlue", 4.0, 320.0)
+    ]
+    N = 110
+
+    out = ['<svg class="eq-art dist-art anim-play" viewBox="0 0 580 350" fill="none" aria-hidden="true">',
            '  <defs>',
-           '    <linearGradient id="eqArea" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1B7F5C" stop-opacity=".45"/><stop offset="1" stop-color="#1B7F5C" stop-opacity="0"/></linearGradient>',
-           '    <radialGradient id="eqBg" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#9CC3EA" stop-opacity=".30"/><stop offset=".6" stop-color="#9CC3EA" stop-opacity=".14"/><stop offset="1" stop-color="#9CC3EA" stop-opacity="0"/></radialGradient>',
-           '    <filter id="eqGlow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#B38A2A" flood-opacity=".45"/></filter>',
+           '    <radialGradient id="distBg" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#9CC3EA" stop-opacity=".32"/><stop offset=".6" stop-color="#9CC3EA" stop-opacity=".12"/><stop offset="1" stop-color="#9CC3EA" stop-opacity="0"/></radialGradient>',
+           '    <linearGradient id="areaBlue" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1A56A0" stop-opacity=".35"/><stop offset="1" stop-color="#1A56A0" stop-opacity="0"/></linearGradient>',
+           '    <linearGradient id="areaGreen" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1B7F5C" stop-opacity=".30"/><stop offset="1" stop-color="#1B7F5C" stop-opacity="0"/></linearGradient>',
+           '    <linearGradient id="areaRed" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#C53030" stop-opacity=".28"/><stop offset="1" stop-color="#C53030" stop-opacity="0"/></linearGradient>',
+           '    <linearGradient id="areaOrange" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#D9822B" stop-opacity=".24"/><stop offset="1" stop-color="#D9822B" stop-opacity="0"/></linearGradient>',
+           '    <filter id="distGlowBlue" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#1A56A0" flood-opacity=".45"/></filter>',
            '  </defs>',
-           '  <rect x="0" y="0" width="520" height="400" fill="url(#eqBg)"/>',
-           '  <g stroke="#0B1F3A" stroke-opacity=".16" stroke-width="1.5"><path d="M40 90H490M40 170H490M40 250H490M40 330H490"/></g>',
-           '  <polygon class="eq-area" fill="url(#eqArea)" points="%s 490,330 40,330"/>' % pts(paths[0])]
-    for k in range(1, L):
-        out.append('  <polyline class="eq-l" points="%s" stroke="%s" stroke-opacity=".34" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>' % (pts(paths[k]), palette[k % len(palette)]))
-    for k in range(1, 5):
-        out.append('  <circle class="eq-o" cx="%.1f" cy="%.1f" r="6" fill="#8A97A8" opacity="0"/>' % (X(N - 1), Y(paths[k][-1])))
-    out.append('  <polyline class="eq-w" filter="url(#eqGlow)" points="%s" stroke="#B38A2A" stroke-width="5.6" stroke-linecap="round" stroke-linejoin="round"/>' % pts(paths[0]))
-    for i in (5, 12, 19, 26, 33, 40, 47, 54, 61):
-        out.append('  <circle class="eq-d" data-i="%d" cx="%.1f" cy="%.1f" r="8.5" fill="#1B7F5C" stroke="#fff" stroke-width="2.5"/>' % (i, X(i), Y(paths[0][i])))
-    out.append('  <circle class="eq-halo" cx="%.1f" cy="%.1f" r="9" stroke="#B38A2A" stroke-width="1.8" fill="none" opacity="0"/>' % (X(N - 1), Y(paths[0][-1])))
-    out.append('  <circle class="eq-tip" cx="%.1f" cy="%.1f" r="9.5" fill="#fff" stroke="#B38A2A" stroke-width="4.5"/>' % (X(N - 1), Y(paths[0][-1])))
-    out.append('  <g font-family="DM Sans,system-ui,sans-serif" font-size="12" font-weight="700" letter-spacing="1.6">')
-    out.append('    <g class="eq-pill"><rect x="40" y="356" width="150" height="34" rx="17" fill="#0B1F3A"/><circle cx="60" cy="373" r="5" fill="#C29B40"/><text x="74" y="377.5" fill="#fff">VALIDATED</text></g>')
-    out.append('  </g>')
+           '  <rect x="0" y="0" width="580" height="350" rx="16" fill="url(#distBg)"/>',
+           '  <g stroke="#0B1F3A" stroke-opacity=".12" stroke-width="1.2" stroke-dasharray="3 4"><path d="M30 80H550M30 140H550M30 200H550M30 260H550"/></g>',
+           '  <g stroke="#0B1F3A" stroke-opacity=".10" stroke-width="1.2" stroke-dasharray="3 4"><path d="M82 50V310M186 50V310M290 40V310M394 50V310M498 50V310"/></g>',
+           '  <path d="M20 310H560" stroke="#0B1F3A" stroke-opacity=".28" stroke-width="2" stroke-linecap="round"/>',
+           '  <g stroke="#0B1F3A" stroke-opacity=".32" stroke-width="1.5" stroke-linecap="round"><path d="M30 310V316M82 310V316M134 310V316M186 310V318M238 310V316M290 310V320M342 310V316M394 310V318M446 310V316M498 310V316M550 310V316"/></g>',
+           '  <g stroke-linecap="round">',
+           '    <line class="dist-drop drop-green" x1="176.5" y1="166.4" x2="176.5" y2="310" stroke="#1B7F5C" stroke-width="1.6" stroke-dasharray="3 4" stroke-opacity=".45"/>',
+           '    <line class="dist-drop drop-blue" x1="290.0" y1="113.0" x2="290.0" y2="310" stroke="#1A56A0" stroke-width="1.6" stroke-dasharray="3 4" stroke-opacity=".45"/>',
+           '    <line class="dist-drop drop-red" x1="394.0" y1="171.6" x2="394.0" y2="310" stroke="#C53030" stroke-width="1.6" stroke-dasharray="3 4" stroke-opacity=".45"/>',
+           '  </g>']
+
+    # Filled areas under curves
+    for name, mu, var, col, grad, w, sy in curves:
+        pts = []
+        for i in range(N + 1):
+            x = -5.5 + i * (11.0 / N)
+            pdf = normal_pdf(x, mu, var)
+            px = X(x)
+            py = base_y - pdf * sy
+            pts.append(f"{px:.1f} {py:.1f}")
+        d_pts = " ".join(("L " if i > 0 else "") + p for i, p in enumerate(pts))
+        d_area = f"M 30.0 {base_y:.1f} L {d_pts} L 550.0 {base_y:.1f} Z"
+        out.append(f'  <path class="dist-area area-{name}" d="{d_area}" fill="url(#{grad})"/>')
+
+    # Curve paths
+    for name, mu, var, col, grad, w, sy in curves:
+        pts = []
+        for i in range(N + 1):
+            x = -5.5 + i * (11.0 / N)
+            pdf = normal_pdf(x, mu, var)
+            px = X(x)
+            py = base_y - pdf * sy
+            pts.append(f"{px:.1f} {py:.1f}")
+        d_pts = " ".join(("L " if i > 0 else "") + p for i, p in enumerate(pts))
+        d_line = f"M {d_pts}"
+        filt = ' filter="url(#distGlowBlue)"' if name == "blue" else ''
+        out.append(f'  <path class="dist-curve curve-{name}"{filt} pathLength="1" d="{d_line}" fill="none" stroke="{col}" stroke-width="{w}" stroke-linecap="round" stroke-linejoin="round"/>')
+
+    # Peak nodes and halos (no text)
+    out.append('  <circle class="dist-peak peak-orange" cx="290.0" cy="261.7" r="4.5" fill="#fff" stroke="#D9822B" stroke-width="2.5"/>')
+    out.append('  <circle class="dist-halo halo-red" cx="394.0" cy="171.6" r="8" stroke="#C53030" stroke-width="1.8" fill="none"/>')
+    out.append('  <circle class="dist-peak peak-red" cx="394.0" cy="171.6" r="5" fill="#fff" stroke="#C53030" stroke-width="2.8"/>')
+    out.append('  <circle class="dist-halo halo-green" cx="176.5" cy="166.4" r="8" stroke="#1B7F5C" stroke-width="1.8" fill="none"/>')
+    out.append('  <circle class="dist-peak peak-green" cx="176.5" cy="166.4" r="5.5" fill="#fff" stroke="#1B7F5C" stroke-width="3"/>')
+    out.append('  <circle class="dist-halo halo-blue" cx="290.0" cy="113.0" r="9" stroke="#1A56A0" stroke-width="1.8" fill="none"/>')
+    out.append('  <circle class="dist-peak peak-blue" cx="290.0" cy="113.0" r="6.5" fill="#fff" stroke="#1A56A0" stroke-width="3.5"/>')
     out.append('</svg>')
     return "\n".join(out)
 

@@ -134,7 +134,9 @@ WHY = [
 
 
 def why_section():
-    return ('<section class="statement"><div class="wrap">%s<p class="big rv" style="margin-top:1.2rem">Grounded in discipline and experience.</p>%s</div></section>' % (tag("Why us"), aud(WHY)))
+    head = ('<div class="statement__head rv">%s<h2>Grounded in discipline and experience.</h2>'
+            '<p>Four pillars that define our approach to quantitative software and market infrastructure.</p></div>') % tag("Why us")
+    return ('<section class="statement"><div class="wrap">%s%s</div></section>' % (head, aud(WHY)))
 
 
 def detail(d):
@@ -209,19 +211,81 @@ def build_home():
 
 # ---------------------------------------------------------------- ABOUT
 def build_about():
-    head = ('<section class="head"><div class="wrap rv">%s<h1>Where market research becomes working systems.</h1>'
-            '<p>Taking pure mathematical research all the way to automated trading.</p></div></section>') % tag("About")
+    hero = (
+        '<section class="about-hero"><div class="wrap"><div class="about-hero__grid">'
+        '<div class="about-hero__text rv">'
+        '%s'
+        '<h1>Where market research becomes working systems.</h1>'
+        '<p class="lead">Taking pure mathematical research all the way to automated trading across derivatives and capital markets.</p>'
+        '<div class="hero__act" style="margin-top:1.4rem">'
+        '<a href="/contact" class="btn btn--solid">Schedule a scoping call →</a>'
+        '<a href="/services" class="btn btn--soft">Explore services</a>'
+        '</div>'
+        '</div>'
+        '<div class="about-hero__stats rv">'
+        '<div class="stat-card">'
+        '<span class="stat-card__val">10+</span>'
+        '<span class="stat-card__lbl">Years Live Trading</span>'
+        '<p>Proprietary quantitative strategies tested across dynamic market regimes.</p>'
+        '</div>'
+        '<div class="stat-card">'
+        '<span class="stat-card__val">100%%</span>'
+        '<span class="stat-card__lbl">Automated Execution</span>'
+        '<p>Low-latency algorithmic engines running on institutional infrastructure.</p>'
+        '</div>'
+        '<div class="stat-card">'
+        '<span class="stat-card__val">Strict</span>'
+        '<span class="stat-card__lbl">Risk Disciplines</span>'
+        '<p>Deterministic multi-layer controls eliminating emotional bias.</p>'
+        '</div>'
+        '<div class="stat-card">'
+        '<span class="stat-card__val">Full IP</span>'
+        '<span class="stat-card__lbl">Client Ownership</span>'
+        '<p>Strict NDA protection. Custom code deployed on your infrastructure.</p>'
+        '</div>'
+        '</div>'
+        '</div></div></section>'
+    ) % tag("About StrikePoint")
+
     chapters = [
         ("01", "How we trade", "Trading with total conviction.",
-         "At StrikePoint, we firmly follow our own advice. We actively run our cutting-edge, in-house mathematical strategies using our own proprietary capital. Our trades are carried out by fully automated, high-performance systems built to run smoothly with very little human intervention. Since we trade our own capital under strict, multi-layered risk management rules, clients can be confident that our software has been tested against the toughest conditions of live financial markets."),
-        ("02", "What we build", "Linking alpha discovery with production-ready execution.",
-         "Our work covers the full lifecycle of systematic trading. By combining advanced statistical models with modern artificial intelligence, our research team finds structural market anomalies across many asset classes and timeframes. We do more than spot these edges: we also build the refined, ultra-low latency software and risk-managed infrastructure needed to trade them. From our real-time analytics terminal, <strong>StrikePoint Atlas</strong>, through to our flagship deployment software, <strong>StrikePoint Helm</strong>, we equip institutional clients, proprietary firms and professional traders with the tools to grow their operations securely."),
+         "At StrikePoint, we firmly follow our own advice. We actively run our cutting-edge, in-house mathematical strategies using our own proprietary capital. Our trades are carried out by fully automated, high-performance systems built to run smoothly with very little human intervention. Since we trade our own capital under strict, multi-layered risk management rules, clients can be confident that our software has been tested against the toughest conditions of live financial markets.",
+         ["Proprietary Capital", "Automated Execution", "Strict Risk Control"]),
+        ("02", "What we build", "Alpha discovery to live execution.",
+         "Our work covers the full lifecycle of systematic trading: statistical edge research, execution engines, and risk-managed infrastructure. By combining advanced statistical models with modern artificial intelligence, we find structural market anomalies across asset classes. From our real-time analytics terminal, <strong>StrikePoint Atlas</strong>, to our flagship execution software, <strong>StrikePoint Helm</strong>, we equip institutions and professional desks to scale securely.",
+         ["StrikePoint Atlas", "StrikePoint Helm", "Low-Latency Infra"]),
         ("03", "Who we are", "Built with precision. Guided by data.",
-         "STRIKEPOINT VENTURES is a leading quantitative research and technology company, data-driven and grounded in strong market discipline and more than ten years of live trading experience. We work where mathematical finance, advanced data science and institutional-quality software engineering meet. By finding and putting to work lasting statistical edges across global financial markets, we create the technology infrastructure behind modern systematic trading."),
+         "STRIKEPOINT VENTURES is a leading quantitative research and technology company, data-driven and grounded in strong market discipline and more than ten years of live trading experience. We operate at the intersection of mathematical finance, advanced data science, and institutional-quality software engineering, building the enduring infrastructure behind modern systematic trading.",
+         ["10+ Years Experience", "Mathematical Rigor", "Bespoke Engineering"]),
     ]
-    ch = "".join('<section class="chap"><div class="wrap chap__grid"><div class="chap__side rv"><span class="chap__no">%s</span>%s</div>'
-                 '<div class="rv"><h2>%s</h2><p>%s</p></div></div></section>' % (n, tag(l), t, p) for n, l, t, p in chapters)
-    body = head + ch + why_section() + cta("Let's create your edge.", "Whether you are fine-tuning a strategy, automating execution, or building out your whole trading infrastructure, we would love to hear from you.")
+
+    cards_html = "".join(
+        '<div class="about-card rv">'
+        '<div class="about-card__top">'
+        '<span class="about-card__no">%s</span>'
+        '%s'
+        '</div>'
+        '<h3>%s</h3>'
+        '<p>%s</p>'
+        '<div class="about-card__badges">%s</div>'
+        '</div>' % (
+            n, tag(l), t, p, "".join("<span>%s</span>" % b for b in badges)
+        )
+        for n, l, t, p, badges in chapters
+    )
+
+    core = (
+        '<section class="sec about-core"><div class="wrap">'
+        '<div class="sec__head rv">'
+        '%s'
+        '<h2>How we operate, build and trade.</h2>'
+        '<p>Three interconnected disciplines behind every quantitative system we deploy.</p>'
+        '</div>'
+        '<div class="about-grid">%s</div>'
+        '</div></section>'
+    ) % (tag("Core Principles"), cards_html)
+
+    body = hero + core + why_section() + cta("Let's create your edge.", "Whether you are fine-tuning a strategy, automating execution, or building out your whole trading infrastructure, we would love to hear from you.")
     page("about", "About — StrikePoint Ventures", "Who we are, what we build and how we trade.", "about", body)
 
 
