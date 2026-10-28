@@ -57,20 +57,34 @@ def _research_art():
 
     # Site brand palette: Gold (#C29B40 / #D9B45A) and Blue (#1A56A0 / #0B1F3A)
     curves = [
-        ("gold-wide", 0.0, 7.0, "#D9B45A", "areaGoldWide", 3.2, 320.0),
-        ("navy", -2.4, 1.0, "#6E8BB0", "areaNavy", 3.6, 360.0),
+        ("gold-wide", 0.0, 7.0, "#8E4A5C", "areaGoldWide", 3.2, 320.0),
+        ("navy", -2.4, 1.0, "#1F7A55", "areaNavy", 3.6, 360.0),
         ("gold", 2.2, 1.2, "#C29B40", "areaGold", 3.6, 380.0),
         ("blue", 0.0, 0.42, "#1A56A0", "areaBlue", 4.0, 320.0)
     ]
-    N = 110
+    N = 64
 
-    out = ['<svg class="eq-art dist-art anim-play" viewBox="0 0 580 350" fill="none" aria-hidden="true">',
+    def smooth(pts):
+        d = "M %.2f %.2f" % pts[0]
+        for k in range(len(pts) - 1):
+            p0 = pts[k - 1] if k else pts[k]
+            p1, p2 = pts[k], pts[k + 1]
+            p3 = pts[k + 2] if k + 2 < len(pts) else p2
+            c1 = (p1[0] + (p2[0] - p0[0]) / 6, p1[1] + (p2[1] - p0[1]) / 6)
+            c2 = (p2[0] - (p3[0] - p1[0]) / 6, p2[1] - (p3[1] - p1[1]) / 6)
+            d += " C %.2f %.2f %.2f %.2f %.2f %.2f" % (c1 + c2 + p2)
+        return d
+
+    def curve_pts(mu, var, sy):
+        return [(X(-5.5 + i * (11.0 / N)), base_y - normal_pdf(-5.5 + i * (11.0 / N), mu, var) * sy) for i in range(N + 1)]
+
+    out = ['<svg class="eq-art dist-art anim-play" viewBox="0 0 580 350" fill="none" shape-rendering="geometricPrecision" aria-hidden="true">',
            '  <defs>',
            '    <radialGradient id="distBg" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#9CC3EA" stop-opacity=".25"/><stop offset=".65" stop-color="#9CC3EA" stop-opacity=".08"/><stop offset="1" stop-color="#9CC3EA" stop-opacity="0"/></radialGradient>',
            '    <linearGradient id="areaBlue" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1A56A0" stop-opacity=".36"/><stop offset="1" stop-color="#1A56A0" stop-opacity="0"/></linearGradient>',
-           '    <linearGradient id="areaNavy" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6E8BB0" stop-opacity=".3"/><stop offset="1" stop-color="#6E8BB0" stop-opacity="0"/></linearGradient>',
+           '    <linearGradient id="areaNavy" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1F7A55" stop-opacity=".26"/><stop offset="1" stop-color="#1F7A55" stop-opacity="0"/></linearGradient>',
            '    <linearGradient id="areaGold" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#C29B40" stop-opacity=".34"/><stop offset="1" stop-color="#C29B40" stop-opacity="0"/></linearGradient>',
-           '    <linearGradient id="areaGoldWide" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#D9B45A" stop-opacity=".22"/><stop offset="1" stop-color="#D9B45A" stop-opacity="0"/></linearGradient>',
+           '    <linearGradient id="areaGoldWide" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8E4A5C" stop-opacity=".14"/><stop offset="1" stop-color="#8E4A5C" stop-opacity="0"/></linearGradient>',
            '    <filter id="distGlowBlue" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="2" stdDeviation="3.5" flood-color="#1A56A0" flood-opacity=".45"/></filter>',
            '    <filter id="distGlowGold" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#C29B40" flood-opacity=".4"/></filter>',
            '  </defs>',
@@ -79,44 +93,27 @@ def _research_art():
            '  <path d="M20 310H560" stroke="#0B1F3A" stroke-opacity=".2" stroke-width="1.8" stroke-linecap="round"/>',
            '  <g stroke="#0B1F3A" stroke-opacity=".25" stroke-width="1.4" stroke-linecap="round"><path d="M30 310V315M82 310V315M134 310V315M186 310V317M238 310V315M290 310V319M342 310V315M394 310V317M446 310V315M498 310V315M550 310V315"/></g>',
            '  <g stroke-linecap="round">',
-           '    <line class="dist-drop drop-navy" x1="176.5" y1="166.4" x2="176.5" y2="310" stroke="#6E8BB0" stroke-width="1.6" stroke-dasharray="3 4" stroke-opacity=".4"/>',
+           '    <line class="dist-drop drop-navy" x1="176.5" y1="166.4" x2="176.5" y2="310" stroke="#1F7A55" stroke-width="1.6" stroke-dasharray="3 4" stroke-opacity=".4"/>',
            '    <line class="dist-drop drop-blue" x1="290.0" y1="113.0" x2="290.0" y2="310" stroke="#1A56A0" stroke-width="1.6" stroke-dasharray="3 4" stroke-opacity=".45"/>',
            '    <line class="dist-drop drop-gold" x1="394.0" y1="171.6" x2="394.0" y2="310" stroke="#C29B40" stroke-width="1.6" stroke-dasharray="3 4" stroke-opacity=".45"/>',
            '  </g>']
 
     # Filled areas under curves
     for name, mu, var, col, grad, w, sy in curves:
-        pts = []
-        for i in range(N + 1):
-            x = -5.5 + i * (11.0 / N)
-            pdf = normal_pdf(x, mu, var)
-            px = X(x)
-            py = base_y - pdf * sy
-            pts.append(f"{px:.1f} {py:.1f}")
-        d_pts = " ".join(("L " if i > 0 else "") + p for i, p in enumerate(pts))
-        d_area = f"M 30.0 {base_y:.1f} L {d_pts} L 550.0 {base_y:.1f} Z"
-        out.append(f'  <path class="dist-area area-{name}" d="{d_area}" fill="url(#{grad})"/>')
+        d = smooth(curve_pts(mu, var, sy))
+        out.append(f'  <path class="dist-area area-{name}" d="M 30.0 {base_y:.1f} L{d[1:]} L 550.0 {base_y:.1f} Z" fill="url(#{grad})"/>')
 
-    # Curve paths
+    # Curve paths (smooth splines, no raster filters, so edges stay crisp)
     for name, mu, var, col, grad, w, sy in curves:
-        pts = []
-        for i in range(N + 1):
-            x = -5.5 + i * (11.0 / N)
-            pdf = normal_pdf(x, mu, var)
-            px = X(x)
-            py = base_y - pdf * sy
-            pts.append(f"{px:.1f} {py:.1f}")
-        d_pts = " ".join(("L " if i > 0 else "") + p for i, p in enumerate(pts))
-        d_line = f"M {d_pts}"
-        filt = ' filter="url(#distGlowBlue)"' if name == "blue" else (' filter="url(#distGlowGold)"' if name == "gold" else '')
-        out.append(f'  <path class="dist-curve curve-{name}"{filt} pathLength="1" d="{d_line}" fill="none" stroke="{col}" stroke-width="{w}" stroke-linecap="round" stroke-linejoin="round"/>')
+        d = smooth(curve_pts(mu, var, sy))
+        out.append(f'  <path class="dist-curve curve-{name}" pathLength="1" d="{d}" fill="none" stroke="{col}" stroke-width="{w}" stroke-linecap="round" stroke-linejoin="round"/>')
 
     # Peak nodes and halos in gold and blue palette (no text)
-    out.append('  <circle class="dist-peak peak-gold-wide" cx="290.0" cy="261.7" r="4.5" fill="#fff" stroke="#D9B45A" stroke-width="2.5"/>')
+    out.append('  <circle class="dist-peak peak-gold-wide" cx="290.0" cy="261.7" r="4.5" fill="#fff" stroke="#8E4A5C" stroke-width="2.5"/>')
     out.append('  <circle class="dist-halo halo-gold" cx="394.0" cy="171.6" r="8" stroke="#C29B40" stroke-width="1.8" fill="none"/>')
     out.append('  <circle class="dist-peak peak-gold" cx="394.0" cy="171.6" r="5.5" fill="#fff" stroke="#C29B40" stroke-width="3"/>')
-    out.append('  <circle class="dist-halo halo-navy" cx="176.5" cy="166.4" r="8" stroke="#6E8BB0" stroke-width="1.8" fill="none"/>')
-    out.append('  <circle class="dist-peak peak-navy" cx="176.5" cy="166.4" r="5.5" fill="#fff" stroke="#6E8BB0" stroke-width="3"/>')
+    out.append('  <circle class="dist-halo halo-navy" cx="176.5" cy="166.4" r="8" stroke="#1F7A55" stroke-width="1.8" fill="none"/>')
+    out.append('  <circle class="dist-peak peak-navy" cx="176.5" cy="166.4" r="5.5" fill="#fff" stroke="#1F7A55" stroke-width="3"/>')
     out.append('  <circle class="dist-halo halo-blue" cx="290.0" cy="113.0" r="9.5" stroke="#1A56A0" stroke-width="2" fill="none"/>')
     out.append('  <circle class="dist-peak peak-blue" cx="290.0" cy="113.0" r="6.5" fill="#fff" stroke="#1A56A0" stroke-width="3.5"/>')
     out.append('</svg>')
@@ -174,63 +171,66 @@ ART_ATLAS = '''<svg viewBox="0 0 520 430" fill="none" aria-hidden="true">
 </svg>'''
 
 def _hero_art():
-    """The loop: Research -> Software -> Capital on a ring, with a growth curve drawing inside."""
-    import math
-    cx, cy, R = 230, 205, 140
-    def at(deg, r=R):  # 0 deg = top, clockwise
-        a = math.radians(deg - 90)
-        return cx + r * math.cos(a), cy + r * math.sin(a)
-    sw, cap, res = at(0), at(120), at(240)
-    # daily profit / loss bars in a row; no axis line between them
-    pl = [8, -5, 12, 6, -9, 15, -4, 10, 18, -7, 13, 22, -6, 17, 26, -8, 20, 30]
-    step, bw, zero = 11, 6, 212
-    x0 = cx - (len(pl) - 1) * step / 2
-    bars_svg = []
-    for k, v in enumerate(pl):
-        h = abs(v) * 1.9
-        x = x0 + k * step - bw / 2
-        if v >= 0:
-            bars_svg.append('<rect class="hx-pl hx-pl--p" style="--i:%d" x="%.1f" y="%.1f" width="%d" height="%.1f" rx="1.5"/>' % (k, x, zero - 2 - h, bw, h))
-        else:
-            bars_svg.append('<rect class="hx-pl hx-pl--l" style="--i:%d" x="%.1f" y="%.1f" width="%d" height="%.1f" rx="1.5"/>' % (k, x, zero + 2, bw, h))
-    out = ['<svg class="hx" viewBox="0 0 460 400" fill="none" aria-hidden="true">',
+    """Top: Research -> Software -> Capital with a return arrow (the loop).
+    Middle: a profit/loss heartbeat line. Bottom: a single navy rule."""
+    W, H = 480, 340
+    ny = 92                      # node row
+    xs = {"res": 80, "sw": 240, "cap": 400}
+    base = 232                   # heartbeat baseline
+    # --- heartbeat path: three beats, profit spikes up, loss dips down
+    beats = [(52, 30), (40, 22), (64, 26)]   # (profit height, loss depth)
+    x, seg = 24.0, ["M 24 %d" % base]
+    def L(dx, dy):
+        nonlocal_x[0] += dx
+        seg.append("L %.1f %.1f" % (nonlocal_x[0], base - dy))
+    nonlocal_x = [x]
+    for up, down in beats:
+        L(22, 0); L(10, 7); L(10, 0); L(8, 0)          # small bump, settle
+        L(5, -8); L(7, up); L(8, -down); L(6, 0)       # sharp profit spike, loss dip
+        L(12, 0); L(14, 12); L(14, 0); L(18, 0)        # recovery wave
+    seg.append("L %d %d" % (W - 24, base))
+    hb = " ".join(seg)
+    out = ['<svg class="hx" viewBox="0 0 %d %d" fill="none" shape-rendering="geometricPrecision" aria-hidden="true">' % (W, H),
            '<defs>',
+           # green above the baseline, navy on it, red below
+           '<linearGradient id="hxPL" gradientUnits="userSpaceOnUse" x1="0" y1="%d" x2="0" y2="%d">'
+           '<stop offset="0" stop-color="#1F7A55"/><stop offset=".47" stop-color="#1F7A55"/>'
+           '<stop offset=".47" stop-color="#0B1F3A"/><stop offset=".53" stop-color="#0B1F3A"/>'
+           '<stop offset=".53" stop-color="#B04A3E"/><stop offset="1" stop-color="#B04A3E"/></linearGradient>' % (base - 70, base + 70),
            '<linearGradient id="hxGold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#E2B95A"/><stop offset="1" stop-color="#A57A18"/></linearGradient>',
-           '<radialGradient id="hxCore" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#FFFDF7" stop-opacity=".9"/><stop offset="1" stop-color="#FFFDF7" stop-opacity="0"/></radialGradient>',
-           '<filter id="hxGlow" x="-50%" y="-50%" width="200%" height="200%"><feDropShadow dx="0" dy="0" stdDeviation="3.5" flood-color="#C29B40" flood-opacity=".8"/></filter>',
+           '<marker id="hxArrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">'
+           '<path d="M1 1 L9 5 L1 9" fill="none" stroke="#B08D3C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker>',
+           '<path id="hxCycle" d="M %d %d H %d C %d %d %d %d %d %d"/>' % (xs["res"], ny, xs["cap"], xs["cap"], ny - 96, xs["res"], ny - 96, xs["res"], ny),
            '</defs>',
-           # soft light core + dial ticks
-           '<circle cx="%d" cy="%d" r="125" fill="url(#hxCore)"/>' % (cx, cy),
-           '<g class="hx-dial"><circle cx="%d" cy="%d" r="172" stroke="#0B1F3A" stroke-opacity=".22" stroke-width="6" stroke-dasharray="1.2 10.5"/>'
-           '<circle cx="%d" cy="%d" r="172" stroke="#B08D3C" stroke-opacity=".6" stroke-width="10" stroke-dasharray="1.6 88.4"/></g>' % (cx, cy, cx, cy),
-           # inner chart, clipped to a circle
-           '<circle cx="%d" cy="%d" r="112" stroke="#0B1F3A" stroke-opacity=".12"/>' % (cx, cy),
-           '<g>%s</g>' % "".join(bars_svg),
-           # the loop ring
-           '<circle cx="%d" cy="%d" r="%d" stroke="#0B1F3A" stroke-opacity=".14" stroke-width="1.5"/>' % (cx, cy, R),
-           '<circle class="hx-ring" pathLength="1" cx="%d" cy="%d" r="%d" stroke="#B08D3C" stroke-width="2.2" transform="rotate(-90 %d %d)"/>' % (cx, cy, R, cx, cy),
-           # runner travelling the loop
-           '<g class="hx-runner"><circle cx="%d" cy="%d" r="5.5" fill="#C29B40" filter="url(#hxGlow)"/>'
-           '<circle cx="%.1f" cy="%.1f" r="3" fill="#C29B40" opacity=".45"/><circle cx="%.1f" cy="%.1f" r="2" fill="#C29B40" opacity=".25"/></g>' % (
-               cx, cy - R, *at(-7), *at(-13)),
+           # forward arrows (left to right)
+           '<path class="hx-flow" d="M %d %d H %d" stroke="#B08D3C" stroke-width="1.8" stroke-dasharray="4 6" marker-end="url(#hxArrow)"/>' % (xs["res"] + 34, ny, xs["sw"] - 36),
+           '<path class="hx-flow" d="M %d %d H %d" stroke="#B08D3C" stroke-width="1.8" stroke-dasharray="4 6" marker-end="url(#hxArrow)"/>' % (xs["sw"] + 34, ny, xs["cap"] - 36),
+           # return arrow (right to left, over the top)
+           '<path class="hx-flow hx-flow--back" d="M %d %d C %d %d %d %d %d %d" stroke="#0B1F3A" stroke-opacity=".45" stroke-width="1.6" stroke-dasharray="4 6" marker-end="url(#hxArrow)"/>' % (
+               xs["cap"] - 6, ny - 34, xs["cap"] - 40, ny - 92, xs["res"] + 40, ny - 92, xs["res"] + 6, ny - 36),
+           # a gold dot travelling the loop, behind the nodes
+           '<circle class="hx-runner" r="4.5" fill="#C29B40"><animateMotion dur="6s" begin="1.6s" repeatCount="indefinite" rotate="0"><mpath href="#hxCycle"/></animateMotion></circle>',
            ]
-    def node(pos, cls, delay_cls, disc, icon):
-        x, y = pos
-        return ('<g transform="translate(%.1f %.1f)"><circle class="hx-halo %s" r="31" stroke="#B08D3C" stroke-width="1.6"/>'
-                '<g class="hx-node %s">%s%s</g></g>') % (x, y, delay_cls, cls, disc, icon)
-    navy = '<circle r="31" fill="#0B1F3A"/><circle r="26" stroke="#B08D3C" stroke-opacity=".55"/>'
-    gold = '<circle r="31" fill="url(#hxGold)"/><circle r="26" stroke="#FFFDF7" stroke-opacity=".5"/>'
-    bell = '<path d="M-15 8 C-8 8 -6 -12 0 -12 C6 -12 8 8 15 8" stroke="#D9BE7A" stroke-width="2.4" stroke-linecap="round"/><path d="M-17 10H17" stroke="#FFFDF7" stroke-opacity=".5" stroke-width="1.4"/><path d="M0 -12V10" stroke="#D9BE7A" stroke-opacity=".6" stroke-dasharray="2 2.5"/>'
-    code = '<path d="M-8 -9 L-16 0 L-8 9 M8 -9 L16 0 L8 9" stroke="#FFFDF7" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 -12 L-4 12" stroke="#D9BE7A" stroke-width="2.4" stroke-linecap="round"/>'
-    bars = '<path d="M-12 11V3 M-4 11V-3 M4 11V-8" stroke="#0B1F3A" stroke-width="4.5" stroke-linecap="square"/><path d="M-14 -4 L-2 -11 L6 -7 L15 -15 M9 -15 H15 V-9" stroke="#0B1F3A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>'
-    out.append(node(sw, "hx-n1", "hx-h1", navy, code))
-    out.append(node(cap, "hx-n2", "hx-h2", gold, bars))
-    out.append(node(res, "hx-n3", "hx-h3", navy, bell))
-    lab = '<g font-family="IBM Plex Mono,ui-monospace,monospace" font-size="11.5" font-weight="600" letter-spacing="2.2" fill="#4A505C" text-anchor="middle">'
-    lab += '<text x="%.1f" y="%.1f">RESEARCH</text>' % (res[0], res[1] + 52)
-    lab += '<text x="%.1f" y="%.1f">SOFTWARE</text>' % (sw[0], sw[1] - 42)
-    lab += '<text x="%.1f" y="%.1f">CAPITAL</text></g>' % (cap[0], cap[1] + 52)
-    out.append(lab)
+    def node(x, k, disc, icon, label):
+        return ('<g transform="translate(%d %d)"><circle class="hx-halo hx-h%d" r="27" fill="none" stroke="#B08D3C" stroke-width="1.6"/>'
+                '<g class="hx-node hx-n%d">%s%s</g></g>'
+                '<text x="%d" y="%d" class="hx-lab">%s</text>') % (x, ny, k, k, disc, icon, x, ny + 50, label)
+    navy = '<circle r="27" fill="#0B1F3A"/><circle r="22" fill="none" stroke="#B08D3C" stroke-opacity=".55"/>'
+    gold = '<circle r="27" fill="url(#hxGold)"/><circle r="22" fill="none" stroke="#FFFDF7" stroke-opacity=".5"/>'
+    bell = '<path d="M-13 7 C-7 7 -5 -10 0 -10 C5 -10 7 7 13 7" stroke="#D9BE7A" stroke-width="2.2" stroke-linecap="round"/><path d="M-15 9H15" stroke="#FFFDF7" stroke-opacity=".5" stroke-width="1.3"/>'
+    code = '<path d="M-7 -8 L-14 0 L-7 8 M7 -8 L14 0 L7 8" stroke="#FFFDF7" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M3.5 -10.5 L-3.5 10.5" stroke="#D9BE7A" stroke-width="2.2" stroke-linecap="round"/>'
+    bars = '<path d="M-10 10V3 M-3 10V-2 M4 10V-7" stroke="#0B1F3A" stroke-width="4" stroke-linecap="square"/><path d="M-12 -3 L-2 -9 L5 -6 L13 -13 M8 -13 H13 V-8" stroke="#0B1F3A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>'
+    out.append('<g font-family="IBM Plex Mono,ui-monospace,monospace" font-size="11" font-weight="600" letter-spacing="2" fill="#4A505C" text-anchor="middle">')
+    out.append(node(xs["res"], 1, navy, bell, "RESEARCH"))
+    out.append(node(xs["sw"], 2, navy, code, "SOFTWARE"))
+    out.append(node(xs["cap"], 3, gold, bars, "CAPITAL"))
+    out.append('</g>')
+    # heartbeat: faint trace + animated sweep, plus a leading dot
+    out.append('<path d="%s" stroke="#0B1F3A" stroke-opacity=".1" stroke-width="2" stroke-linejoin="round"/>' % hb)
+    out.append('<path id="hxBeat" class="hx-beat" pathLength="1" d="%s" stroke="url(#hxPL)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>' % hb)
+    out.append('<circle class="hx-blip" r="4" fill="#C29B40"><animateMotion dur="4.2s" begin="1s" repeatCount="indefinite" keyPoints="0;1;1" keyTimes="0;.72;1" calcMode="linear"><mpath href="#hxBeat"/></animateMotion></circle>')
+    # single navy rule underneath
+    out.append('<path class="hx-rule" pathLength="1" d="M 24 %d H %d" stroke="#0B1F3A" stroke-width="2.2" stroke-linecap="round"/>' % (base + 66, W - 24))
     out.append('</svg>')
     return "".join(out)
 
