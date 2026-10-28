@@ -118,7 +118,8 @@ def notice():
 
 THEMES = [("1", "Beige", "linear-gradient(135deg,#FFFCF5,#EDE5D3)"), ("2", "Sky", "linear-gradient(135deg,#FFFFFF,#DAE7F5)"),
           ("3", "Pearl", "linear-gradient(135deg,#FFFFFF,#EAEAE6)"), ("4", "Sage", "linear-gradient(135deg,#FFFFFF,#DEEBE2)"),
-          ("5", "Slate", "linear-gradient(135deg,#FFFFFF,#D9DFE7)")]
+          ("5", "Slate", "linear-gradient(135deg,#FFFFFF,#D9DFE7)"), ("6", "Apple White", "linear-gradient(135deg,#FFFFFF,#E8E8ED)"),
+          ("7", "Off-white", "linear-gradient(135deg,#FFFFFF,#EFEDE7)"), ("8", "Cream", "linear-gradient(135deg,#FFFEF8,#F1E8CC)")]
 
 
 def theme_picker():
