@@ -58,7 +58,7 @@ def _research_art():
     # Site brand palette: Gold (#C29B40 / #D9B45A) and Blue (#1A56A0 / #0B1F3A)
     curves = [
         ("gold-wide", 0.0, 7.0, "#D9B45A", "areaGoldWide", 3.2, 320.0),
-        ("navy", -2.4, 1.0, "#0B1F3A", "areaNavy", 3.6, 360.0),
+        ("navy", -2.4, 1.0, "#6E8BB0", "areaNavy", 3.6, 360.0),
         ("gold", 2.2, 1.2, "#C29B40", "areaGold", 3.6, 380.0),
         ("blue", 0.0, 0.42, "#1A56A0", "areaBlue", 4.0, 320.0)
     ]
@@ -68,7 +68,7 @@ def _research_art():
            '  <defs>',
            '    <radialGradient id="distBg" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#9CC3EA" stop-opacity=".25"/><stop offset=".65" stop-color="#9CC3EA" stop-opacity=".08"/><stop offset="1" stop-color="#9CC3EA" stop-opacity="0"/></radialGradient>',
            '    <linearGradient id="areaBlue" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1A56A0" stop-opacity=".36"/><stop offset="1" stop-color="#1A56A0" stop-opacity="0"/></linearGradient>',
-           '    <linearGradient id="areaNavy" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0B1F3A" stop-opacity=".26"/><stop offset="1" stop-color="#0B1F3A" stop-opacity="0"/></linearGradient>',
+           '    <linearGradient id="areaNavy" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6E8BB0" stop-opacity=".3"/><stop offset="1" stop-color="#6E8BB0" stop-opacity="0"/></linearGradient>',
            '    <linearGradient id="areaGold" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#C29B40" stop-opacity=".34"/><stop offset="1" stop-color="#C29B40" stop-opacity="0"/></linearGradient>',
            '    <linearGradient id="areaGoldWide" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#D9B45A" stop-opacity=".22"/><stop offset="1" stop-color="#D9B45A" stop-opacity="0"/></linearGradient>',
            '    <filter id="distGlowBlue" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="2" stdDeviation="3.5" flood-color="#1A56A0" flood-opacity=".45"/></filter>',
@@ -79,7 +79,7 @@ def _research_art():
            '  <path d="M20 310H560" stroke="#0B1F3A" stroke-opacity=".2" stroke-width="1.8" stroke-linecap="round"/>',
            '  <g stroke="#0B1F3A" stroke-opacity=".25" stroke-width="1.4" stroke-linecap="round"><path d="M30 310V315M82 310V315M134 310V315M186 310V317M238 310V315M290 310V319M342 310V315M394 310V317M446 310V315M498 310V315M550 310V315"/></g>',
            '  <g stroke-linecap="round">',
-           '    <line class="dist-drop drop-navy" x1="176.5" y1="166.4" x2="176.5" y2="310" stroke="#0B1F3A" stroke-width="1.6" stroke-dasharray="3 4" stroke-opacity=".4"/>',
+           '    <line class="dist-drop drop-navy" x1="176.5" y1="166.4" x2="176.5" y2="310" stroke="#6E8BB0" stroke-width="1.6" stroke-dasharray="3 4" stroke-opacity=".4"/>',
            '    <line class="dist-drop drop-blue" x1="290.0" y1="113.0" x2="290.0" y2="310" stroke="#1A56A0" stroke-width="1.6" stroke-dasharray="3 4" stroke-opacity=".45"/>',
            '    <line class="dist-drop drop-gold" x1="394.0" y1="171.6" x2="394.0" y2="310" stroke="#C29B40" stroke-width="1.6" stroke-dasharray="3 4" stroke-opacity=".45"/>',
            '  </g>']
@@ -115,8 +115,8 @@ def _research_art():
     out.append('  <circle class="dist-peak peak-gold-wide" cx="290.0" cy="261.7" r="4.5" fill="#fff" stroke="#D9B45A" stroke-width="2.5"/>')
     out.append('  <circle class="dist-halo halo-gold" cx="394.0" cy="171.6" r="8" stroke="#C29B40" stroke-width="1.8" fill="none"/>')
     out.append('  <circle class="dist-peak peak-gold" cx="394.0" cy="171.6" r="5.5" fill="#fff" stroke="#C29B40" stroke-width="3"/>')
-    out.append('  <circle class="dist-halo halo-navy" cx="176.5" cy="166.4" r="8" stroke="#0B1F3A" stroke-width="1.8" fill="none"/>')
-    out.append('  <circle class="dist-peak peak-navy" cx="176.5" cy="166.4" r="5.5" fill="#fff" stroke="#0B1F3A" stroke-width="3"/>')
+    out.append('  <circle class="dist-halo halo-navy" cx="176.5" cy="166.4" r="8" stroke="#6E8BB0" stroke-width="1.8" fill="none"/>')
+    out.append('  <circle class="dist-peak peak-navy" cx="176.5" cy="166.4" r="5.5" fill="#fff" stroke="#6E8BB0" stroke-width="3"/>')
     out.append('  <circle class="dist-halo halo-blue" cx="290.0" cy="113.0" r="9.5" stroke="#1A56A0" stroke-width="2" fill="none"/>')
     out.append('  <circle class="dist-peak peak-blue" cx="290.0" cy="113.0" r="6.5" fill="#fff" stroke="#1A56A0" stroke-width="3.5"/>')
     out.append('</svg>')

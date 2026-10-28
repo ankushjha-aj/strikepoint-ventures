@@ -36,67 +36,6 @@ MARK = ('<svg class="mark" viewBox="0 0 86 100" fill="none" aria-hidden="true">'
         '<path class="mk-strike" d="M52 91L70 50H81L63 91Z" fill="#C29B40"/></svg>')
 
 
-def _walk(n, seed, drift=0.6, vol=6.0):
-    import random
-    r = random.Random(seed)
-    v, out = 0.0, []
-    for _ in range(n):
-        v += drift + r.gauss(0, vol)
-        out.append(v)
-    return out
-
-
-def bg_chart():
-    """Faint P&L backdrop: grid, an equity curve that draws in, and daily profit/loss bars."""
-    W, H, N = 1600, 900, 110
-    eq = _walk(N, 7, 0.9, 7.5)
-    lo, hi = min(eq), max(eq)
-    ys = [640 - (v - lo) / (hi - lo) * 400 for v in eq]
-    xs = [i * W / (N - 1) for i in range(N)]
-    line = "M" + " L".join("%.1f %.1f" % (x, y) for x, y in zip(xs, ys))
-    area = line + " L%d %d L0 %d Z" % (W, H, H)
-    grid = "".join('<path d="M%d 0V%d"/>' % (x, H) for x in range(0, W + 1, 100)) + \
-           "".join('<path d="M0 %dH%d"/>' % (y, W) for y in range(0, H + 1, 100))
-    bars = []
-    for i in range(1, N):
-        d = ys[i - 1] - ys[i]  # up on screen = profit
-        h = max(2, min(38, abs(d) * 1.3))
-        x = xs[i] - 4
-        if d >= 0:
-            bars.append('<rect class="pl pl--p" style="--i:%d" x="%.1f" y="%.1f" width="8" height="%.1f"/>' % (i, x, 820 - h, h))
-        else:
-            bars.append('<rect class="pl pl--l" style="--i:%d" x="%.1f" y="820" width="8" height="%.1f"/>' % (i, x, h))
-    return ('<div class="bgfx" aria-hidden="true"><svg viewBox="0 0 %d %d" preserveAspectRatio="xMidYMid slice">'
-            '<defs><linearGradient id="bgArea" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#C29B40" stop-opacity=".16"/>'
-            '<stop offset="1" stop-color="#C29B40" stop-opacity="0"/></linearGradient></defs>'
-            '<g class="bgfx__grid">%s</g><path class="bgfx__zero" d="M0 820H%d"/>'
-            '<path class="bgfx__area" d="%s" fill="url(#bgArea)"/><path class="bgfx__line" pathLength="1" d="%s"/>'
-            '<g>%s</g><circle class="bgfx__dot" cx="%.1f" cy="%.1f" r="6"/></svg></div>') % (
-        W, H, grid, W, area, line, "".join(bars), xs[-1], ys[-1])
-
-
-def tape():
-    """A slowly moving strip of candlesticks for the home hero (decoration only)."""
-    import random
-    r = random.Random(11)
-    N, W, H = 56, 1600, 100
-    p, raw = 0.0, []
-    for _ in range(N):
-        o = p
-        p = o + 0.4 * -o + r.gauss(0, 1)
-        raw.append((o, p, max(o, p) + r.uniform(.2, .7), min(o, p) - r.uniform(.2, .7)))
-    lo_all, hi_all = min(x[3] for x in raw), max(x[2] for x in raw)
-    y = lambda v: 6 + (hi_all - v) / (hi_all - lo_all) * (H - 12)
-    c, step = [], W / N
-    for i, (o, cl, hi, lo) in enumerate(raw):
-        x = i * step + step / 2
-        top, bot = y(max(o, cl)), y(min(o, cl))
-        c.append('<g class="%s"><path d="M%.1f %.1fV%.1f"/><rect x="%.1f" y="%.1f" width="14" height="%.1f"/></g>' % (
-            "cd cd--p" if cl >= o else "cd cd--l", x, y(hi), y(lo), x - 7, top, max(3, bot - top)))
-    svg = '<svg viewBox="0 0 %d %d" preserveAspectRatio="none">%s</svg>' % (W, H, "".join(c))
-    return '<div class="tape" aria-hidden="true"><div class="tape__track">%s%s</div></div>' % (svg, svg)
-
-
 def lockup(extra="", sub=True):
     # "VENTURES LLP" is laid out letter by letter so it spans exactly the width of "STRIKEPOINT"
     letters = "".join('<span class="sp"></span>' if ch == " " else "<span>%s</span>" % ch for ch in "VENTURES LLP")
@@ -176,8 +115,8 @@ def page(slug, title, desc, active, body):
             '<meta name="viewport" content="width=device-width, initial-scale=1.0">\n<title>%s</title>\n'
             '<meta name="description" content="%s">\n<link rel="icon" href="/assets/img/mark.svg">\n'
             '<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n'
-            '<link href="%s" rel="stylesheet">\n<link rel="stylesheet" href="/assets/css/site.css?v=@@V@@">\n</head>\n<body>\n%s\n%s\n<main>\n%s\n</main>\n%s\n%s\n'
-            '<script src="/assets/js/site.js?v=@@V@@"></script>\n</body>\n</html>\n') % (title, desc, FONTS, bg_chart(), header(active), body, footer(), notice())
+            '<link href="%s" rel="stylesheet">\n<link rel="stylesheet" href="/assets/css/site.css?v=@@V@@">\n</head>\n<body>\n%s\n<main>\n%s\n</main>\n%s\n%s\n'
+            '<script src="/assets/js/site.js?v=@@V@@"></script>\n</body>\n</html>\n') % (title, desc, FONTS, header(active), body, footer(), notice())
     html = html.replace("@@V@@", BUILD)
     open(os.path.join(OUT, slug + ".html"), "w", encoding="utf-8").write(html)
     print("built", slug)
@@ -247,8 +186,8 @@ def build_home():
             '<p class="lead">StrikePoint Ventures is a data-led quantitative firm with years of experience in live markets. One team can look after every layer of your trading infrastructure, from research through data to execution.</p>'
             '<div class="hero__act"><a href="#loop" class="btn btn--solid">Explore what we do →</a><a href="/contact" class="btn btn--soft">Get in touch</a></div></div>'
             '<div class="hero__art rv">%s</div></div>'
-            '</div>%s</section>') % (
-        tag("Quant software • Research • Own-capital trading"), ART_HERO, tape())
+            '</div></section>') % (
+        tag("Quant software • Research • Own-capital trading"), ART_HERO)
 
     loop = ('<section class="sec" id="loop"><div class="wrap"><div class="sec__head rv">%s<h2>One loop, three disciplines.</h2>'
             '<p>Research an edge, build the system that trades it, then run it on real capital.</p></div>'
