@@ -190,7 +190,7 @@ def _hero_art():
         L(12, 0); L(14, 12); L(14, 0); L(18, 0)        # recovery wave
     seg.append("L %d %d" % (W - 24, base))
     hb = " ".join(seg)
-    out = ['<svg class="hx" viewBox="0 0 %d %d" fill="none" shape-rendering="geometricPrecision" aria-hidden="true">' % (W, H),
+    out = ['<svg class="hx" viewBox="0 48 %d 232" fill="none" shape-rendering="geometricPrecision" aria-hidden="true">' % W,
            '<defs>',
            # green above the baseline, navy on it, red below
            '<linearGradient id="hxPL" gradientUnits="userSpaceOnUse" x1="0" y1="%d" x2="0" y2="%d">'
@@ -200,16 +200,13 @@ def _hero_art():
            '<linearGradient id="hxGold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#E2B95A"/><stop offset="1" stop-color="#A57A18"/></linearGradient>',
            '<marker id="hxArrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">'
            '<path d="M1 1 L9 5 L1 9" fill="none" stroke="#B08D3C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker>',
-           '<path id="hxCycle" d="M %d %d H %d C %d %d %d %d %d %d"/>' % (xs["res"], ny, xs["cap"], xs["cap"], ny - 96, xs["res"], ny - 96, xs["res"], ny),
+           '<path id="hxCycle" d="M %d %d H %d"/>' % (xs["res"], ny, xs["cap"]),
            '</defs>',
            # forward arrows (left to right)
            '<path class="hx-flow" d="M %d %d H %d" stroke="#B08D3C" stroke-width="1.8" stroke-dasharray="4 6" marker-end="url(#hxArrow)"/>' % (xs["res"] + 34, ny, xs["sw"] - 36),
            '<path class="hx-flow" d="M %d %d H %d" stroke="#B08D3C" stroke-width="1.8" stroke-dasharray="4 6" marker-end="url(#hxArrow)"/>' % (xs["sw"] + 34, ny, xs["cap"] - 36),
-           # return arrow (right to left, over the top)
-           '<path class="hx-flow hx-flow--back" d="M %d %d C %d %d %d %d %d %d" stroke="#0B1F3A" stroke-opacity=".45" stroke-width="1.6" stroke-dasharray="4 6" marker-end="url(#hxArrow)"/>' % (
-               xs["cap"] - 6, ny - 34, xs["cap"] - 40, ny - 92, xs["res"] + 40, ny - 92, xs["res"] + 6, ny - 36),
            # a gold dot travelling the loop, behind the nodes
-           '<circle class="hx-runner" r="4.5" fill="#C29B40"><animateMotion dur="6s" begin="1.6s" repeatCount="indefinite" rotate="0"><mpath href="#hxCycle"/></animateMotion></circle>',
+           '<circle class="hx-runner" r="4.5" fill="#C29B40"><animateMotion dur="3s" begin="1.6s" repeatCount="indefinite"><mpath href="#hxCycle"/></animateMotion></circle>',
            ]
     def node(x, k, disc, icon, label):
         return ('<g transform="translate(%d %d)"><circle class="hx-halo hx-h%d" r="27" fill="none" stroke="#B08D3C" stroke-width="1.6"/>'
@@ -229,8 +226,6 @@ def _hero_art():
     out.append('<path d="%s" stroke="#0B1F3A" stroke-opacity=".1" stroke-width="2" stroke-linejoin="round"/>' % hb)
     out.append('<path id="hxBeat" class="hx-beat" pathLength="1" d="%s" stroke="url(#hxPL)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>' % hb)
     out.append('<circle class="hx-blip" r="4" fill="#C29B40"><animateMotion dur="4.2s" begin="1s" repeatCount="indefinite" keyPoints="0;1;1" keyTimes="0;.72;1" calcMode="linear"><mpath href="#hxBeat"/></animateMotion></circle>')
-    # single navy rule underneath
-    out.append('<path class="hx-rule" pathLength="1" d="M 24 %d H %d" stroke="#0B1F3A" stroke-width="2.2" stroke-linecap="round"/>' % (base + 66, W - 24))
     out.append('</svg>')
     return "".join(out)
 

@@ -184,7 +184,7 @@ def build_home():
     hero = ('<section class="hero"><div class="wrap"><div class="hero__grid"><div class="rv">%s'
             '<h1>We research market edges, build the systems that trade them, and <em>back them with our own capital.</em></h1>'
             '<p class="lead">StrikePoint Ventures is a data-led quantitative firm with years of experience in live markets. One team can look after every layer of your trading infrastructure, from research through data to execution.</p>'
-            '<div class="hero__act"><a href="#loop" class="btn btn--solid">Explore what we do →</a><a href="/contact" class="btn btn--soft">Get in touch</a></div></div>'
+            '</div>'
             '<div class="hero__art rv">%s</div></div>'
             '</div></section>') % (
         tag("Quant software • Research • Own-capital trading"), ART_HERO)

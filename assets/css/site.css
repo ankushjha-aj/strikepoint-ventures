@@ -292,8 +292,8 @@ p{text-wrap:pretty}
 .lead{font-size:clamp(1.08rem,1.25vw,1.22rem);line-height:1.7;color:var(--muted);max-width:60ch}
 
 .sec{padding:var(--sec) 0 0}
-.sec__head{max-width:760px;margin-bottom:clamp(2rem,3.5vw,3rem)}
-.sec__head h2{font-size:clamp(2rem,3.4vw,3rem);margin-top:1rem}
+.sec__head{max-width:760px;margin-bottom:clamp(1.6rem,3vw,2.4rem)}
+.sec__head h2{font-size:clamp(1.8rem,2.8vw,2.5rem);margin-top:.9rem}
 .sec__head p{color:var(--muted);margin-top:1rem;font-size:clamp(1.02rem,1.15vw,1.15rem);max-width:60ch}
 
 @keyframes fadeIn{to{opacity:1}}
@@ -367,14 +367,14 @@ p{text-wrap:pretty}
 .burger span{width:22px;height:2px;background:var(--navy)}
 
 /* ---------- home hero ---------- */
-.hero{position:relative;padding:clamp(3rem,7vh,4.5rem) 0 0;display:flex;align-items:center}
-.hero + .sec{padding-top:clamp(2rem,3.5vw,3rem)}
+.hero{position:relative;padding:clamp(2.5rem,6vh,4rem) 0 0;display:flex;align-items:center}
+.hero + .sec{padding-top:clamp(2.5rem,4vw,3.5rem)}
 .hero>.wrap{width:100%}
-.hero__grid{position:relative;z-index:1;display:grid;grid-template-columns:1.25fr .75fr;gap:clamp(2rem,5vw,5rem);align-items:center}
-.hero h1{font-size:clamp(2.1rem,3.3vw,3.2rem);line-height:1.12;margin:1.1rem 0 1.2rem;letter-spacing:-.015em}
+.hero__grid{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,4vw,4rem);align-items:center}
+.hero h1{font-size:clamp(1.9rem,2.7vw,2.6rem);line-height:1.15;margin:1rem 0 1.1rem;letter-spacing:-.015em}
 .hero h1 em{font-style:normal;color:var(--gold-d)}
 .hero .lead{max-width:58ch}
-.hero__art{position:relative;padding:clamp(.5rem,1.5vw,1.2rem);max-width:460px;justify-self:center;width:100%}
+.hero__art{position:relative;padding:clamp(.5rem,1.5vw,1.2rem);max-width:620px;justify-self:end;width:100%}
 /* faint grid behind the artwork, fading out at the edges so it melts into the beige */
 .pp__art::before,.diagram::before,.loop__art::before{content:"";position:absolute;inset:-6%;pointer-events:none;
   background-image:linear-gradient(rgba(138,106,34,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(138,106,34,.07) 1px,transparent 1px);background-size:36px 36px;
@@ -433,7 +433,7 @@ p{text-wrap:pretty}
 .statement + .statement{margin-top:0;border-top:0}
 .statement + .sec,.statement + section.cta{margin-top:0}
 .statement__head{max-width:760px;margin-bottom:clamp(2rem,3.5vw,3rem)}
-.statement__head h2{font-size:clamp(2rem,3.4vw,3rem);margin-top:1rem}
+.statement__head h2{font-size:clamp(1.8rem,2.8vw,2.5rem);margin-top:.9rem}
 .statement__head p{color:var(--muted);margin-top:1rem;font-size:1.08rem}
 .statement p.big{font-family:var(--serif);font-weight:500;font-size:clamp(1.65rem,3vw,2.5rem);line-height:1.3;letter-spacing:-.015em;color:var(--navy);max-width:40ch;margin-top:1.2rem}
 .statement .tag + p.big{margin-top:1.4rem}
@@ -651,7 +651,7 @@ section.cta p{color:var(--muted);max-width:62ch;font-size:clamp(1.03rem,1.2vw,1.
 @media(max-width:900px){
   .hero__grid,.pp__grid,.flow,.duo,.contact,.hub,.loop__panel.on,.about-hero__grid,.about-grid{grid-template-columns:1fr}
   .hero{min-height:0}
-  .hero__art{max-width:340px;justify-self:start}
+  .hero__art{max-width:520px;justify-self:start}
   .bento{grid-template-columns:1fr 1fr}.cell,.cell.x4,.cell.x3,.cell.x6{grid-column:span 2}
   .flow__intro,.hub__stage{position:static}
   .hub__nav button i{display:none}
@@ -679,8 +679,8 @@ section.cta p{color:var(--muted);max-width:62ch;font-size:clamp(1.03rem,1.2vw,1.
 .hx-flow{opacity:0;animation:fadeIn .5s ease 1s forwards,hxFlow 1.2s linear 1s infinite}
 @keyframes hxFlow{to{stroke-dashoffset:-20}}
 .hx-runner{opacity:0;animation:fadeIn .4s ease 1.6s forwards}
-.hx-halo{transform-box:fill-box;transform-origin:center;opacity:0;animation:hxPing 6s ease-out infinite}
-.hx-h1{animation-delay:1.6s}.hx-h2{animation-delay:2.4s}.hx-h3{animation-delay:3.2s}
+.hx-halo{transform-box:fill-box;transform-origin:center;opacity:0;animation:hxPing 3s ease-out infinite}
+.hx-h1{animation-delay:1.6s}.hx-h2{animation-delay:3.1s}.hx-h3{animation-delay:4.55s}
 .hx-beat{stroke-dasharray:1;stroke-dashoffset:1;animation:hxBeat 4.2s linear 1s infinite}
 @keyframes hxBeat{0%{stroke-dashoffset:1;opacity:1}72%{stroke-dashoffset:0;opacity:1}90%{stroke-dashoffset:0;opacity:1}100%{stroke-dashoffset:0;opacity:0}}
 .hx-blip{opacity:0;animation:hxBlip 4.2s linear 1s infinite}
@@ -688,7 +688,7 @@ section.cta p{color:var(--muted);max-width:62ch;font-size:clamp(1.03rem,1.2vw,1.
 .hx-rule{stroke-dasharray:1;stroke-dashoffset:1;animation:hxDraw 1.4s cubic-bezier(.65,0,.35,1) .3s forwards}
 @keyframes hxDraw{to{stroke-dashoffset:0}}
 @keyframes hxPop{to{opacity:1;transform:none}}
-@keyframes hxPing{0%{opacity:.8;transform:scale(1)}12%{opacity:0;transform:scale(1.6)}100%{opacity:0;transform:scale(1.6)}}
+@keyframes hxPing{0%{opacity:.8;transform:scale(1)}25%{opacity:0;transform:scale(1.6)}100%{opacity:0;transform:scale(1.6)}}
 @media(prefers-reduced-motion:reduce){
   .hx-flow,.hx-halo,.hx-blip,.hx-runner{animation:none!important}
   .hx-halo,.hx-blip,.hx-runner{opacity:0}
@@ -701,7 +701,7 @@ section.cta p{color:var(--muted);max-width:62ch;font-size:clamp(1.03rem,1.2vw,1.
   #loop .wrap{display:grid;grid-template-columns:1fr auto;column-gap:3rem;align-items:end}
   #loop .loop{display:contents}
   #loop .sec__head{grid-column:1;grid-row:1}
-  #loop .loop__tabs{grid-column:2;grid-row:1;align-self:end;margin-bottom:clamp(2rem,3.5vw,3rem)}
+  #loop .loop__tabs{grid-column:2;grid-row:1;align-self:end;margin-bottom:clamp(1.6rem,3vw,2.4rem)}
   #loop .loop__panel{grid-column:1 / -1}
   #loop .loop__tabs button{padding:.9em 1.8em;font-size:1rem}
 }
