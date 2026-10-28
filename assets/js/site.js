@@ -177,6 +177,22 @@
     mark();
   }
 
+  // blog category filter
+  $$("[data-filter]").forEach(function (bar) {
+    var scope = bar.parentNode, none = $(".posts__none", scope);
+    $$("span[data-cat]", bar).forEach(function (chip) {
+      chip.addEventListener("click", function () {
+        var c = chip.getAttribute("data-cat"), shown = 0;
+        $$("span[data-cat]", bar).forEach(function (x) { x.classList.toggle("on", x === chip); });
+        $$(".post", scope).forEach(function (p) {
+          var ok = c === "All" || p.getAttribute("data-cat") === c;
+          p.hidden = !ok; if (ok) shown++;
+        });
+        if (none) none.hidden = shown > 0;
+      });
+    });
+  });
+
   // contact form -> /api/contact
   var form = $("#contactForm");
   var topic = $("#t"), otherBox = $("#otherBox"), otherIn = $("#o");

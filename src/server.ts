@@ -26,6 +26,13 @@ const routes: Record<string, string> = {
 };
 Object.entries(routes).forEach(([url, file]) => app.get(url, send(file)));
 
+// Blog posts: /blog/<slug> -> pages/blog/<slug>.html (built from content/blog/*.md)
+app.get('/blog/:slug', (req: Request, res: Response, next) => {
+  const slug = req.params.slug;
+  if (!/^[a-z0-9-]+$/.test(slug)) return next();
+  res.sendFile(path.join(pagesPath, 'blog', slug + '.html'), (err) => { if (err) next(); });
+});
+
 // API
 app.get('/api/health', (_req: Request, res: Response) => {
   res.json({ status: 'ok', brand: 'StrikePoint Ventures', uptime: process.uptime(), timestamp: new Date().toISOString() });

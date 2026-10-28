@@ -3,6 +3,8 @@ import os, re, sys, time
 BUILD = str(int(time.time()))
 sys.path.insert(0, os.path.dirname(__file__))
 from arts import *
+from blog import load_posts, CATEGORIES
+import html as _html
 
 ROOT = os.path.join(os.path.dirname(__file__), "..")
 OUT = os.path.join(ROOT, "pages")
@@ -10,6 +12,12 @@ os.makedirs(OUT, exist_ok=True)
 for _f in os.listdir(OUT):
     if _f.endswith(".html"):
         os.remove(os.path.join(OUT, _f))
+BLOG_OUT = os.path.join(OUT, "blog")
+os.makedirs(BLOG_OUT, exist_ok=True)
+for _f in os.listdir(BLOG_OUT):
+    if _f.endswith(".html"):
+        os.remove(os.path.join(BLOG_OUT, _f))
+POSTS = load_posts()
 
 EMAIL = "contact@strikepointventures.com"
 SERVICES = [
@@ -109,7 +117,8 @@ def notice():
 
 
 THEMES = [("1", "Beige", "linear-gradient(135deg,#FFFCF5,#EDE5D3)"), ("2", "Sky", "linear-gradient(135deg,#FFFFFF,#DAE7F5)"),
-          ("3", "Pearl", "linear-gradient(135deg,#FFFFFF,#EAEAE6)"), ("4", "Sage", "linear-gradient(135deg,#FFFFFF,#DEEBE2)")]
+          ("3", "Pearl", "linear-gradient(135deg,#FFFFFF,#EAEAE6)"), ("4", "Sage", "linear-gradient(135deg,#FFFFFF,#DEEBE2)"),
+          ("5", "Slate", "linear-gradient(135deg,#FFFFFF,#D9DFE7)")]
 
 
 def theme_picker():
@@ -137,6 +146,18 @@ def page(slug, title, desc, active, body):
 
 
 # ---------------------------------------------------------------- pieces
+EMPTY_BLOG = '<p class="empty rv">New posts are on the way. Check back soon.</p>'
+
+
+def post_cards(posts):
+    e = lambda s: _html.escape(s, quote=True)
+    return '<div class="posts">%s</div>' % "".join(
+        '<a class="post rv" href="/blog/%s" data-cat="%s"><span class="post__meta">%s<i>·</i>%s</span>'
+        '<h3>%s</h3><p>%s</p><span class="post__foot">%d min read<b>Read →</b></span></a>' % (
+            p["slug"], p["category"], p["category"], p["date_label"], e(p["title"]), e(p["summary"]), p["minutes"])
+        for p in posts)
+
+
 def tag(t):
     return '<span class="tag">%s</span>' % t
 
@@ -226,7 +247,7 @@ def build_home():
             '</div></div></section>') % (tag("How we work"), ART_VALIDATE, ART_PROP)
 
     blog = ('<section class="sec"><div class="wrap"><div class="sec__head rv">%s<h2>Latest from the blog</h2></div>'
-            '<p class="empty rv">New posts are on the way. Check back soon.</p></div></section>') % tag("Latest")
+            '%s</div></section>') % (tag("Latest"), (post_cards(POSTS[:3]) + ('<p class="posts__all rv"><a class="more" href="/blog">All posts →</a></p>' if len(POSTS) > 3 else "")) if POSTS else EMPTY_BLOG)
     body = hero + loop + why_section() + blog + cta("Let's create your edge.",
         "Whether you are fine-tuning a strategy, automating execution, or building out your whole trading infrastructure, we would love to hear from you.")
     page("index", "StrikePoint Ventures — Quantitative Research &amp; Trading",
@@ -474,10 +495,18 @@ def build_details():
 
 # ---------------------------------------------------------------- BLOG / CONTACT
 def build_blog():
+    cats = '<span class="on" data-cat="All">All</span>' + "".join('<span data-cat="%s">%s</span>' % (c, c) for c in CATEGORIES)
+    listing = (post_cards(POSTS) + '<p class="empty posts__none" hidden>No posts in this category yet.</p>') if POSTS else EMPTY_BLOG
     body = ('<section class="head"><div class="wrap rv">%s<h1>The blog</h1><p>Writing on research, market microstructure and the systems we build.</p></div></section>'
-            '<section class="sec" style="padding-top:1rem"><div class="wrap"><div class="cats"><span class="on">All</span><span>Markets</span><span>Research</span><span>Software</span></div>'
-            '<p class="empty rv">New posts are on the way. Check back soon.</p></div></section>') % tag("Insights")
+            '<section class="sec" style="padding-top:1rem"><div class="wrap"><div class="cats" data-filter>%s</div>%s</div></section>') % (tag("Insights"), cats, listing)
     page("blog", "Blog — StrikePoint Ventures", "Writing on research, market microstructure and the systems we build.", "blog", body)
+    for p in POSTS:
+        e = lambda s: _html.escape(s, quote=True)
+        art = ('<section class="head post-head"><div class="wrap rv"><a href="/blog" class="crumb">← All posts</a><br>%s<h1>%s</h1>'
+               '<p class="post-head__meta">%s<i>·</i>%d min read</p></div></section>'
+               '<section class="sec" style="padding-top:1rem"><div class="wrap"><article class="prose rv">%s</article></div></section>') % (
+            tag(p["category"]), e(p["title"]), p["date_label"], p["minutes"], p["html"])
+        page("blog/" + p["slug"], "%s — StrikePoint Ventures" % e(p["title"]), e(p["summary"] or p["title"]), "blog", art)
 
 
 def build_contact():
