@@ -7,3 +7,4 @@ dist/
 # local UI screenshots
 UI_Images/
 new_UI_images/
+package-lock.json
